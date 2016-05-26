@@ -1,0 +1,26 @@
+# Keyboard & Mouse
+xsetroot -cursor_name left_ptr
+setxkbmap -layout de -variant nodeadkeys -option caps:none
+
+# VirtualBox Guest Additions
+[[ -x /usr/bin/VBoxClient-all ]] && VBoxClient-all
+
+# Start udiskie
+#udiskie --tray &
+
+# Services and tray icons
+pnmixer &
+dunst &
+
+# Background image
+source ~/.fehbg
+
+# Start dropbox
+#dropbox &
+
+# Battery tray icon
+batterytray &
+
+# Network management
+(sleep 5 && wpa_gui -t) &
+
