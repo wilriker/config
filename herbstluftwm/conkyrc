@@ -1,0 +1,46 @@
+use_xft true
+xftfont xft:Envy Code R-Powerline:pixelsize=11:antialias=true
+override_utf8_locale true
+
+update_interval 2
+total_run_times 0
+
+own_window true
+own_window_type panel
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+
+border_inner_margin 0
+border_outer_margin 0
+draw_borders no
+draw_graph_borders no
+
+background no
+
+# Eliminate flickering
+double_buffer true
+
+# Use KiB/MiB/... instead of just byte
+format_human_readable true
+# Display k, G, ... instead of kiB, GiB, ...
+short_units true
+
+# Colors
+color0 efefef
+color1 9fbc00
+default_color d0d0d0
+own_window_colour 101010
+
+use_spacer left
+if_up_strictness address
+pad_percents 2
+
+# Positioning
+alignment top_right
+gap_x GAPRIGHT
+gap_y 0
+
+TEXT
+${alignr}${color1}|${color0}${cpu}% ${freq}Mhz \
+${color1}|${color0} ${memeasyfree} free \
+${color1}|${color0} ${time %a %d.%m.%Y, %R} \
+${color1}|${color0}
