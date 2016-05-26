@@ -19,38 +19,6 @@ if status --is-login
 	set -gx LESS_TERMCAP_so \e\[0\;38\;5\;16\;48\;5\;110m
 	set -gx LESS_TERMCAP_ue \e\[0m
 	set -gx LESS_TERMCAP_us \e\[4\;38\;5\;111m
-
-	# Application specific abbreveations
-
-	# Yaourt
-	if type -q yaourt
-		abbr yas 'ya -S'
-		abbr yar 'ya -Rns'
-		abbr yau 'ya -Syua'
-	end
-
-	# systemd
-	if type -q systemctl
-		abbr startd 'sudo systemctl start'
-		abbr stopd 'sudo systemctl stop'
-		abbr restartd 'sudo systemctl restart'
-		abbr statusd 'sudo systemctl status'
-		abbr enabled 'sudo systemctl enable'
-		abbr reenabled 'sudo systemctl reenable'
-		abbr disabled 'sudo systemctl disable'
-		abbr editd 'sudo systemctl edit'
-		abbr ustartd 'systemctl --user start'
-		abbr ustopd 'systemctl --user stop'
-		abbr urestartd 'systemctl --user restart'
-		abbr ustatusd 'systemctl --user status'
-		abbr uenabled 'systemctl --user enable'
-		abbr ureenabled 'systemctl --user reenable'
-		abbr udisabled 'systemctl --user disable'
-		abbr ueditd 'systemctl --user edit'
-		abbr reloadd 'sudo systemctl daemon-reload'
-	end
-
-	abbr x unarchive
 end
 
 # Per-Host settings
