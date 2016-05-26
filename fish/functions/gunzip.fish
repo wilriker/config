@@ -1,7 +1,3 @@
 function gunzip
-	if exists unpigz
-		unpigz $argv
-	else
-		gunzip $argv
-	end
+	exists unpigz; and unpigz $argv; or command gunzip $argv
 end

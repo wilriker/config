@@ -1,3 +1,3 @@
 function dd
-	exists dcfldd; and dcfldd $argv; or dd $argv
+	exists dcfldd; and dcfldd $argv; or command dd $argv
 end

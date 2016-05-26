@@ -1,7 +1,3 @@
 function diff
-	if exists colordiff
-		colordiff $argv
-	else
-		diff
-	end
+	exists colordiff; and colordiff $argv; or command diff $argv
 end

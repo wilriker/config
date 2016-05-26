@@ -1,7 +1,3 @@
 function gzip
-	if exits pigz
-		pigz $argv
-	else
-		gzip $argv
-	end
+	exists pigz; and pigz $argv; or command gzip $argv
 end

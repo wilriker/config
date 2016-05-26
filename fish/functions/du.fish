@@ -1,7 +1,3 @@
 function du
-	if exists cdu
-		cdu -idh $argv
-	else
-		du $argv
-	end
+	exists cdu; and cdu -idh $argv; or command du $argv
 end
