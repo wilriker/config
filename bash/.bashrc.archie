@@ -1,0 +1,6 @@
+#
+# ~/.bashrc
+#
+
+alias lh='ls -lah --group-directories-first'
+
