@@ -21,23 +21,41 @@ set right_segment_separator \uE0B0
 # Helper methods
 # ===========================
 
-set -g __fish_git_prompt_showdirtystate 'yes'
-set -g __fish_git_prompt_char_dirtystate '±'
-set -g __fish_git_prompt_char_cleanstate '✔'
+set __fish_git_prompt_char_branch ''
+set __fish_git_prompt_char_detached '➦'
+set __fish_git_prompt_char_clean '✔'
+set __fish_git_prompt_char_dirty '⚡'
+set __fish_git_prompt_char_staged '~'
+set __fish_git_prompt_char_stashed '$'
+set __fish_git_prompt_char_ahead '↑'
+set __fish_git_prompt_char_behind '↓'
+set __fish_git_prompt_char_diverged '↕'
 
-function parse_git_dirty
-  set -l submodule_syntax
-  set submodule_syntax "--ignore-submodules=dirty"
-  set git_dirty (command git status --porcelain $submodule_syntax  2> /dev/null)
-  if [ -n "$git_dirty" ]
-    if [ $__fish_git_prompt_showdirtystate = "yes" ]
-      echo -n "$__fish_git_prompt_char_dirtystate"
-    end
-  else
-    if [ $__fish_git_prompt_showdirtystate = "yes" ]
-      echo -n "$__fish_git_prompt_char_cleanstate"
-    end
-  end
+function git_branch_status -d "Get the branch state compared to upstream"
+	set -l git_status (command git status --ignore-submodules | head -n 2 | tail -n 1)
+	if test -n $git_status
+		if echo $git_status | grep -q "ahead"
+			echo -n $__fish_git_prompt_char_ahead
+		else if echo $git_status | grep -q "behind"
+			echo -n $__fish_git_prompt_char_behind
+		else if echo $git_status | grep -q "diverged"
+			echo -n $__fish_git_prompt_char_diverged
+		end
+	end
+end
+
+function git_is_workdir
+	set -l workdir (command git rev-parse --is-inside-work-tree ^&-)
+	test "$workdir" = "true"
+end
+
+function git_is_bare
+	set -l bare (command git rev-parse --is-bare-repository ^&-)
+	test "$bare" = "true"
+end
+
+function git_is_git_dir
+	git_is_workdir; or git_is_bare
 end
 
 
@@ -127,22 +145,32 @@ function prompt_dir -d "Display the current directory"
 end
 
 function prompt_git -d "Display the current git state"
-  set -l ref
-  set -l dirty
-  if command git rev-parse --is-inside-work-tree >/dev/null 2>&1
-    set dirty (parse_git_dirty)
-    set ref (command git symbolic-ref HEAD 2> /dev/null)
+  if git_is_git_dir
+	set -l branch
+	set -l bg		white
+	set -l fg		black
+	set -l ref		(command git symbolic-ref --quiet HEAD)
     if [ $status -gt 0 ]
-      set -l branch (command git show-ref --head -s --abbrev |head -n1 2> /dev/null)
-      set ref "➦ $branch "
-    end
-    set branch_symbol \uE0A0
-    set -l branch (echo $ref | sed  "s-refs/heads/-$branch_symbol -")
-    if [ "$dirty" != "" ]
-      prompt_segment yellow black "$branch $dirty"
+      set branch (command git show-ref --head -s --abbrev | head -n1 ^&-)
+      set branch "$__fish_git_prompt_char_detached $branch "
     else
-      prompt_segment white black "$branch $dirty"
+      set branch "$__fish_git_prompt_char_branch "(echo $ref | sed "s|refs/heads/| |")
     end
+	git_is_bare; and set branch "$branch (bare)"
+	if git_is_workdir
+		set -l dirty	(command git diff --no-ext-diff --ignore-submodules --quiet --exit-code;			or echo -n $__fish_git_prompt_char_dirty)
+		set -l staged	(command git diff --no-ext-diff --ignore-submodules --quiet --exit-code --cached;	or echo -n $__fish_git_prompt_char_staged)
+		set -l stashed	(command git rev-parse --verify --quiet refs/stash >&-; and echo -n $__fish_git_prompt_char_stashed)
+		set -l state
+		if test -z $dirty
+			set state $__fish_git_prompt_char_clean
+		else
+			set state $dirty
+			set bg yellow
+		end
+		set branch "$branch $staged$stashed$state"
+	end
+    prompt_segment $bg $fg "$branch"
   end
 end
 

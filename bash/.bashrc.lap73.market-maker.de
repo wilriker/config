@@ -17,7 +17,7 @@ fi
 
 if [[ $- = *i* ]]; then
 	: # Things to do in interactive shell
-	fish && exit
+	fish; exit
 else
 	: # Things to do in non-interactive shell
 fi
