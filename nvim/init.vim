@@ -26,7 +26,7 @@ Plugin 'scrooloose/nerdtree.git'
 " Color schemes
 Plugin 'nanotech/jellybeans.vim'
 "Plugin 'godlygeek/csapprox'
-Plugin 'dag/vim-fish'
+Plugin 'wilriker/vim-fish'
 
 Plugin 'ap/vim-css-color'
 " All of your Plugins must be added before the following line
