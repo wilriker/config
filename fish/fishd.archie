@@ -4,6 +4,7 @@ SET_EXPORT LANG:en_DK\x2eUTF\x2d8
 SET_EXPORT LC_COLLATE:C
 SET __fish_classic_git_prompt_initialized:\x1d
 SET __fish_init_1_50_0:\x1d
+SET __fish_init_2_3_0:\x1d
 SET fish_color_autosuggestion:555\x1eyellow
 SET fish_color_command:005fd7\x1epurple
 SET fish_color_comment:red
@@ -30,4 +31,4 @@ SET fish_pager_color_completion:normal
 SET fish_pager_color_description:555\x1eyellow
 SET fish_pager_color_prefix:cyan
 SET fish_pager_color_progress:cyan
-SET fish_user_abbreviations:yas\x3dya\x20\x2dS\x1eyar\x3dya\x20\x2dRns\x1eyau\x3dya\x20\x2dSyua\x1estartd\x3dsudo\x20systemctl\x20start\x1estopd\x3dsudo\x20systemctl\x20stop\x1erestartd\x3dsudo\x20systemctl\x20restart\x1estatusd\x3dsudo\x20systemctl\x20status\x1eenabled\x3dsudo\x20systemctl\x20enable\x1ereenabled\x3dsudo\x20systemctl\x20reenable\x1edisabled\x3dsudo\x20systemctl\x20disable\x1eeditd\x3dsudo\x20systemctl\x20edit\x1eustartd\x3dsystemctl\x20\x2d\x2duser\x20start\x1eustopd\x3dsystemctl\x20\x2d\x2duser\x20stop\x1eurestartd\x3dsystemctl\x20\x2d\x2duser\x20restart\x1eustatusd\x3dsystemctl\x20\x2d\x2duser\x20status\x1euenabled\x3dsystemctl\x20\x2d\x2duser\x20enable\x1eureenabled\x3dsystemctl\x20\x2d\x2duser\x20reenable\x1eudisabled\x3dsystemctl\x20\x2d\x2duser\x20disable\x1eueditd\x3dsystemctl\x20\x2d\x2duser\x20edit\x1ereloadd\x3dsudo\x20systemctl\x20daemon\x2dreload\x1ex\x20unarchive\x1egti\x20git\x1egot\x20git\x1e\x2e/configure\x20grc\x20\x2des\x20\x2d\x2dcolour\x3dauto\x20\x2e/configure
+SET fish_user_abbreviations:startd\x20sudo\x20systemctl\x20start\x1estopd\x20sudo\x20systemctl\x20stop\x1erestartd\x20sudo\x20systemctl\x20restart\x1estatusd\x20sudo\x20systemctl\x20status\x1eenabled\x20sudo\x20systemctl\x20enable\x1ereenabled\x20sudo\x20systemctl\x20reenable\x1edisabled\x20sudo\x20systemctl\x20disable\x1eeditd\x20sudo\x20systemctl\x20edit\x1eustartd\x20systemctl\x20\x2d\x2duser\x20start\x1eustopd\x20systemctl\x20\x2d\x2duser\x20stop\x1eurestartd\x20systemctl\x20\x2d\x2duser\x20restart\x1eustatusd\x20systemctl\x20\x2d\x2duser\x20status\x1euenabled\x20systemctl\x20\x2d\x2duser\x20enable\x1eureenabled\x20systemctl\x20\x2d\x2duser\x20reenable\x1eudisabled\x20systemctl\x20\x2d\x2duser\x20disable\x1eueditd\x20systemctl\x20\x2d\x2duser\x20edit\x1ereloadd\x20sudo\x20systemctl\x20daemon\x2dreload\x1ex\x20unarchive\x1egti\x20git\x1egot\x20git\x1e\x2e/configure\x20grc\x20\x2des\x20\x2d\x2dcolour\x3dauto\x20\x2e/configure\x1eya\x20yaourt\x1eyas\x20yaourt\x20\x2dS\x1eyar\x20yaourt\x20\x2dRns\x1eyau\x20yaourt\x20\x2dSauy\x1etmux\x20tmux\x20a
