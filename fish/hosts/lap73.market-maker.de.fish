@@ -16,3 +16,8 @@ function compile_tmux --description 'Compile tmux with locally installed libeven
     grc -es --colour=auto ./configure --prefix=/export/home/mcoenen
     and make
 end
+
+function ssh -d "Set another TERM value"
+	set -lx TERM xterm-256color
+	command ssh $argv
+end
