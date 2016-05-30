@@ -16,6 +16,10 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" Code formatting
+Plugin 'tpope/vim-endwise'
+
+" Other stuff
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 "Plugin 'edkolev/tmuxline.vim'
