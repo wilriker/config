@@ -37,20 +37,32 @@ function git_branch_status -d "Get the branch state compared to upstream"
 end
 
 function git_repo_state -d "Information on current repo state"
-        set -l changedFiles (command git diff --name-status | cut -c 1-2)
-        set -l stagedFiles (command git diff --staged --name-status | cut -c 1-2)
+        set -l changedFiles		(command git diff --name-status | cut -c 1-2)
+        set -l stagedFiles		(command git diff --staged --name-status | cut -c 1-2)
 
-        set -l dirtystate (math (count $changedFiles) - (count (echo $changedFiles | grep "U")))
-        set -l invalidstate (count (echo $stagedFiles | grep "U"))
-        set -l stagedstate (math (count $stagedFiles) - $invalidstate)
-        set -l untrackedfiles (count (command git ls-files --others --exclude-standard))
+        set -l dirtystate		(math (count $changedFiles) - (count (echo $changedFiles | grep "U")))
+        set -l deletestate		(count (echo $changedFiles | grep "D"))
+        set -l invalidstate		(count (echo $stagedFiles | grep "U"))
+        set -l stagedstate		(math (count $stagedFiles) - $invalidstate)
+        set -l untrackedfiles	(count (command git ls-files --others --exclude-standard))
 
         if test (math $dirtystate + $invalidstate + $stagedstate + $untrackedfiles) -eq 0
-            echo -n '✔'
-			return
+            echo -n ' ✔'
+            return
         else
-            echo "$stagedstate● $invalidstate✖ $dirtystate✚ $untrackedfiles…"
-			return 1
+            if test $stagedstate -ne 0
+                echo -n " $stagedstate✚"
+            end
+            if test $deletestate -ne 0
+                echo -n " $deletestate✖"
+            end
+            if test $dirtystate -ne 0
+                echo -n " $dirtystate⚡"
+            end
+            if test $untrackedfiles -ne 0
+                echo -n " $untrackedfiles…"
+            end
+            return 1
         end
 end
 
@@ -167,7 +179,7 @@ function prompt_git -d "Display the current git state"
     set -l branch
     set -l ref (command git symbolic-ref HEAD; set os $status)
     if test $os -ne 0
-        set branch "➦ $short_sha"✔
+        set branch "➦ $short_sha"
     else
         set branch ' '(string replace 'refs/heads/' '' $ref)
     end
@@ -179,11 +191,11 @@ function prompt_git -d "Display the current git state"
             set branch "GIT_DIR!"
         end
     else if test "true" = $inside_worktree
-		set repo_state (git_repo_state; or set bg yellow)
+        set repo_state (git_repo_state; or set bg yellow)
     end
 
     set -l branch_state (git_branch_status)
-    prompt_segment $bg $fg "$branch $repo_state$branch_state"
+    prompt_segment $bg $fg "$branch$repo_state$branch_state"
 end
 
 function prompt_status -d "the symbols for a non zero exit status, root and background jobs"
