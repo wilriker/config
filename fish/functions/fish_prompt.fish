@@ -198,8 +198,8 @@ function prompt_git -d "Display the current git state"
     prompt_segment $bg $fg "$branch$repo_state$branch_state"
 end
 
-function prompt_status -d "the symbols for a non zero exit status, root and background jobs"
-    if test $status -ne 0
+function prompt_status -S -d "the symbols for a non zero exit status, root and background jobs"
+    if test $last_status -ne 0
         prompt_segment black red "✘"
     end
 
@@ -236,6 +236,7 @@ end
 # ===========================
 
 function fish_prompt
+    set last_status $status
     prompt_user
     prompt_status
     prompt_dir
