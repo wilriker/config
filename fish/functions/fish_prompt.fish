@@ -38,15 +38,15 @@ end
 
 function git_repo_state -d "Information on current repo state"
         set -l changedFiles		(command git diff --name-status | cut -c 1-2)
-        set -l stagedFiles		(command git diff --staged --name-status | cut -c 1-2)
+        set -l stagedFiles		(command git diff --name-status --staged | cut -c 1-2)
+        set -l deletedFiles     (command git diff --name-status --staged --diff-filter=D | cut -c 1-2)
 
-        set -l dirtystate		(math (count $changedFiles) - (count (echo $changedFiles | grep "U")))
-        set -l deletestate		(count (echo $changedFiles | grep "D"))
-        set -l invalidstate		(count (echo $stagedFiles | grep "U"))
-        set -l stagedstate		(math (count $stagedFiles) - $invalidstate)
+        set -l dirtystate		(count $changedFiles)
+        set -l deletestate		(count $deletedFiles)
+        set -l stagedstate		(math (count $stagedFiles) - $deletestate)
         set -l untrackedfiles	(count (command git ls-files --others --exclude-standard))
 
-        if test (math $dirtystate + $invalidstate + $stagedstate + $untrackedfiles) -eq 0
+        if test (math $dirtystate + $deletestate + $stagedstate + $untrackedfiles) -eq 0
             echo -n ' ✔'
             return
         else
