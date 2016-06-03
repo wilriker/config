@@ -6,7 +6,6 @@ if shopt -q login_shell; then
 	: # Things to do in login shell
 
 	# Set variables
-	export PATH=$PATH:~/bin
 	export EDITOR="vim"
 	export VISUAL=${EDITOR}
 	export BROWSER="google-chrome-stable"
