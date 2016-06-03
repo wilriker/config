@@ -17,11 +17,12 @@ function __cmd_duration -S -d 'Show command duration'
         if test "$CMD_DURATION" -ge $one_minute
             set_color $fish_color_error
             set duration (math "($CMD_DURATION%$one_hour)/$one_minute") 'm ' $duration
+
+            if test "$CMD_DURATION" -ge $one_hour
+                set duration (math "$CMD_DURATION/$one_hour") 'h ' $duration
+            end
         end
 
-        if test "$CMD_DURATION" -ge $one_hour
-            set duration (math "$CMD_DURATION/$one_hour") 'h ' $duration
-        end
     end
 
     echo -ns $duration
