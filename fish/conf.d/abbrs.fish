@@ -1,4 +1,10 @@
 # This file contains abbreveations per command
+
+# Only run in interactive shells
+if not status --is-interactive
+    exit
+end
+
 if type -q yaourt
     abbr -a ya yaourt
     abbr -a yas 'yaourt -S'
