@@ -22,7 +22,7 @@ set right_segment_separator \uE0B0
 # ===========================
 
 function git_branch_status -d "Get the branch state compared to upstream"
-    set count (command git rev-list --count --left-right origin...HEAD ^/dev/null)
+    set count (command git rev-list --count --left-right "@{upstream}...HEAD" ^/dev/null)
     echo $count | read -l behind ahead
     switch "$count"
         case '' # no upstream
