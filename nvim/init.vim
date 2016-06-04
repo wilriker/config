@@ -158,7 +158,7 @@ else
 	nmap ,s :w<CR>:source ~/.vimrc<CR>
 	nmap ,v :tabe ~/.vimrc<CR>
 endif
-nmap ,z :tabe ~/.zshrc<CR>
+nmap ,f :tabe ~/.config/fish/config.fish<CR>
 
 " Force use of tabs
 cab e tabe
