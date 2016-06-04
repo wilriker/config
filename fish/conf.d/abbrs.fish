@@ -51,10 +51,6 @@ if type -q yum
     abbr -a yumq 'yum info'
 end
 
-if type -q pgrep
-    abbr -a pgrep 'pgrep -fl'
-end
-
 if type -q tmux
     abbr -a tmux 'tmux a'
 end
