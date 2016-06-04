@@ -18,6 +18,9 @@ if status --is-login
     set -gx LESS_TERMCAP_so \e\[0\;38\;5\;16\;48\;5\;110m
     set -gx LESS_TERMCAP_ue \e\[0m
     set -gx LESS_TERMCAP_us \e\[4\;38\;5\;111m
+
+    # Enable this for non-reparenting window managers
+    set -gx _JAVA_AWT_WM_NONREPARENTING 1
 end
 
 if status --is-interactive
