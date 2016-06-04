@@ -19,7 +19,7 @@ source ~/.fehbg
 #dropbox &
 
 # Battery tray icon
-batterytray &
+cbatticon &
 
 # Network management
 (sleep 5 && wpa_gui -t) &
