@@ -18,7 +18,7 @@ hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 
 # Keybindings to start applications
-hc keybind $Mod-Shift-p spawn ${XDG_CONFIG_HOME:-$HOME/.config}/herbstluftwm/restartpanels.sh
+hc keybind $Mod-Shift-p spawn ${XDG_CONFIG_HOME:-$HOME/.config}/herbstluftwm/restartpanels
 hc keybind $Mod-Return spawn st -f "Inconsolata\-g for Powerline:size=11:antialias=true:autohint=true"
 hc keybind $Mod-d spawn dmenu_run -i -fn '-*-bitocra' -nb '#1e1e1e' -nf '#888888' -sb '#87afd7' -sf '#1e1e1e'
 hc keybind $Mod-e spawn nemo
@@ -149,8 +149,8 @@ hc set tree_style '╾│ ├└╼─┐'
 hc detect_monitors
 
 # find the panel
-panel=~/.config/herbstluftwm/panel.sh
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+panel=~/.config/herbstluftwm/panel
+[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel
 for monitor in $(hc list_monitors | cut -d: -f1) ; do
     # start it on each monitor
     "$panel" $monitor &
