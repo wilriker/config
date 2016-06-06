@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/usr/bin/fish
 
 # this is a simple config for herbstluftwm
 
@@ -133,14 +133,6 @@ herbstclient set tree_style '╾│ ├└╼─┐'
 # or simply:
 herbstclient detect_monitors
 
-# find the panel
-set -l panel ~/.config/herbstluftwm/panel.bash
-for monitor in (herbstclient list_monitors | cut -d: -f1)
-    # start it on each monitor
-    #$panel $monitor &
-    bash -c "$panel $monitor" &
-end
-
 # tags other monitor
 if test "(herbstclient list_monitors | wc -l)" -gt 1
     set -l tag_names (seq -f '%0.fr' 9)
@@ -151,5 +143,12 @@ if test "(herbstclient list_monitors | wc -l)" -gt 1
         herbstclient keybind $Mod-Alt-$key use $tag_names[$i]
         herbstclient keybind $Mod-Alt-Shift-$key move $tag_names[$i]
     end
+end
+
+# find the panel
+set -l panel ~/.config/herbstluftwm/panel.bash
+for monitor in (herbstclient list_monitors | cut -d: -f1)
+    # start it on each monitor
+    fish $panel $monitor &
 end
 
