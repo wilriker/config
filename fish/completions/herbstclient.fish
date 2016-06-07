@@ -1,4 +1,4 @@
-function get_herbstclient_completion
+function _get_herbstclient_completion
     set -l tokens (commandline -op)
 
     # If the user only just entered "herbstclient" return everything
@@ -12,13 +12,14 @@ function get_herbstclient_completion
     set -l completions (herbstclient -q complete $position $parameters)
 
     # If the last parameter equals the only result increase the position to get the next token
-    if test (count $completions) -eq 1; and string match -- $completions[1] $parameters[-1]
+    if test (count $completions) -eq 1
+        and string match -- $completions[1] $parameters[-1]
         set position (math $position + 1)
     end
     herbstclient -q complete $position $parameters
 end
 
-complete -xc herbstclient -d "" -a '(get_herbstclient_completion)'
+complete -xc herbstclient -d "" -a '(_get_herbstclient_completion)'
 
 complete -c herbstclient -f -s n -l no-newline -d 'Do not print a newline if output does not end with a newline.'
 complete -c herbstclient -f -s 0 -l print0 -d 'Use the null character as delimiter between the output of hooks.'
