@@ -1,3 +1,5 @@
+# fish completion for herbstclient
+
 function _get_herbstluftwm_completion
     set -l tokens (commandline -op)
 
