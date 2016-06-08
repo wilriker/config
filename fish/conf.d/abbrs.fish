@@ -62,3 +62,7 @@ end
 if type -q unarchive
     abbr -a x unarchive
 end
+
+if type -q herbstclient
+    abbr -a hc herbstclient
+end
