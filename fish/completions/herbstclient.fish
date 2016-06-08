@@ -1,25 +1,37 @@
-function _get_herbstclient_completion
+function _get_herbstluftwm_completion
     set -l tokens (commandline -op)
 
-    # If the user only just entered "herbstclient" return everything
-    if test (count $tokens) -eq 1
+    # Filter herbstclient related tokens
+    set -l index 1
+    for token in $tokens
+        if string match -- "$token" "herbstclient"
+            or string match -- "-" (string sub -l 1 -- $token)
+            set -e tokens[$index]
+        end
+        set index (math "$index + 1")
+    end
+
+    # If no tokens remain return everything
+    if test (count $tokens) -eq 0
         herbstclient -q complete 0
         return
     end
 
-    set -l parameters $tokens[2..-1]
-    set -l position (math (count $parameters) - 1)
-    set -l completions (herbstclient -q complete $position $parameters)
+    # Position is zero-based in hlwm
+    set -l position (math (count $tokens) - 1)
+    set -l completions (herbstclient -q complete $position $tokens)
 
     # If the last parameter equals the only result increase the position to get the next token
     if test (count $completions) -eq 1
-        and string match -- $completions[1] $parameters[-1]
+        and string match -- "$completions" "$tokens[-1]"
         set position (math $position + 1)
+        herbstclient -q complete $position $tokens
+    else
+        string replace --all -- ' ' \n "$completions"
     end
-    herbstclient -q complete $position $parameters
 end
 
-complete -xc herbstclient -d "" -a '(_get_herbstclient_completion)'
+complete -xc herbstclient -d "" -a '(_get_herbstluftwm_completion)'
 
 complete -c herbstclient -f -s n -l no-newline -d 'Do not print a newline if output does not end with a newline.'
 complete -c herbstclient -f -s 0 -l print0 -d 'Use the null character as delimiter between the output of hooks.'
