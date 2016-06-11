@@ -48,7 +48,7 @@ while true
             herbstclient tag_status $monitor | read -a tags
         case reload quit_panel
             set -l pgid (exists getpgid; and getpgid $panel_pid; or ps -o pgid= $panel_pid | grep -o "[0-9]*")
-            kill -9 -$pgid
+            setsid kill -9 -$pgid
             exit
         case togglehidepanel
             set -l currentmonidx (herbstclient list_monitors | grep ' \[FOCUS\]$'| cut -d: -f1)
