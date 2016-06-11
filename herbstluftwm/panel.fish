@@ -2,7 +2,7 @@
 
 set -l script_dir (dirname (status -f))
 
-set -xl monitor
+set -lx monitor
 test (count $argv) -ge 1
 and set monitor $argv[1]
 or set monitor 0
@@ -20,12 +20,12 @@ end
 set -l x $geometry[1]
 set -l y $geometry[2]
 set -l monitor_width $geometry[3]
-set -l panel_height 16
+set -lx panel_height 16
 
 set -l font "-*-*-*-*-*-*-11-*-*-*-*-*-*-*"
 set -l bgcolor (herbstclient get frame_border_normal_color)
 
-echo "startup monitor $monitor" >> /tmp/herbstluftwm.log
+echo "startup monitor $monitor" >>/tmp/herbstluftwm.log
 
 herbstclient pad $monitor $panel_height
 
@@ -41,18 +41,16 @@ if test $monitor -eq 0
 
     # Prepare conkyrc file
     if not test -f $script_dir/conkyrc.mon$monitor
-        set -l monitor_count (count (herbstclient list_monitors))
         set -l conky_gap (math "($monitor_count * $monitor_width) - $tray_offset")
-        sed "s/GAPRIGHT/$conky_gap/" "$script_dir/conkyrc" > $script_dir/conkyrc.mon$monitor
+        sed "s/GAPRIGHT/$conky_gap/" "$script_dir/conkyrc" >$script_dir/conkyrc.mon$monitor
     end
 
     # Start conky
-    conky -d -c "$script_dir/conkyrc.mon$monitor" >> /tmp/conky.log ^^&1
-    echo "started conky on monitor $monitor" >> /tmp/herbstluftwm.log
+    conky -d -c "$script_dir/conkyrc.mon$monitor" >>/tmp/conky.log ^^&1
+    echo "started conky on monitor $monitor" >>/tmp/herbstluftwm.log
 end
 
 begin
-    set -lx monitor $monitor
     set -lx panel_pid %self
     herbstclient --idle | fish $script_dir/event-processor.fish | dzen2 -xs (math $monitor + 1) -e "onstart=lower" -fn "$font" -h $panel_height -ta l -bg "$bgcolor" -fg '#efefef'
 end

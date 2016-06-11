@@ -128,13 +128,12 @@ herbstclient unlock
 
 herbstclient set tree_style '╾│ ├└╼─┐'
 
-# do multi monitor setup here, e.g.:
-# herbstclient set_monitors 1280x1024+0+0 1280x1024+1280+0
-# or simply:
+# do multi monitor setup here
 herbstclient detect_monitors
 
+set -lx monitor_count (herbstclient get_attr monitors.count)
 # tags other monitor
-if test "(herbstclient list_monitors | wc -l)" -gt 1
+if test $monitor_count -gt 1
     set -l tag_names (seq -f '%0.fr' 9)
 
     for i in (seq 9)

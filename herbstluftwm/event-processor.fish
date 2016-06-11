@@ -1,12 +1,13 @@
-set -l tags
-herbstclient tag_status $monitor | read -a tags
+#!/usr/bin/fish
+
+herbstclient tag_status $monitor | read -la tags
 set -l visible true
 set -l windowtitle (herbstclient get_attr clients.focus.title)
 
 set -l selbg (herbstclient get window_border_active_color)
 set -l selfg '#101010'
 set -l bordercolor "#26221C"
-set -l separator "^bg()^fg($selbg)|"
+set -l separator "^bg()^fg($selbg)|^fg()"
 
 while true
 
@@ -16,11 +17,10 @@ while true
 
     # draw tags
     for tag in $tags
-        set -l tag_name (string sub -s 2 -- $tag)
         switch $tag
             case '#*' # the tag is viewed on the specified MONITOR and it is focused
                 echo -n "^bg($selbg)^fg($selfg)"
-            case '+*' # the tag is viewed on the specified MONITOR, but this monitor is not focused
+            case '+*' # the tag is viewed on the specified MONITOR but this monitor is not focused
                 echo -n "^bg(#edf2d0)^fg(#141414)"
             case ':*' # the tag is not empty
                 echo -n "^bg($selfg)^fg($selbg)"
@@ -28,19 +28,18 @@ while true
                 echo -n "^bg(#FF0675)^fg(#141414)"
             case '*'
                 # [.] the tag is empty
-                # [-] the tag is viewed on a different MONITOR, but this monitor is not focused
+                # [-] the tag is viewed on a different MONITOR but that monitor is not focused
                 # [%] the tag is viewed on a different MONITOR and it is focused
                 echo -n "^bg()^fg(#ababab)"
         end
-        echo -n '^ca(1,herbstclient focus_monitor '$monitor'; and herbstclient use "'$tag_name'") '"$tag_name ^ca()"
+        set -l tag_name (string sub -s 2 -- $tag)
+        echo -n "^ca(1,herbstclient and , focus_monitor $monitor , use '$tag_name') $tag_name ^ca()"
     end
-    echo -n "$separator^bg()^fg()"
-    echo -n "^bg()^fg(#$nacolor) "(string replace --all '^' '^^' -- $windowtitle)
-    echo
+    echo "$separator "(string replace --all '^' '^^' -- $windowtitle)
 
     # wait for next event
-    set -l cmd
-    read -a cmd; or break
+    read -la cmd
+    or break
 
     # find out event origin
     switch $cmd[1]
@@ -51,11 +50,9 @@ while true
             setsid kill -9 -$pgid
             exit
         case togglehidepanel
-            set -l currentmonidx (herbstclient list_monitors | grep ' \[FOCUS\]$'| cut -d: -f1)
+            set -l currentmonidx (herbstclient get_attr monitors.focus.index)
             if test "$cmd[2]" -ne "$monitor"
-                continue
-            end
-            if test "$cmd[2]" = "current" -a "$currentmonidx" -ne "$monitor"
+                or test "$cmd[2]" = "current" -a "$currentmonidx" -ne "$monitor"
                 continue
             end
             echo "^togglehide()"
