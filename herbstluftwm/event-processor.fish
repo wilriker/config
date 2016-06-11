@@ -16,16 +16,15 @@ while true
 
     # draw tags
     for tag in $tags
-        set -l tag_status   (string sub -l 1 -- $tag)
-        set -l tag_name     (string sub -s 2 -- $tag)
-        switch $tag_status
-            case '#' # the tag is viewed on the specified MONITOR and it is focused
+        set -l tag_name (string sub -s 2 -- $tag)
+        switch $tag
+            case '#*' # the tag is viewed on the specified MONITOR and it is focused
                 echo -n "^bg($selbg)^fg($selfg)"
-            case '+' # the tag is viewed on the specified MONITOR, but this monitor is not focused
+            case '+*' # the tag is viewed on the specified MONITOR, but this monitor is not focused
                 echo -n "^bg(#edf2d0)^fg(#141414)"
-            case ':' # the tag is not empty
+            case ':*' # the tag is not empty
                 echo -n "^bg($selfg)^fg($selbg)"
-            case '!' # the tag contains an urgent window
+            case '!*' # the tag contains an urgent window
                 echo -n "^bg(#FF0675)^fg(#141414)"
             case '*'
                 # [.] the tag is empty
@@ -48,7 +47,8 @@ while true
         case 'tag*' # resetting tags
             herbstclient tag_status $monitor | read -a tags
         case reload quit_panel
-            kill -9 -$panel_pid
+            set -l pgid (exists getpgid; and getpgid $panel_pid; or ps -o pgid= $panel_pid | grep -o "[0-9]*")
+            kill -9 -$pgid
             exit
         case togglehidepanel
             set -l currentmonidx (herbstclient list_monitors | grep ' \[FOCUS\]$'| cut -d: -f1)

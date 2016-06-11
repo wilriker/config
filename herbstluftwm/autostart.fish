@@ -146,7 +146,7 @@ if test "(herbstclient list_monitors | wc -l)" -gt 1
 end
 
 # find the panel
-set -l panel ~/.config/herbstluftwm/panel.bash
+set -l panel ~/.config/herbstluftwm/panel.fish
 for monitor in (herbstclient list_monitors | cut -d: -f1)
     # start it on each monitor
     fish $panel $monitor &

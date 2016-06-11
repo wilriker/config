@@ -1,6 +1,5 @@
-#!/export/home/mcoenen/bin/fish
+#!/usr/bin/fish
 
-set -l panel_pid %self
 set -l script_dir (dirname (status -f))
 
 set -xl monitor
@@ -36,9 +35,9 @@ if test $monitor -eq 0
     set -l tray_offset (math "$monitor_width - ($panel_height * $tray_icon_count)")
 
     # Start tray
-    set -l tray_geometry "{$tray_icon_count}x1+{$tray_offset}+0"
+    set -l tray_geometry $tray_icon_count"x1+"$tray_offset"+0"
     stalonetray --background $bgcolor --icon-size $panel_height --icon-gravity NE --geometry $tray_geometry --max-geometry $tray_geometry --kludges force_icons_size ^&- &
-    echo "started tray on monitor $monitor" >>/tmp/herbstluftwm.log
+    echo "started tray with geometry $tray_geometry on monitor $monitor" >>/tmp/herbstluftwm.log
 
     # Prepare conkyrc file
     if not test -f $script_dir/conkyrc.mon$monitor
@@ -54,6 +53,6 @@ end
 
 begin
     set -lx monitor $monitor
-    set -lx panel_pid $panel_pid
+    set -lx panel_pid %self
     herbstclient --idle | fish $script_dir/event-processor.fish | dzen2 -xs (math $monitor + 1) -e "onstart=lower" -fn "$font" -h $panel_height -ta l -bg "$bgcolor" -fg '#efefef'
 end

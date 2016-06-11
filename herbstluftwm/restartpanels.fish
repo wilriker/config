@@ -1,10 +1,10 @@
-#!/bin/fish
-
-set -l config_dir $HOME/.config
-panelcmd="$config_dir/herbstluftwm/panel.fish"
+#!/usr/bin/fish
 
 herbstclient emit_hook quit_panel
 
-for i in (herbstclient list_monitors | cut -d':' -f1)
-    $panelcmd $i &
+set -l panel ~/.config/herbstluftwm/panel.fish
+for monitor in (herbstclient list_monitors | cut -d: -f1)
+    # start it on each monitor
+    fish $panel $monitor &
 end
+
