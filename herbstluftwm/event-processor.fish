@@ -7,7 +7,7 @@ set -l windowtitle (herbstclient get_attr clients.focus.title)
 set -l selbg (herbstclient get window_border_active_color)
 set -l selfg '#101010'
 set -l bordercolor "#26221C"
-set -l separator "^bg()^fg($selbg)|^fg()"
+set -l separator "^bg()^fg($selbg)|"
 
 while true
 
@@ -35,7 +35,8 @@ while true
         set -l tag_name (string sub -s 2 -- $tag)
         echo -n "^ca(1,herbstclient and , focus_monitor $monitor , use '$tag_name') $tag_name ^ca()"
     end
-    echo "$separator "(string replace --all '^' '^^' -- $windowtitle)
+    echo -n "$separator "
+    echo "^bg()^fg()"(string replace --all '^' '^^' -- $windowtitle)
 
     # wait for next event
     read -la cmd
@@ -63,9 +64,9 @@ while true
                 set visible true
                 herbstclient pad $monitor $panel_height
             end
-        case focus_changed window_title_changed
-            if test (count $cmd) -ge 3
-                set windowtitle "$cmd[3..-1]"
-            end
+        case window_title_changed
+            set windowtitle "$cmd[3..-1]"
+        case focus_changed
+            set windowtitle (herbstclient get_attr clients.focus.title)
     end
 end

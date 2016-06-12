@@ -78,18 +78,25 @@ herbstclient keybind $Mod-Shift-Down shift down
 herbstclient keybind $Mod-Shift-Up shift up
 herbstclient keybind $Mod-Shift-Right shift right
 
-# theme
+# Layout
 herbstclient attr theme.tiling.reset 1
 herbstclient attr theme.floating.reset 1
+herbstclient set always_show_frame 1
+herbstclient set frame_gap 0
+herbstclient set frame_padding 2
+herbstclient set frame_bg_transparent 1
+herbstclient set frame_transparent_width 2
+herbstclient set smart_frame_surroundings 1
+herbstclient set window_gap -2
+herbstclient set smart_window_surroundings 0
+herbstclient set mouse_recenter_gap 0
+
+# theme
 herbstclient set frame_border_active_color '#222222'
 herbstclient set frame_border_normal_color '#101010'
-herbstclient set frame_bg_transparent 1
 herbstclient set frame_border_width 1
 herbstclient set frame_bg_normal_color '#565656'
 herbstclient set frame_bg_active_color '#345F0C'
-herbstclient set frame_transparent_width 5
-herbstclient set always_show_frame 1
-herbstclient set frame_gap 1
 
 herbstclient attr theme.active.color '#9fbc00'
 herbstclient attr theme.normal.color '#454545'
@@ -104,20 +111,11 @@ herbstclient attr theme.active.inner_color '#3E4A00'
 herbstclient attr theme.active.outer_color '#3E4A00'
 herbstclient attr theme.background_color '#141414'
 
-# add overlapping window borders
-herbstclient set window_gap -2
-herbstclient set frame_padding 2
-herbstclient set smart_window_surroundings 0
-herbstclient set smart_frame_surroundings 1
-herbstclient set mouse_recenter_gap 0
-
 # rules
 herbstclient unrule -F
-herbstclient rule focus=on # normally focus new clients
+herbstclient rule focus=on # focus new clients
 
-herbstclient rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 herbstclient rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
-herbstclient rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 herbstclient rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 herbstclient rule windowtype~'_NET_WM_WINDOW_TPYE_(FULLSCREEN|FS)' fullscreen=on
 herbstclient rule title='gnome-calculator' pseudotile=on
