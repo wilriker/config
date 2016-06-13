@@ -33,10 +33,9 @@ herbstclient pad ${monitor} ${panel_height}
 # Put conky and tray only on first monitor
 if [[ ${monitor} == 0 ]]; then
 	tray_icon_count=8
-	TRAY_OFFSET=`echo "${monitor_width} - ${panel_height} * ${tray_icon_count}" | bc`
+	TRAY_OFFSET=$(echo "${monitor_width} - ${panel_height} * ${tray_icon_count}" | bc)
 
 	# Start tray
-	#echo "stalonetray -bg "${bgcolor}" --icon-size ${panel_height} --icon-gravity NE --geometry ${tray_icon_count}x1+${TRAY_OFFSET}+0 " >> /tmp/herbstluftwm.log
 	TRAY_GEOMETRY="${tray_icon_count}x1+${TRAY_OFFSET}+0"
 	stalonetray --background "${bgcolor}" --icon-size ${panel_height} --icon-gravity NE --geometry ${TRAY_GEOMETRY} --max-geometry ${TRAY_GEOMETRY} --kludges force_icons_size &
 	echo "started tray $! on monitor ${monitor}" >> /tmp/herbstluftwm.log
@@ -44,13 +43,14 @@ if [[ ${monitor} == 0 ]]; then
 	# Prepare conkyrc file
 	[[ ${0} == /* ]] && script="${0}" || script="${PWD}/${0#./}"
 	panelfolder=${script%/*}
-	MONITOR_COUNT=`hc list_monitors | wc -l`
-	CONKY_GAP=$(((${MONITOR_COUNT} * ${monitor_width}) - ${TRAY_OFFSET}))
-	sed "s/GAPRIGHT/${CONKY_GAP}/" "${panelfolder}/conkyrc" > /dev/shm/conkyrc.mon${monitor}
+	if [[ ! -f ${panelfolder}/conkyrc.mon${monitor} ]]; then
+		MONITOR_COUNT=$(hc get_attr monitors.count)
+		CONKY_GAP=$(((${MONITOR_COUNT} * ${monitor_width}) - ${TRAY_OFFSET}))
+		sed "s/GAPRIGHT/${CONKY_GAP}/" "${panelfolder}/conkyrc" > ${panelfolder}/conkyrc.mon${monitor}
+	fi
 
 	# Start conky
-	#echo "conky -c "/dev/shm/conkyrc.mon${monitor}"" >> /tmp/herbstluftwm.log
-	conky -d -c "/dev/shm/conkyrc.mon${monitor}" &>> /tmp/conky.log
+	conky -d -c "${panelfolder}/conkyrc.mon${monitor}" &>> /tmp/conky.log
 	echo "started conky $! on monitor ${monitor}" >> /tmp/herbstluftwm.log
 fi
 
@@ -59,13 +59,13 @@ fi
 } 2> /dev/null | {
 	IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
 	visible=true
-	windowtitle=""
+	windowtitle=$(herbstclient get_attr clients.focus.title)
 
 	while :; do
 
-        ### Output ###
-        # This part prints dzen data based on the _previous_ data handling run,
-        # and then waits for the next event to happen.
+		### Output ###
+		# This part prints dzen data based on the _previous_ data handling run,
+		# and then waits for the next event to happen.
 
 		bordercolor="#26221C"
 		separator="^bg()^fg(${selbg})|"
@@ -97,9 +97,8 @@ fi
 			esac
 			echo -n "^ca(1,herbstclient focus_monitor ${monitor} && "'herbstclient use "'${i:1}'") '"${i:1} ^ca()"
 		done
-		echo -n "${separator}^bg()^fg()"
-		echo -n "^bg()^fg(#${nacolor}) ${windowtitle//^/^^}"
-		echo
+		echo -n "${separator} "
+		echo "^bg()^fg() ${windowtitle//^/^^}"
 
 		# wait for next event
 		IFS=$'\t' read -ra cmd || break
@@ -110,11 +109,11 @@ fi
 				IFS=$'\t' read -ra tags <<< "$(hc tag_status ${monitor})"
 				;;
 			reload|quit_panel)
-				kill -9 -$(ps -o pgid= ${PANEL_PID} | grep -o '[0-9]*')
+				setsid kill -9 -$(getpgid ${PANEL_PID})
 				exit
 				;;
 			togglehidepanel)
-				currentmonidx=$(hc list_monitors | grep ' \[FOCUS\]$'|cut -d: -f1)
+				currentmonidx=$(herbstclient get_attr monitors.focus.index)
 				if [ "${cmd[1]}" -ne "${monitor}" ] ; then
 					continue
 				fi
@@ -130,7 +129,10 @@ fi
 					hc pad ${monitor} ${panel_height}
 				fi
 				;;
-			focus_changed|window_title_changed)
+			focus_changed)
+				windowtitle=$(herbstclient get_attr clients.focus.title)
+				;;
+			window_title_changed)
 				windowtitle="${cmd[@]:2}"
 				;;
 		esac

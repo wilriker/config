@@ -134,11 +134,10 @@ set -lx monitor_count (herbstclient get_attr monitors.count)
 if test $monitor_count -gt 1
     set -l tag_names (seq -f '%0.fr' 9)
 
-    for i in (seq 9)
-        herbstclient add $tag_names[$i]
-        set -l key $i
-        herbstclient keybind $Mod-Alt-$key use $tag_names[$i]
-        herbstclient keybind $Mod-Alt-Shift-$key move $tag_names[$i]
+    for key in (seq 9)
+        herbstclient add $tag_names[$key]
+        herbstclient keybind $Mod-Alt-$key use $tag_names[$key]
+        herbstclient keybind $Mod-Alt-Shift-$key move $tag_names[$key]
     end
 end
 
