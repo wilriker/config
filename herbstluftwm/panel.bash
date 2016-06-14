@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # disable path name expansion or * will be expanded in the line
 # cmd=( ${line} )

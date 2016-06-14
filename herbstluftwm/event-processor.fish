@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
 
 herbstclient tag_status $monitor | read -la tags
 set -l visible true
