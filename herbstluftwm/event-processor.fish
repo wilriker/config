@@ -47,8 +47,7 @@ while true
         case 'tag*' # resetting tags
             herbstclient tag_status $monitor | read -a tags
         case reload quit_panel
-            set -l pgid (exists getpgid; and getpgid $panel_pid; or ps -o pgid= $panel_pid | grep -o "[0-9]*")
-            setsid kill -9 -$pgid
+            setsid kill -9 -(getpgid)
             exit
         case togglehidepanel
             set -l currentmonidx (herbstclient get_attr monitors.focus.index)

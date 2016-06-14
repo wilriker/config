@@ -50,7 +50,4 @@ if test $monitor -eq 0
     echo "started conky on monitor $monitor" >>/tmp/herbstluftwm.log
 end
 
-begin
-    set -lx panel_pid %self
-    herbstclient --idle | fish $script_dir/event-processor.fish | dzen2 -xs (math $monitor + 1) -e "onstart=lower" -fn "$font" -h $panel_height -ta l -bg "$bgcolor" -fg '#efefef'
-end
+herbstclient --idle | fish $script_dir/event-processor.fish | dzen2 -xs (math $monitor + 1) -e "onstart=lower" -fn "$font" -h $panel_height -ta l -bg "$bgcolor" -fg '#efefef'

@@ -109,7 +109,7 @@ fi
 				IFS=$'\t' read -ra tags <<< "$(hc tag_status ${monitor})"
 				;;
 			reload|quit_panel)
-				setsid kill -9 -$(getpgid ${PANEL_PID})
+				setsid kill -9 -$(getpgid)
 				exit
 				;;
 			togglehidepanel)
