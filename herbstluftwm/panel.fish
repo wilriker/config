@@ -1,11 +1,9 @@
 #!/usr/bin/env fish
 
-set -l script_dir (dirname (status -f))
-
-set -lx monitor
-test (count $argv) -ge 1
-and set monitor $argv[1]
-or set monitor 0
+set -lx monitor 0
+if test (count $argv) -ge 1
+    set monitor $argv[1]
+end
 set -l geometry
 begin
     set -l IFS ' '
@@ -29,6 +27,8 @@ echo "startup monitor $monitor" >>/tmp/herbstluftwm.log
 
 herbstclient pad $monitor $panel_height
 
+set -l script_dir (dirname (status -f))
+
 # Put conky and tray only on first monitor
 if test $monitor -eq 0
     set -l tray_icon_count 8
@@ -36,7 +36,7 @@ if test $monitor -eq 0
 
     # Start tray
     set -l tray_geometry $tray_icon_count"x1+"$tray_offset"+0"
-    stalonetray --background $bgcolor --icon-size $panel_height --icon-gravity NE --geometry $tray_geometry --max-geometry $tray_geometry --kludges force_icons_size ^&- &
+    stalonetray --background "$bgcolor" --icon-size $panel_height --icon-gravity NE --geometry $tray_geometry --max-geometry $tray_geometry --kludges force_icons_size &
     echo "started tray with geometry $tray_geometry on monitor $monitor" >>/tmp/herbstluftwm.log
 
     # Prepare conkyrc file
@@ -50,4 +50,4 @@ if test $monitor -eq 0
     echo "started conky on monitor $monitor" >>/tmp/herbstluftwm.log
 end
 
-herbstclient --idle | fish $script_dir/event-processor.fish | dzen2 -xs (math $monitor + 1) -e "onstart=lower" -fn "$font" -h $panel_height -ta l -bg "$bgcolor" -fg '#efefef'
+herbstclient --idle | fish $script_dir/event-processor.fish | dzen2 -xs (math $monitor + 1) -e 'onstart=lower' -fn "$font" -h $panel_height -ta l -bg "$bgcolor" -fg '#efefef'
