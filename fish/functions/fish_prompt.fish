@@ -177,11 +177,13 @@ function prompt_git -d "Display the current git state"
     set -l repo_state
 
     set -l branch
-    set -l ref (command git symbolic-ref HEAD; set os $status)
+    set -l branch_state
+    set -l ref (command git symbolic-ref HEAD ^/dev/null; set os $status)
     if test $os -ne 0
         set branch "➦ $short_sha"
     else
         set branch ' '(string replace 'refs/heads/' '' $ref)
+        set branch_state (git_branch_status)
     end
 
     if test "true" = $inside_gitdir
@@ -194,7 +196,6 @@ function prompt_git -d "Display the current git state"
         set repo_state (git_repo_state; or set bg yellow)
     end
 
-    set -l branch_state (git_branch_status)
     prompt_segment $bg $fg "$branch$repo_state$branch_state"
 end
 
