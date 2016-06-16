@@ -13,6 +13,14 @@ if type -q yaourt
     abbr -a yao 'yaourt -Qtd'
 end
 
+if type -q pacaur
+    abbr -a pa 'pacaur -Ss'
+    abbr -a pas 'pacaur -S'
+    abbr -a pau 'pacaur -Syu'
+    abbr -a par 'pacaur -Rns'
+    abbr -a pao 'pacaur -Qtd'
+end
+
 if type -q systemctl
 
     # System-wide services
