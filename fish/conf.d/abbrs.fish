@@ -8,14 +8,17 @@ end
 if type -q yaourt
     abbr -a ya yaourt
     abbr -a yas 'yaourt -S'
+    abbr -a yad 'yaourt -S --asdeps'
     abbr -a yau 'yaourt -Syua'
     abbr -a yar 'yaourt -Rns'
     abbr -a yao 'yaourt -Qtd'
 end
 
 if type -q pacaur
-    abbr -a pa 'pacaur -Ss'
+    abbr -a pa 'pacaur'
+    abbr -a paq 'pacaur -Ss'
     abbr -a pas 'pacaur -S'
+    abbr -a pad 'pacaur -S --asdeps'
     abbr -a pau 'pacaur -Syu'
     abbr -a par 'pacaur -Rns'
     abbr -a pao 'pacaur -Qtd'
