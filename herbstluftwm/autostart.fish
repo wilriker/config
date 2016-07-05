@@ -22,7 +22,7 @@ herbstclient keybind $Mod-e spawn nemo
 herbstclient keybind $Mod-c spawn google-chrome-stable
 herbstclient keybind $Mod-l spawn slock
 herbstclient keybind $Mod-Print spawn scrot
-herbstclient keybind $Mod-Alt-r spawn $config_dir/scratchpad.bash "calculator" gnome-calculator
+herbstclient keybind $Mod-Alt-r spawn $config_dir/scratchpad.fish "calculator" gnome-calculator
 
 herbstclient set default_frame_layout 3
 
