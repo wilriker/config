@@ -4,9 +4,19 @@ herbstclient tag_status $monitor | read -la tags
 set -l visible true
 set -l windowtitle (herbstclient get_attr clients.focus.title)
 
-set -l selbg (herbstclient get window_border_active_color)
-set -l selfg '#101010'
-set -l bordercolor "#26221C"
+set -l color_focused_here_bg (herbstclient get window_border_active_color)
+set -l color_focused_here_fg '#101010'
+set -l color_focused_there_bg '#d0c9f9'
+set -l color_focused_there_fg '#141414'
+set -l color_visible_there_bg '#edf2d0'
+set -l color_visible_there_fg '#141414'
+set -l color_urgent_bg '#ff0675'
+set -l color_urgent_fg $color_visible_fg
+set -l color_has_window_bg
+set -l color_has_window_fg $color_focused_here_bg
+set -l color_empty_bg
+set -l color_empty_fg '#ababab'
+
 set -l separator "^bg()^fg($selbg)|"
 
 while true
@@ -19,18 +29,19 @@ while true
     for tag in $tags
         switch $tag
             case '#*' # the tag is viewed on the specified MONITOR and it is focused
-                echo -n "^bg($selbg)^fg($selfg)"
-            case '+*' # the tag is viewed on the specified MONITOR but this monitor is not focused
-                echo -n "^bg(#edf2d0)^fg(#141414)"
-            case ':*' # the tag is not empty
-                echo -n "^bg($selfg)^fg($selbg)"
-            case '!*' # the tag contains an urgent window
-                echo -n "^bg(#FF0675)^fg(#141414)"
-            case '*'
-                # [.] the tag is empty
+                echo -n "^bg($color_focused_here_bg)^fg($color_focused_here_fg)"
+            case '%*' # the tag is viewed on a different MONITOR and it is focused
+                echo -n "^bg($color_focused_there_bg)^fg($color_focused_there_fg)"
+            case '+*' '-*'
+                # [+] the tag is viewed on the specified MONITOR but this monitor is not focused
                 # [-] the tag is viewed on a different MONITOR but that monitor is not focused
-                # [%] the tag is viewed on a different MONITOR and it is focused
-                echo -n "^bg()^fg(#ababab)"
+                echo -n "^bg($color_visible_there_bg)^fg($color_visible_there_fg)"
+            case '!*' # the tag contains an urgent window
+                echo -n "^bg($color_urgent_bg)^fg($color_urgent_fg)"
+            case ':*' # the tag is not empty
+                echo -n "^bg($color_has_window_bg)^fg($color_has_window_fg)"
+            case '.*' # the tag is empty
+                echo -n "^bg($color_empty_bg)^fg($color_empty_fg)"
         end
         set -l tag_name (string sub -s 2 -- $tag)
         echo -n "^ca(1,herbstclient and , focus_monitor $monitor , use '$tag_name') $tag_name ^ca()"
