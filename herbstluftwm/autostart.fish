@@ -1,5 +1,6 @@
 #!/usr/bin/env fish
 
+set -l config_dir ~/.config/herbstluftwm
 # this is a simple config for herbstluftwm
 
 herbstclient emit_hook reload
@@ -14,14 +15,14 @@ herbstclient keybind $Mod-Shift-r reload
 herbstclient keybind $Mod-Shift-c close
 
 # Keybindings to start applications
-herbstclient keybind $Mod-Shift-p spawn $HOME/.config/herbstluftwm/restartpanels.fish
+herbstclient keybind $Mod-Shift-p spawn $config_dir/restartpanels.fish
 herbstclient keybind $Mod-Return spawn st -f "Inconsolata\-g for Powerline:size=11:antialias=true:autohint=true"
 herbstclient keybind $Mod-d spawn dmenu_run -i -fn '-*-bitocra' -nb '#1e1e1e' -nf '#888888' -sb '#87afd7' -sf '#1e1e1e'
 herbstclient keybind $Mod-e spawn nemo
 herbstclient keybind $Mod-c spawn google-chrome-stable
 herbstclient keybind $Mod-l spawn slock
 herbstclient keybind $Mod-Print spawn scrot
-herbstclient keybind $Mod-Alt-r spawn scratchpad "calculator" gnome-calculator
+herbstclient keybind $Mod-Alt-r spawn $config_dir/scratchpad.bash "calculator" gnome-calculator
 
 herbstclient set default_frame_layout 3
 
@@ -142,7 +143,7 @@ if test $monitor_count -gt 1
 end
 
 # find the panel
-set -l panel ~/.config/herbstluftwm/panel.fish
+set -l panel $config_dir/panel.fish
 for monitor in (herbstclient list_monitors | cut -d: -f1)
     # start it on each monitor
     fish $panel $monitor &
