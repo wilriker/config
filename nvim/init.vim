@@ -28,7 +28,7 @@ Plug 'ap/vim-css-color'
 
 " Filetype plugin
 Plug 'wilriker/vim-fish', { 'for':  'fish' }
-Plug 'tfnico/vim-gradle', { 'for':  'gradle' }
+Plug 'tfnico/vim-gradle', { 'for':  'groovy' }
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
