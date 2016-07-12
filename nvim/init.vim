@@ -9,33 +9,29 @@ endif
 set nocompatible					" Use Vim defaults instead of 100% vi compatibility
 filetype off
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" initialize vim-plug
+call plug#begin('~/.vim/plugged')
 
 " Code formatting
-Plugin 'tpope/vim-endwise'
+Plug 'tpope/vim-endwise'
 
 " Other stuff
-Plugin 'bling/vim-airline'
-Plugin 'tpope/vim-fugitive'
-"Plugin 'edkolev/tmuxline.vim'
-Plugin 'tfnico/vim-gradle.git'
-
-Plugin 'scrooloose/nerdtree.git'
+Plug 'bling/vim-airline'
+Plug 'tpope/vim-fugitive'
+"Plug 'edkolev/tmuxline.vim'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Color schemes
-Plugin 'nanotech/jellybeans.vim'
-"Plugin 'godlygeek/csapprox'
-Plugin 'wilriker/vim-fish'
+Plug 'nanotech/jellybeans.vim'
+"Plug 'godlygeek/csapprox'
+Plug 'ap/vim-css-color'
 
-Plugin 'ap/vim-css-color'
+" Filetype plugin
+Plug 'wilriker/vim-fish', { 'for':  'fish' }
+Plug 'tfnico/vim-gradle', { 'for':  'gradle' }
+
 " All of your Plugins must be added before the following line
-call vundle#end()					" required
-filetype plugin indent on			" required
+call plug#end()						" Add plugins to &runtimepath
 
 " Working directories
 set dir=~/tmp,/tmp,/var/tmp,.
