@@ -78,3 +78,7 @@ end
 if type -q herbstclient
     abbr -a hc herbstclient
 end
+
+if type -q colordiff
+    abbr -a diff colordiff
+end
