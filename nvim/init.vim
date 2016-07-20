@@ -29,6 +29,9 @@ Plug 'ap/vim-css-color'
 " Filetype plugin
 Plug 'wilriker/vim-fish', { 'for':  'fish' }
 Plug 'tfnico/vim-gradle', { 'for':  'groovy' }
+Plug 'wilriker/systemd-vim-syntax', { 'for' : 'systemd' }
+Plug 'wilriker/udev-vim-syntax', { 'for' : 'udev' }
+Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
