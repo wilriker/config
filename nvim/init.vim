@@ -6,8 +6,12 @@ if $SHELL =~ 'bin/fish'
 	set shell=/bin/bash
 endif
 
-set nocompatible					" Use Vim defaults instead of 100% vi compatibility
-filetype off
+" Make sure vim-plug is installed
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
 
 " initialize vim-plug
 call plug#begin('~/.vim/plugged')
@@ -19,7 +23,7 @@ Plug 'tpope/vim-endwise'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 "Plug 'edkolev/tmuxline.vim'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree',			{ 'on':  'NERDTreeToggle' }
 
 " Color schemes
 Plug 'nanotech/jellybeans.vim'
@@ -27,11 +31,11 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'ap/vim-css-color'
 
 " Filetype plugin
-Plug 'wilriker/vim-fish', { 'for':  'fish' }
-Plug 'tfnico/vim-gradle', { 'for':  'groovy' }
-Plug 'wilriker/systemd-vim-syntax', { 'for' : 'systemd' }
-Plug 'wilriker/udev-vim-syntax', { 'for' : 'udev' }
-Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
+Plug 'wilriker/vim-fish',			{ 'for':  'fish' }
+Plug 'tfnico/vim-gradle',			{ 'for':  'groovy' }
+Plug 'wilriker/systemd-vim-syntax',	{ 'for' : 'systemd' }
+Plug 'wilriker/udev-vim-syntax',	{ 'for' : 'udev' }
+Plug 'kchmck/vim-coffee-script',	{ 'for' : 'coffee' }
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
@@ -39,10 +43,6 @@ call plug#end()						" Add plugins to &runtimepath
 " Working directories
 set dir=~/tmp,/tmp,/var/tmp,.
 
-if !has('nvim')
-	set t_Co=256					" allow the usage of 256 colors
-endif
-syntax on							" turn syntax highlighting on
 set laststatus=2
 set timeoutlen=1000
 set ttimeoutlen=0
@@ -59,11 +59,6 @@ set incsearch						" show match for partly typed searches
 set hlsearch						" highlight all matches for the last used search patter
 
 set nowrap							" do not wrap lines
-
-if !has('nvim')
-	set mouse=a						" Use the mouse
-	set ttymouse=xterm2				" Use this setting in terminal 'st'
-endif
 
 set cursorline						" highlight current line
 set nospell							" disable spell checking
@@ -109,54 +104,44 @@ function! RemoveTrailingWhitespace()
 endfunction
 
 function! s:swap_lines(n1, n2)
-    let line1 = getline(a:n1)
-    let line2 = getline(a:n2)
-    call setline(a:n1, line2)
-    call setline(a:n2, line1)
+	let line1 = getline(a:n1)
+	let line2 = getline(a:n2)
+	call setline(a:n1, line2)
+	call setline(a:n2, line1)
 endfunction
 
 function! s:swap_up()
-    let n = line('.')
-    if n == 1
-        return
-    endif
+	let n = line('.')
+	if n == 1
+		return
+	endif
 
-    call s:swap_lines(n, n - 1)
-    exec n - 1
+	call s:swap_lines(n, n - 1)
+	exec n - 1
 endfunction
 
 function! s:swap_down()
-    let n = line('.')
-    if n == line('$')
-        return
-    endif
+	let n = line('.')
+	if n == line('$')
+		return
+	endif
 
-    call s:swap_lines(n, n + 1)
-    exec n + 1
+	call s:swap_lines(n, n + 1)
+	exec n + 1
 endfunction
 
 " Custom key mappings
 noremap <silent> <C-k> :call <SID>swap_up()<CR>
 noremap <silent> <C-j> :call <SID>swap_down()<CR>
 nmap <F1> <Nop>
-if has('nvim')
-	imap <silent> <F1> <DEL>
-endif
+imap <silent> <F1> <DEL>
 nmap <silent> <F2> :NERDTreeToggle<CR>
 nmap <silent> <F11> :call RemoveTrailingWhitespace()<CR>
 nmap <silent> <F12> :set list!<CR>
-if !has('nvim')
-	set pastetoggle=<F12>
-endif
 
 " Key mappings to edit/reload config files
-if has('nvim')
-	nmap ,s :w<CR>:source ~/.config/nvim/init.vim<CR>
-	nmap ,v :tabe ~/.config/nvim/init.vim<CR>
-else
-	nmap ,s :w<CR>:source ~/.vimrc<CR>
-	nmap ,v :tabe ~/.vimrc<CR>
-endif
+nmap ,s :w<CR>:source ~/.config/nvim/init.vim<CR>
+nmap ,v :tabe ~/.config/nvim/init.vim<CR>
 nmap ,f :tabe ~/.config/fish/config.fish<CR>
 
 " Force use of tabs
