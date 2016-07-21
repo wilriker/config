@@ -49,7 +49,7 @@ set ttimeoutlen=0
 
 set number							" turn on line numbers
 set numberwidth=4					" We are good up to 9999 lines
-set listchars=tab:>-,eol:$,nbsp:%	" change the tab and eol characters
+set listchars=tab:▸\ ,eol:$,nbsp:%	" change the tab and eol characters
 
 set autochdir						" always switch to the current file directory
 set wrapscan						" searches wrap around the end of the buffer
@@ -96,7 +96,7 @@ if has('gui')
 endif
 
 highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/	   " match trailing whitespaces
+match ExtraWhitespace /\s\+$/		" match trailing whitespaces
 
 " Functions
 function! RemoveTrailingWhitespace()
