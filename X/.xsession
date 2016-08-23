@@ -24,10 +24,11 @@ export DBUS_SESSION_BUS_ADDRESS=
 (sleep 5 && /usr/libexec/notification-daemon) &
 (sleep 5 && gnome-volume-control-applet) &
 (sleep 15 && gnome-screensaver) &
-(sleep 25 && gnome-power-manager) &
+#(sleep 25 && gnome-power-manager) &
+(sleep 3 && nm-applet) &
 
 # Dropbox
-(sleep 15 && DISPLAY=:0 dropbox start) &
+(sleep 15 && DISPLAY=:0 dropboxd) &
 
 # Skype
 # (sleep 10 && DISPLAY=:0 skype) &
