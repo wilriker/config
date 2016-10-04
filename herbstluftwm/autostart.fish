@@ -16,7 +16,7 @@ herbstclient keybind $Mod-Shift-c close
 
 # Keybindings to start applications
 herbstclient keybind $Mod-Shift-p spawn $config_dir/restartpanels.fish
-herbstclient keybind $Mod-Return spawn st -f "Inconsolata\-g for Powerline:size=11:antialias=true:autohint=true"
+herbstclient keybind $Mod-Return spawn st -f 'Inconsolata\-g for Powerline:pixelsize=11:antialias=true:autohint=true'
 herbstclient keybind $Mod-d spawn dmenu_run -i -fn '-*-bitocra' -nb '#1e1e1e' -nf '#888888' -sb '#87afd7' -sf '#1e1e1e'
 herbstclient keybind $Mod-e spawn nemo
 herbstclient keybind $Mod-c spawn google-chrome-stable
