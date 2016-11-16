@@ -24,7 +24,7 @@ export DBUS_SESSION_BUS_ADDRESS=
 (sleep 5 && /usr/libexec/notification-daemon) &
 (sleep 5 && gnome-volume-control-applet) &
 (sleep 15 && gnome-screensaver) &
-#(sleep 25 && gnome-power-manager) &
+(sleep 25 && gnome-power-manager) &
 (sleep 3 && nm-applet) &
 
 # Dropbox
