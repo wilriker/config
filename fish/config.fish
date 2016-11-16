@@ -24,23 +24,25 @@ if status --is-login
 end
 
 if status --is-interactive
+    switch $TERM
 
-    # Fix DEL key in st
-    if string match -q -- 'st*' $TERM
-        tput smkx ^/dev/null
-        function fish_enable_keypad_transmit --on-event fish_postexec
-            tput smkx ^/dev/null
-        end
+        # Fix DEL key in st
+        case 'st*'
+            begin
+                tput smkx ^/dev/null
+                function fish_enable_keypad_transmit --on-event fish_postexec
+                    tput smkx ^/dev/null
+                end
 
-        function fish_disable_keypad_transmit --on-event fish_preexec
-            tput rmkx ^/dev/null
-        end
-    end
+                function fish_disable_keypad_transmit --on-event fish_preexec
+                    tput rmkx ^/dev/null
+                end
+            end
 
-    if test $TERM = "linux"
-        function fish_prompt
-            fish_fallback_prompt
-        end
+        case "linux"
+            function fish_prompt
+                fish_fallback_prompt
+            end
     end
 end
 
