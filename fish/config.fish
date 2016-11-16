@@ -47,3 +47,8 @@ else
     touch $host_specific_file
 end
 
+if test $TERM = "linux"
+    function fish_prompt
+        fish_fallback_prompt
+    end
+end
