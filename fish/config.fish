@@ -26,13 +26,21 @@ end
 if status --is-interactive
 
     # Fix DEL key in st
-    tput smkx ^/dev/null
-    function fish_enable_keypad_transmit --on-event fish_postexec
+    if string match -q -- 'st*' $TERM
         tput smkx ^/dev/null
+        function fish_enable_keypad_transmit --on-event fish_postexec
+            tput smkx ^/dev/null
+        end
+
+        function fish_disable_keypad_transmit --on-event fish_preexec
+            tput rmkx ^/dev/null
+        end
     end
 
-    function fish_disable_keypad_transmit --on-event fish_preexec
-        tput rmkx ^/dev/null
+    if test $TERM = "linux"
+        function fish_prompt
+            fish_fallback_prompt
+        end
     end
 end
 
@@ -45,10 +53,4 @@ else
     echo Creating host specific config file: $host_specific_file
     mkdir -p (dirname $host_specific_file)
     touch $host_specific_file
-end
-
-if test $TERM = "linux"
-    function fish_prompt
-        fish_fallback_prompt
-    end
 end
