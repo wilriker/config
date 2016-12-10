@@ -7,6 +7,8 @@ if status --is-login
     set -gx VISUAL vim
     set -gx PAGER less
     set -gx BROWSER google-chrome-stable
+    set -gx XKB_DEFAULT_LAYOUT de
+    set -gx XKB_DEFAULT_VARIANT nodeadkeys
 
     # LESS related settings
     set -gx LESS '-g -i -M -R -w -z-4'
