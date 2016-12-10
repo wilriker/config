@@ -12,11 +12,8 @@ set -g theme_display_user yes
 set -g theme_hide_hostname no
 # set -g default_user your_normal_user
 
-
-
 set -g current_bg NONE
 set segment_separator \uE0B0
-set right_segment_separator \uE0B0
 # ===========================
 # Helper methods
 # ===========================
@@ -37,33 +34,33 @@ function git_branch_status -d "Get the branch state compared to upstream"
 end
 
 function git_repo_state -d "Information on current repo state"
-        set -l changedFiles		(command git diff --name-status | cut -c 1-2)
-        set -l stagedFiles		(command git diff --name-status --staged | cut -c 1-2)
-        set -l deletedFiles     (command git diff --name-status --staged --diff-filter=D | cut -c 1-2)
+    set -l changedFiles     (command git diff --name-status | cut -c 1-2)
+    set -l stagedFiles      (command git diff --name-status --staged | cut -c 1-2)
+    set -l deletedFiles     (command git diff --name-status --staged --diff-filter=D | cut -c 1-2)
 
-        set -l dirtystate		(count $changedFiles)
-        set -l deletestate		(count $deletedFiles)
-        set -l stagedstate		(math (count $stagedFiles) - $deletestate)
-        set -l untrackedfiles	(count (command git ls-files --others --exclude-standard))
+    set -l dirtystate       (count $changedFiles)
+    set -l deletestate      (count $deletedFiles)
+    set -l stagedstate      (math (count $stagedFiles) - $deletestate)
+    set -l untrackedfiles   (count (command git ls-files --others --exclude-standard))
 
-        if test (math $dirtystate + $deletestate + $stagedstate + $untrackedfiles) -eq 0
-            echo -n ' ✔'
-            return
-        else
-            if test $stagedstate -ne 0
-                echo -n " $stagedstate✚"
-            end
-            if test $deletestate -ne 0
-                echo -n " $deletestate✖"
-            end
-            if test $dirtystate -ne 0
-                echo -n " $dirtystate⚡"
-            end
-            if test $untrackedfiles -ne 0
-                echo -n " $untrackedfiles…"
-            end
-            return 1
+    if test (math $dirtystate + $deletestate + $stagedstate + $untrackedfiles) -eq 0
+        echo -n ' ✔'
+        return
+    else
+        if test $stagedstate -ne 0
+            echo -n " $stagedstate✚"
         end
+        if test $deletestate -ne 0
+            echo -n " $deletestate✖"
+        end
+        if test $dirtystate -ne 0
+            echo -n " $dirtystate⚡"
+        end
+        if test $untrackedfiles -ne 0
+            echo -n " $untrackedfiles…"
+        end
+        return 1
+    end
 end
 
 
