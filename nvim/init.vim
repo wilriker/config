@@ -29,6 +29,7 @@ Plug 'scrooloose/nerdtree',			{ 'on':  'NERDTreeToggle' }
 Plug 'nanotech/jellybeans.vim'
 "Plug 'godlygeek/csapprox'
 Plug 'ap/vim-css-color'
+Plug 'jaxbot/semantic-highlight.vim'
 
 " Filetype plugin
 Plug 'wilriker/vim-fish',			{ 'for':  'fish' }
@@ -99,10 +100,6 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/		" match trailing whitespaces
 
 " Functions
-function! RemoveTrailingWhitespace()
-	:silent! %s/\s\+$//
-endfunction
-
 function! s:swap_lines(n1, n2)
 	let line1 = getline(a:n1)
 	let line2 = getline(a:n2)
@@ -131,18 +128,20 @@ function! s:swap_down()
 endfunction
 
 " Custom key mappings
+let mapleader = "-"
 noremap <silent> <C-k> :call <SID>swap_up()<CR>
 noremap <silent> <C-j> :call <SID>swap_down()<CR>
-nmap <F1> <Nop>
-imap <silent> <F1> <DEL>
 nmap <silent> <F2> :NERDTreeToggle<CR>
-nmap <silent> <F11> :call RemoveTrailingWhitespace()<CR>
+" Remove trailing whitespace
+nmap <silent> <F11> :silent! %s/\s\+$//<CR>
+" Show/hide whitespace (except space)
 nmap <silent> <F12> :set list!<CR>
+nmap <silent> <leader>h :SemanticHighlightToggle<CR>
 
 " Key mappings to edit/reload config files
-nmap ,s :w<CR>:source ~/.config/nvim/init.vim<CR>
-nmap ,v :tabe ~/.config/nvim/init.vim<CR>
-nmap ,f :tabe ~/.config/fish/config.fish<CR>
+nmap <silent> <leader>s :w<CR>:source ~/.config/nvim/init.vim<CR>
+nmap <silent> <leader>v :tabe ~/.config/nvim/init.vim<CR>
+nmap <silent> <leader>f :tabe ~/.config/fish/config.fish<CR>
 
 " Force use of tabs
 cab e tabe
