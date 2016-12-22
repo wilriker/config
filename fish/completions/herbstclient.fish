@@ -25,7 +25,7 @@ function _get_herbstluftwm_completion
     herbstclient -q complete $position $tokens
 end
 
-complete -xc herbstclient -d "" -a '(_get_herbstluftwm_completion)'
+complete -xc herbstclient -a '(_get_herbstluftwm_completion)'
 
 complete -fc herbstclient -s n -l no-newline -d 'Do not print a newline if output does not end with a newline.'
 complete -fc herbstclient -s 0 -l print0 -d 'Use the null character as delimiter between the output of hooks.'
