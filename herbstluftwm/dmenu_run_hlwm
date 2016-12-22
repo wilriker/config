@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if ! command -v dmenu > /dev/null 2>/dev/null ; then
+	echo "Error: Requirement dmenu not found in your PATH." >&2
+	exit 1
+fi
+
+# Get the currently active tag
+tag=$(herbstclient attr tags.focus.name)
+
+selectedPath=$(dmenu_path | dmenu "$@")
+
+# Move next window from this process to this tag. Prepend the rule so
+# that it may be overwritten by existing custom rules e.g. in the
+# autostart. Also set a maximum age for this rule of 60 seconds and
+# mark it as one-time-only rule.
+herbstclient rule prepend maxage="60" pid="$$" tag="$tag" once
+
+exec $selectedPath
