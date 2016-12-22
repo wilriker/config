@@ -10,6 +10,9 @@ tag=$(herbstclient attr tags.focus.name)
 
 selectedPath=$(dmenu_path | dmenu "$@")
 
+# Stop here if the user aborted
+[[ -z $selectedPath ]] && exit 0
+
 # Move next window from this process to this tag. Prepend the rule so
 # that it may be overwritten by existing custom rules e.g. in the
 # autostart. Also set a maximum age for this rule of 60 seconds and
