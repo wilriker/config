@@ -129,8 +129,14 @@ endfunction
 
 " Custom key mappings
 let mapleader = "-"
+
 noremap <silent> <C-k> :call <SID>swap_up()<CR>
 noremap <silent> <C-j> :call <SID>swap_down()<CR>
+
+" Fix F1/DEL issue
+nmap <F1> <Nop>
+imap <silent> <F1> <DEL>
+
 nmap <silent> <F2> :NERDTreeToggle<CR>
 " Remove trailing whitespace
 nmap <silent> <F11> :silent! %s/\s\+$//<CR>
