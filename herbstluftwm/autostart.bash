@@ -125,9 +125,6 @@ herbstclient rule windowtype~'_NET_WM_WINDOW_TPYE_(FULLSCREEN|FS)' fullscreen=on
 herbstclient rule title='gnome-calculator' pseudotile=on
 herbstclient rule title='Connect to MySQL Server' pseudotile=on
 
-# unlock, just to be sure
-herbstclient unlock
-
 herbstclient set tree_style '╾│ ├└╼─┐'
 
 # do multi monitor setup here
@@ -146,6 +143,9 @@ if test $(herbstclient get_attr monitors.count) -gt 1; then
 		herbstclient keybind $Mod-Alt-Shift-$key move "${tag_names[$index]}"
 	done
 fi
+
+# unlock, just to be sure
+herbstclient unlock
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.bash
