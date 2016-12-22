@@ -11,7 +11,7 @@ tag=$(herbstclient attr tags.focus.name)
 selectedPath=$(dmenu_path | dmenu "$@")
 
 # Stop here if the user aborted
-[[ -z $selectedPath ]] && exit 0
+[ -z $selectedPath ] && exit 0
 
 # Move next window from this process to this tag. Prepend the rule so
 # that it may be overwritten by existing custom rules e.g. in the
@@ -20,3 +20,4 @@ selectedPath=$(dmenu_path | dmenu "$@")
 herbstclient rule prepend maxage="60" pid="$$" tag="$tag" once
 
 exec $selectedPath
+
