@@ -19,10 +19,6 @@ if shopt -q login_shell; then
 	alias vim='vim -p'
 	alias free='free -m'
 	alias pgrep='pgrep -a -f'
-	alias ya='yaourt'
-	alias yau='yaourt -Syua'
-	alias yas='yaourt -S'
-	alias yar='yaourt -Rns'
 	alias tmux='tmux attach'
 	alias sudo='sudo '
 	if type pigz &> /dev/null; then
