@@ -149,6 +149,9 @@ nmap <silent> <leader>s :w<CR>:source ~/.config/nvim/init.vim<CR>
 nmap <silent> <leader>v :tabe ~/.config/nvim/init.vim<CR>
 nmap <silent> <leader>f :tabe ~/.config/fish/config.fish<CR>
 
+" Save as root if forgotten to start with sudo
+cmap w!! w !sudo tee % > /dev/null
+
 " Force use of tabs
 cab e tabe
 
