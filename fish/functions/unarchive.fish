@@ -1,20 +1,20 @@
 function unarchive --description 'Extract with whatever it takes' --argument archive
 	switch $archive
         case "*.tgz" "*.tar.gz" # tar compressed with gzip
-            exists pigz
+            type -q pigz
             and tar -I pigz -xf $archive
-            or tar -xzf $archive
+            or tar -xf $archive
         case "*.tar.bz2" "*.tbz" "*.tbz2" # tar compressed with bzip2
-            exists pbzip2
+            type -q pbzip2
             and tar -I pbzip2 -xf $archive
-            or tar -xjf $archive
+            or tar -xf $archive
         case "*.tar.xz" "*.txz" # tar compressed with xz
-            if tar --xz --help >&- ^&-
-                tar --xz -xf $archive
+            if tar --xz --help >&- ^&- # ancient tar versions might not support it
+                tar -xf $archive
             else
                 xzcat $archive | tar -xf -
             end
-        case "*.tar" # non-compressed, just bundled
+        case "*.tar" "*.tar.*" # any other (un)compressed tar file
             tar -xf $archive
         case "*.gz"
             gunzip $archive
@@ -27,7 +27,7 @@ function unarchive --description 'Extract with whatever it takes' --argument arc
         case "*.Z"
             uncompress $archive
         case "*.rar"
-            exists unrar
+            type -q unrar
             and unrar x $archive
             or rar x -ad $archive
         case "*.zip" "*.jar" "*.war"
