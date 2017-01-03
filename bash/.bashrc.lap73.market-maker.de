@@ -7,7 +7,7 @@ if shopt -q login_shell; then
 	export BROWSER=google-chrome
 
 	export PATH=~/bin:~/local/bin:$PATH
-	MANPATH=$HOME/man:$HOME/share/man:$HOME/local/share/man:$HOME/opt/srv/httpd/man:$(man --path)
+	MANPATH=$HOME/local/httpd24/man:$HOME/opt/neovim/share/man:$HOME/opt/python2.7/share/man:$(man --path)
 	export MANPATH
 	export WORKON_HOME=$HOME/.virtualenvs
 	source /usr/bin/virtualenvwrapper.sh
