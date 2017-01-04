@@ -7,30 +7,19 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-# Colors
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
-
 # Fix keyboard settings
 setxkbmap -layout de -variant nodeadkeys -option caps:none
 
 # Unset possibly broken variables
-#export DESKTOP_SESSION=
-export DBUS_SESSION_BUS_ADDRESS=
-
-# Start udiskie
-# udiskie --tray &
+#export DBUS_SESSION_BUS_ADDRESS=
 
 # Services and tray icons
 (sleep 5 && /usr/libexec/notification-daemon) &
 (sleep 5 && gnome-volume-control-applet) &
-(sleep 15 && gnome-screensaver) &
 (sleep 25 && gnome-power-manager) &
 (sleep 3 && nm-applet) &
 
 # Dropbox
 (sleep 15 && DISPLAY=:0 dropboxd) &
-
-# Skype
-# (sleep 10 && DISPLAY=:0 skype) &
 
 exec /usr/bin/env herbstluftwm
