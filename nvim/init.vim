@@ -139,7 +139,7 @@ imap <silent> <F1> <DEL>
 
 nmap <silent> <F2> :NERDTreeToggle<CR>
 " Remove trailing whitespace
-nmap <silent> <F11> :silent! %s/\s\+$//<CR>
+nmap <silent> <leader>w :silent! %s/\s\+$//<CR>
 " Show/hide whitespace (except space)
 nmap <silent> <F12> :set list!<CR>
 nmap <silent> <leader>h :SemanticHighlightToggle<CR>
