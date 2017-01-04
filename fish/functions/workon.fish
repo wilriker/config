@@ -1,15 +1,20 @@
-function workon --description 'Activate virtual environment in /home/mcoenen/.virtualenvs'
-	set tgt {$WORKON_HOME}/$argv[1]
-  if [ -d $tgt ]
-
-    # deactivate any active venv, and activate the target
-    # this needs to be rewritten with the `type` fish command
-    if test -n "$VIRTUAL_ENV"
-      deactivate
+function workon --description 'Activate virtual environment in $WORKON_HOME'
+	if test 1 -ne (count $argv)
+		echo "Must specify a virtualenv"
+		return 1
+	end
+    set -l workon_home $WORKON_HOME $HOME/.virtualenvs
+	set -l virtualenv $workon_home[1]/$argv[1]
+    set -l activate $virtualenv/bin/activate.fish
+    if not test -f $activate
+        echo "No virtualenv at $virtualenv"
+        return 1
     end
 
-    . $tgt/bin/activate.fish
-  else
-    echo "$tgt not found"
-  end
+    # deactivate any active virtualenv, and activate the virtualenv
+    if test -n "$VIRTUAL_ENV"
+        deactivate
+    end
+
+    source $activate
 end
