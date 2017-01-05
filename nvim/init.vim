@@ -94,8 +94,6 @@ let g:airline_powerline_fonts = 1
 colorscheme jellybeans
 
 " Silver Searcher ag.vim
-nnoremap <leader>ag :Ag
-nnoremap <leader>ac :Ag <C-r><C-w><CR>
 let g:ag_working_path_mode="r" " start search in project root
 
 " Font selection for GUI
@@ -159,6 +157,10 @@ nmap <silent> <leader>f :tabe ~/.config/fish/config.fish<CR>
 " Copy/Paste
 vnoremap <silent> <leader>y "+y<CR>
 nnoremap <silent> <leader>p "+gP<CR>
+
+" silver searcher
+nnoremap <leader>ag :Ag
+nnoremap <leader>ac :Ag <C-r><C-w><CR>
 
 " Save as root if forgotten to start with sudo
 cmap w!! w !sudo tee % > /dev/null
