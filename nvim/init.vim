@@ -24,6 +24,7 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 "Plug 'edkolev/tmuxline.vim'
 Plug 'scrooloose/nerdtree',			{ 'on':  'NERDTreeToggle' }
+Plug 'rking/ag.vim'
 
 " Color schemes
 Plug 'nanotech/jellybeans.vim'
@@ -58,6 +59,7 @@ set ignorecase						" case insensitive searches
 set smartcase						" if there are caps, go case-sensitive
 set incsearch						" show match for partly typed searches
 set hlsearch						" highlight all matches for the last used search patter
+set inccommand=split				" interactive search-and-replace
 
 set nowrap							" do not wrap lines
 
@@ -90,6 +92,11 @@ let g:airline_powerline_fonts = 1
 
 " Colorscheme
 colorscheme jellybeans
+
+" Silver Searcher ag.vim
+nnoremap <leader>ag :Ag
+nnoremap <leader>ac :Ag <C-r><C-w><CR>
+let g:ag_working_path_mode="r" " start search in project root
 
 " Font selection for GUI
 if has('gui')
@@ -148,6 +155,10 @@ nmap <silent> <leader>h :SemanticHighlightToggle<CR>
 nmap <silent> <leader>s :w<CR>:source ~/.config/nvim/init.vim<CR>
 nmap <silent> <leader>v :tabe ~/.config/nvim/init.vim<CR>
 nmap <silent> <leader>f :tabe ~/.config/fish/config.fish<CR>
+
+" Copy/Paste
+vnoremap <silent> <leader>y "+y<CR>
+nnoremap <silent> <leader>p "+gP<CR>
 
 " Save as root if forgotten to start with sudo
 cmap w!! w !sudo tee % > /dev/null
