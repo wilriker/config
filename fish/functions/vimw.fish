@@ -1,5 +1,5 @@
 function vimw
-	if exists --on-disk-only $argv >&- ^&-
+	if type -pq $argv >&- ^&-
         vim (which $argv)
     else if functions -q $argv
         funced $argv
