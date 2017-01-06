@@ -3,7 +3,7 @@
 #if status --is-login
 
 	# $PROG_HOME dirs
-	set -gx JAVA_HOME /usr/java/default
+	set -gx JAVA_HOME /export/home/mcoenen/opt/jdk1.8
 	set -gx GRADLE_HOME /export/home/mcoenen/opt/gradle
 	set -gx M2_HOME /export/home/mcoenen/opt/maven
 	set -gx WORKON_HOME ~/.virtualenvs
