@@ -23,8 +23,10 @@ Plug 'tpope/vim-endwise'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 "Plug 'edkolev/tmuxline.vim'
-Plug 'scrooloose/nerdtree',			{ 'on':  'NERDTreeToggle' }
-Plug 'rking/ag.vim'
+
+" Searching/Fuzzyfind
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-key-bindings --no-completion --update-rc' }
+Plug 'junegunn/fzf.vim'
 
 " Color schemes
 Plug 'nanotech/jellybeans.vim'
@@ -88,6 +90,7 @@ set noexpandtab						" do not expand tabs to single whitespaces
 
 " Airline settings
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_powerline_fonts = 1
 
 " Colorscheme
@@ -133,7 +136,7 @@ function! s:swap_down()
 endfunction
 
 " Custom key mappings
-let mapleader = "-"
+let mapleader = ","
 
 noremap <silent> <C-k> :call <SID>swap_up()<CR>
 noremap <silent> <C-j> :call <SID>swap_down()<CR>
@@ -142,29 +145,45 @@ noremap <silent> <C-j> :call <SID>swap_down()<CR>
 nmap <F1> <Nop>
 imap <silent> <F1> <DEL>
 
-nmap <silent> <F2> :NERDTreeToggle<CR>
+" Buffer management
+nmap <silent> <leader>T :enew<cr>
+nmap <leader>bq :bprevious <BAR> bdelete! #<cr>
+nmap <silent> <leader>bk :bdelete!<cr>
+nmap <silent> gb :bnext<cr>
+nmap <silent> gB :bprevious<cr>
+
+" FuzzyFind
+nmap <leader>fg :GFiles<CR>
+nmap <Leader>ff :Files<CR>
+nmap <Leader>fb :Buffers<CR>
+nmap <Leader>fc :Commits<CR>
+nmap <Leader>fll :Lines<CR>
+nmap <Leader>flb :BLines<CR>
+
 " Remove trailing whitespace
 nmap <silent> <leader>w :silent! %s/\s\+$//<CR>
+
 " Show/hide whitespace (except space)
 nmap <silent> <F12> :set list!<CR>
+
 nmap <silent> <leader>h :SemanticHighlightToggle<CR>
 
 " Key mappings to edit/reload config files
 nmap <silent> <leader>s :w<CR>:source ~/.config/nvim/init.vim<CR>
-nmap <silent> <leader>v :tabe ~/.config/nvim/init.vim<CR>
-nmap <silent> <leader>f :tabe ~/.config/fish/config.fish<CR>
+nmap <silent> <leader>v :e ~/.config/nvim/init.vim<CR>
+nmap <silent> <leader>f :e ~/.config/fish/config.fish<CR>
 
 " Copy/Paste
 vnoremap <silent> <leader>y "+y<CR>
 nnoremap <silent> <leader>p "+gP<CR>
 
-" silver searcher
-nnoremap <leader>ag :Ag
+" silver searcher (through fzf)
+nnoremap <leader>ag :Ag<Space>
 nnoremap <leader>ac :Ag <C-r><C-w><CR>
 
 " Save as root if forgotten to start with sudo
 cmap w!! w !sudo tee % > /dev/null
 
 " Force use of tabs
-cab e tabe
+" cab e tabe
 

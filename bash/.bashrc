@@ -94,3 +94,5 @@ fi
 host=$(hostname | sed -E 's/(-[0-9]+)?(\.(local|home))?$//')
 [[ -f ~/.bashrc.${host} ]] && . ~/.bashrc.${host}
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
