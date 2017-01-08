@@ -47,12 +47,11 @@ call plug#end()						" Add plugins to &runtimepath
 " Working directories
 set dir=~/tmp,/tmp,/var/tmp,.
 
-set laststatus=2
-set timeoutlen=1000
+set laststatus=2					" Always display statusline
 set ttimeoutlen=0
 
 set number							" turn on line numbers
-set numberwidth=4					" We are good up to 9999 lines
+set numberwidth=5					" We are good up to 9999 lines
 set listchars=tab:▸\ ,eol:$,nbsp:%	" change the tab and eol characters
 
 set autochdir						" always switch to the current file directory
@@ -60,13 +59,12 @@ set wrapscan						" searches wrap around the end of the buffer
 set ignorecase						" case insensitive searches
 set smartcase						" if there are caps, go case-sensitive
 set incsearch						" show match for partly typed searches
-set hlsearch						" highlight all matches for the last used search patter
+set hlsearch						" highlight all matches for the last used search pattern
 set inccommand=split				" interactive search-and-replace
 
 set nowrap							" do not wrap lines
 
 set cursorline						" highlight current line
-set nospell							" disable spell checking
 
 set splitright						" a new window is put right of the current one
 
@@ -143,43 +141,43 @@ noremap <silent> <C-j> :call <SID>swap_down()<CR>
 
 " Fix F1/DEL issue
 nmap <F1> <Nop>
-imap <silent> <F1> <DEL>
+imap <silent> <F1> <Del>
 
 " Buffer management
-nmap <silent> <leader>T :enew<cr>
-nmap <leader>bq :bprevious <BAR> bdelete! #<cr>
-nmap <silent> <leader>bk :bdelete!<cr>
-nmap <silent> gb :bnext<cr>
-nmap <silent> gB :bprevious<cr>
+nmap <silent> <Leader>T :enew<CR>
+nmap <silent> <Leader>bq :bprevious <Bar> bdelete! #<CR>
+nmap <silent> <Leader>bk :bdelete!<CR>
+nmap <silent> gb :bnext<CR>
+nmap <silent> gB :bprevious<CR>
 
 " FuzzyFind
-nmap <leader>fg :GFiles<CR>
-nmap <Leader>ff :Files<CR>
-nmap <Leader>fb :Buffers<CR>
-nmap <Leader>fc :Commits<CR>
-nmap <Leader>fll :Lines<CR>
-nmap <Leader>flb :BLines<CR>
+nmap <silent> <Leader>fg :GFiles<CR>
+nmap <silent> <Leader>ff :Files<CR>
+nmap <silent> <Leader>fb :Buffers<CR>
+nmap <silent> <Leader>fc :Commits<CR>
+nmap <silent> <Leader>fll :Lines<CR>
+nmap <silent> <Leader>flb :BLines<CR>
 
 " Remove trailing whitespace
-nmap <silent> <leader>w :silent! %s/\s\+$//<CR>
+nmap <silent> <Leader>w :silent! %s/\s\+$//<CR>
 
 " Show/hide whitespace (except space)
 nmap <silent> <F12> :set list!<CR>
 
-nmap <silent> <leader>h :SemanticHighlightToggle<CR>
+nmap <silent> <Leader>h :SemanticHighlightToggle<CR>
 
 " Key mappings to edit/reload config files
-nmap <silent> <leader>s :w<CR>:source ~/.config/nvim/init.vim<CR>
-nmap <silent> <leader>v :e ~/.config/nvim/init.vim<CR>
-nmap <silent> <leader>f :e ~/.config/fish/config.fish<CR>
+nmap <silent> <Leader>s :w <Bar> source ~/.config/nvim/init.vim<CR>
+nmap <silent> <Leader>v :e ~/.config/nvim/init.vim<CR>
+nmap <silent> <Leader>f :e ~/.config/fish/config.fish<CR>
 
 " Copy/Paste
-vnoremap <silent> <leader>y "+y<CR>
-nnoremap <silent> <leader>p "+gP<CR>
+vnoremap <silent> <Leader>y "+y<CR>
+nnoremap <silent> <Leader>p "+gP<CR>
 
 " silver searcher (through fzf)
-nnoremap <leader>ag :Ag<Space>
-nnoremap <leader>ac :Ag <C-r><C-w><CR>
+nnoremap <Leader>ag :Ag<Space>
+nnoremap <Leader>ac :Ag <C-r><C-w><CR>
 
 " Save as root if forgotten to start with sudo
 cmap w!! w !sudo tee % > /dev/null
