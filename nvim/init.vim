@@ -92,6 +92,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_powerline_fonts = 1
 
 " Colorscheme
+set termguicolors					" Enable 24 bit colors
 colorscheme jellybeans
 
 " Silver Searcher ag.vim
@@ -102,8 +103,19 @@ if has('gui')
 	set guifont=Inconsolata-g\ for\ Powerline\ Medium\ 9
 endif
 
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/		" match trailing whitespaces
+" match lines containing todos regardless if filetype highlights differently
+augroup HighlightTodos
+    autocmd!
+    autocmd WinEnter,VimEnter * highlight ToDoLine ctermbg=red guibg=#ff00ff guifg=#222222
+    autocmd WinEnter,VimEnter * call matchadd('ToDoLine', '^.*(TODO|FIXME).*$', -1)
+augroup END
+
+" match extra whitespace at the end of lines
+augroup HighlightExtraWhitespace
+    autocmd!
+    autocmd WinEnter,VimEnter * highlight ExtraWhitespace ctermbg=red guibg=#ff00ff
+    autocmd WinEnter,VimEnter * call matchadd('ExtraWhitespace', '\s\+$', -1)
+augroup END
 
 " Functions
 function! s:swap_lines(n1, n2)
