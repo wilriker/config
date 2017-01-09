@@ -40,6 +40,7 @@ Plug 'tfnico/vim-gradle',			{ 'for':  'groovy' }
 Plug 'wilriker/systemd-vim-syntax',	{ 'for' : 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for' : 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for' : 'coffee' }
+Plug 'chrisbra/csv.vim',			{ 'for' : 'csv' }
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
@@ -154,7 +155,7 @@ noremap <silent> <C-k> :call <SID>swap_up()<CR>
 noremap <silent> <C-j> :call <SID>swap_down()<CR>
 
 " Fix F1/DEL issue
-nmap <F1> <Nop>
+nmap <silent> <F1> <Del>
 imap <silent> <F1> <Del>
 
 " Buffer management
