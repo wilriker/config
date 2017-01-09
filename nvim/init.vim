@@ -47,6 +47,8 @@ call plug#end()						" Add plugins to &runtimepath
 " Working directories
 set dir=~/tmp,/tmp,/var/tmp,.
 
+set hidden							" Enable automatic hiding of buffers even when they are modified
+
 set laststatus=2					" Always display statusline
 set ttimeoutlen=0
 
