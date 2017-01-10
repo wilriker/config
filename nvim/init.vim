@@ -157,8 +157,8 @@ noremap <silent> <C-k> :call <SID>swap_up()<CR>
 noremap <silent> <C-j> :call <SID>swap_down()<CR>
 
 " Fix F1/DEL issue
-map  <silent> <F1> <Del>
-map! <silent> <F1> <Del>
+"map  <silent> <F1> <Del>
+"map! <silent> <F1> <Del>
 
 " Buffer management
 nmap <silent> <Leader>T :enew<CR>
