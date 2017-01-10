@@ -1,10 +1,10 @@
 # Nothing to do if grc is not installed at all
-if not command -s grc >/dev/null
+if not type -q grc
     exit
 end
 
 # Define programs that should be wrapped
-set -l execs dig g++ gcc make mount netstat ping ping6 ps traceroute
+set -l execs dig cc g++ gcc make mount netstat ping ping6 ps traceroute
 
 for executable in $execs
 
