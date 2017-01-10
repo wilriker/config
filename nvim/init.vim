@@ -116,7 +116,7 @@ augroup END
 " match extra whitespace at the end of lines
 augroup HighlightExtraWhitespace
     autocmd!
-    autocmd WinEnter,VimEnter * highlight ExtraWhitespace ctermbg=red guibg=#ff00ff
+    autocmd WinEnter,VimEnter * highlight ExtraWhitespace ctermbg=red guibg=#ff0000
     autocmd WinEnter,VimEnter * call matchadd('ExtraWhitespace', '\s\+$', -1)
 augroup END
 
@@ -155,8 +155,8 @@ noremap <silent> <C-k> :call <SID>swap_up()<CR>
 noremap <silent> <C-j> :call <SID>swap_down()<CR>
 
 " Fix F1/DEL issue
-nmap <silent> <F1> <Del>
-imap <silent> <F1> <Del>
+map  <silent> <F1> <Del>
+map! <silent> <F1> <Del>
 
 " Buffer management
 nmap <silent> <Leader>T :enew<CR>
