@@ -22,6 +22,7 @@ Plug 'tpope/vim-endwise'
 " Other stuff
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 "Plug 'edkolev/tmuxline.vim'
 
 " Searching/Fuzzyfind
@@ -52,6 +53,7 @@ set hidden							" Enable automatic hiding of buffers even when they are modifie
 
 set laststatus=2					" Always display statusline
 set ttimeoutlen=0
+set updatetime=250					" Update gitgutter after this many ms (also write swapfile)
 
 set number							" turn on line numbers
 set numberwidth=5					" We are good up to 9999 lines
