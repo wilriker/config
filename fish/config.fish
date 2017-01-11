@@ -60,3 +60,7 @@ else
     mkdir -p (dirname $host_specific_file)
     touch $host_specific_file
 end
+
+# Make PATH distinct
+vardistinct PATH
+
