@@ -186,7 +186,8 @@ nmap <silent> <Leader>f :e ~/.config/fish/config.fish<CR>
 
 " Copy/Paste
 vnoremap <silent> <Leader>y "+y<CR>
-nnoremap <silent> <Leader>p "+gP<CR>
+nnoremap <silent> <Leader>p "+gp<CR>
+nnoremap <silent> <Leader>P "+gP<CR>
 
 " silver searcher (through fzf)
 nnoremap <Leader>ag :Ag<Space>
