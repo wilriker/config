@@ -1,5 +1,5 @@
 function unarchive --description 'Extract with whatever it takes' --argument archive
-	switch $archive
+    switch $archive
         case "*.tgz" "*.tar.gz" # tar compressed with gzip
             type -q pigz
             and tar -I pigz -xf $archive

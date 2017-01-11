@@ -1,4 +1,4 @@
 function nvim
-	tput smkx
+    tput smkx
     command nvim $argv
 end

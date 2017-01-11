@@ -1,5 +1,5 @@
 function vardistinct --description 'Remove duplicates from variables'
-	if test (count $argv) = 1
+    if test (count $argv) = 1
         set -l newvar
         for v in $$argv
             if not contains -- $v $newvar

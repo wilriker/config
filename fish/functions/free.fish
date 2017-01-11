@@ -1,3 +1,3 @@
 function free
-	command free -m $argv
+    command free -m $argv
 end
