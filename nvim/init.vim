@@ -156,10 +156,6 @@ let mapleader = ","
 noremap <silent> <C-k> :call <SID>swap_up()<CR>
 noremap <silent> <C-j> :call <SID>swap_down()<CR>
 
-" Fix F1/DEL issue
-"map  <silent> <F1> <Del>
-"map! <silent> <F1> <Del>
-
 " Buffer management
 nmap <silent> <Leader>T :enew<CR>
 nmap <silent> <Leader>bq :bprevious <Bar> bdelete! #<CR>
@@ -198,7 +194,4 @@ nnoremap <Leader>ac :Ag <C-r><C-w><CR>
 
 " Save as root if forgotten to start with sudo
 cmap w!! w !sudo tee % > /dev/null
-
-" Force use of tabs
-" cab e tabe
 
