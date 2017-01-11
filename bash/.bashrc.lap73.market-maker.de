@@ -16,7 +16,7 @@ fi
 
 if [[ $- = *i* ]]; then
 	: # Things to do in interactive shell
-	fish; exit
+	exec /usr/bin/env fish
 else
 	: # Things to do in non-interactive shell
 fi
