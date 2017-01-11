@@ -63,10 +63,6 @@ if type -q yum
     abbr -a yumr 'sudo yum remove'
 end
 
-if type -q tmux
-    abbr -a tmux 'tmux a'
-end
-
 if type -q grc
     abbr -a './configure' 'grc -es --colour=auto ./configure'
 end
