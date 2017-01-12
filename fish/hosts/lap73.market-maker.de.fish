@@ -8,6 +8,8 @@
 	set -gx M2_HOME /export/home/mcoenen/opt/maven
 	set -gx WORKON_HOME ~/.virtualenvs
 	set -gx SPRING_HOME /export/home/mcoenen/opt/spring
+
+    set -gx SHELL (command -s fish)
 #end
 
 function ssh -d "Set another TERM value"
