@@ -42,6 +42,7 @@ Plug 'wilriker/systemd-vim-syntax',	{ 'for' : 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for' : 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for' : 'coffee' }
 Plug 'chrisbra/csv.vim',			{ 'for' : 'csv' }
+Plug 'tmux-plugins/vim-tmux',		{ 'for' : 'tmux' }
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
