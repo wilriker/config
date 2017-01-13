@@ -66,8 +66,8 @@ herbstclient keybind $Mod-Control-Shift-Right resize right +$resizestep
 # mouse
 herbstclient mouseunbind --all
 herbstclient mousebind $Mod-Button1 move
-herbstclient mousebind $Mod-Button2 resize
-herbstclient mousebind $Mod-Button3 zoom
+herbstclient mousebind $Mod-Button2 zoom
+herbstclient mousebind $Mod-Button3 resize
 
 # focus
 herbstclient keybind $Mod-Tab cycle_all +1
