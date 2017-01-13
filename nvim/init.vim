@@ -111,16 +111,16 @@ endif
 
 " match lines containing todos regardless if filetype highlights differently
 augroup HighlightTodos
-    autocmd!
-    autocmd WinEnter,VimEnter * highlight ToDoLine ctermbg=red guibg=#ff00ff guifg=#222222
-    autocmd WinEnter,VimEnter * call matchadd('ToDoLine', '^.*(TODO|FIXME).*$', -1)
+	autocmd!
+	autocmd WinEnter,VimEnter * highlight ToDoLine ctermbg=red guibg=#ff00ff guifg=#222222
+	autocmd WinEnter,VimEnter * call matchadd('ToDoLine', '^.*(TODO|FIXME).*$', -1)
 augroup END
 
 " match extra whitespace at the end of lines
 augroup HighlightExtraWhitespace
-    autocmd!
-    autocmd WinEnter,VimEnter * highlight ExtraWhitespace ctermbg=red guibg=#ff0000
-    autocmd WinEnter,VimEnter * call matchadd('ExtraWhitespace', '\s\+$', -1)
+	autocmd!
+	autocmd WinEnter,VimEnter * highlight ExtraWhitespace ctermbg=red guibg=#ff0000
+	autocmd WinEnter,VimEnter * call matchadd('ExtraWhitespace', '\s\+$', -1)
 augroup END
 
 " Functions
