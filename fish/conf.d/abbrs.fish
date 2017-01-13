@@ -56,7 +56,6 @@ if type -q git
 end
 
 if type -q yum
-    abbr -a yumu 'sudo yum update'
     abbr -a yums 'yum search'
     abbr -a yumi 'sudo yum install'
     abbr -a yumq 'yum info'
