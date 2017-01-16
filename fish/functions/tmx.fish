@@ -3,7 +3,7 @@ function tmx --description 'Create a new session with (optionally) given name or
     if test (count $argv) -gt 0
         set -l session_name $argv[1]
     end
-    if not tmux has-session -t $session_name
+    if not tmux has-session -t $session_name >&- ^&-
         echo "Launching tmux base session $session_name"
         tmux new-session -s $session_name
     else
