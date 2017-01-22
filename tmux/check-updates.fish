@@ -1,9 +1,9 @@
 #!/usr/bin/env fish
 
-set updates 0
+set -l updates 0
 
-if type -q pacaur
-    set updates (pacaur -Qu | wc -l)
+if type -q pacaura
+    set updates (pacaur -Qu | wc -l)
 else if type -q pacman
     set updates (pacman -Qu | wc -l)
 else if type -q yum
