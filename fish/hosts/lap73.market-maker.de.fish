@@ -7,7 +7,7 @@
     set -gx GRADLE_HOME /export/home/mcoenen/opt/gradle
     set -gx M2_HOME /export/home/mcoenen/opt/maven
     set -gx WORKON_HOME ~/.virtualenvs
-    set -gx SPRING_HOME /export/home/mcoenen/opt/spring
+    set -gx NODE_HOME /export/home/mcoenen/opt/node
 
     set -gx SHELL (command -s fish)
 #end

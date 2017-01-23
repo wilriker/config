@@ -16,7 +16,7 @@ herbstclient keybind $Mod-Shift-c close
 
 # Keybindings to start applications
 herbstclient keybind $Mod-Shift-p spawn $config_dir/restartpanels.fish
-herbstclient keybind $Mod-Return spawn st -f 'Inconsolata\-g for Powerline:size=8'
+herbstclient keybind $Mod-Return spawn st -f 'InconsolataForPowerline Nerd Font:size=10'
 herbstclient keybind $Mod-d spawn $config_dir/dmenu_run_hlwm -i -nb '#1e1e1e' -nf '#888888' -sb '#87afd7' -sf '#1e1e1e'
 herbstclient keybind $Mod-e spawn nemo
 herbstclient keybind $Mod-c spawn google-chrome-stable
