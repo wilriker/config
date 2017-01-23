@@ -35,6 +35,9 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'ap/vim-css-color'
 Plug 'jaxbot/semantic-highlight.vim'
 
+" Format helper
+Plug 'godlygeek/tabular'
+
 " Filetype plugin
 Plug 'wilriker/vim-fish',			{ 'for':  'fish' }
 Plug 'tfnico/vim-gradle',			{ 'for':  'groovy' }
@@ -172,8 +175,21 @@ nmap <silent> <Leader>fc :Commits<CR>
 nmap <silent> <Leader>fll :Lines<CR>
 nmap <silent> <Leader>flb :BLines<CR>
 
+" Tabularize
+nmap <Leader>t= ggVG:Tabularize /=<CR>
+nmap <Leader>t: ggVG:Tabularize /:<CR>
+nmap <Leader>t, ggVG:Tabularize /,<CR>
+nmap <Leader>t; ggVG:Tabularize /;<CR>
+nmap <Leader>t" ggVG:Tabularize /"<CR>
+vmap <Leader>t= :Tabularize /=<CR>
+vmap <Leader>t: :Tabularize /:<CR>
+vmap <Leader>t, :Tabularize /,<CR>
+vmap <Leader>t; :Tabularize /;<CR>
+vmap <Leader>t" :Tabularize /"<CR>
+
 " Remove trailing whitespace
 nmap <silent> <Leader>w :silent! %s/\s\+$//<CR>
+nmap <silent> <Leader>c :noh<CR>
 
 " Show/hide whitespace (except space)
 nmap <silent> <F12> :set list!<CR>
