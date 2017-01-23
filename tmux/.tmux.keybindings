@@ -1,0 +1,35 @@
+### General ###
+Shift+F1                         : Show this help page
+Shift+F5                         : Reload settings
+F4                               : Detach from session
+Alt+F7                           : Save current pane to $HOME/printscreen and open a new window displaying it in $EDITOR
+
+### Copy Mode ###
+F3                               : Enter copy mode
+Ctrl+F3                          : Paste buffer
+
+### Switching windows/panes ###
+F5                               : Previous window
+F6                               : Next window
+Shift+Up                         : Switch to pane above
+Shift+Down                       : Switch to pane below
+Shift+Left                       : Switch to left pane
+Shift+Right                      : Switch to right pane
+
+### Layout of panes ###
+Alt+Space                        : Next pane layout
+Ctrl+Alt+Space                   : Rotate panes in window
+
+### Creating windows/panes ###
+F7                               : New window
+Ctrl+F7                          : Create a new pane to the right
+Shift+F7                         : Create a new pane below
+
+### Kill pane/window/session ###
+F8                               : Kill window
+Ctrl+F8                          : Kill pane
+F9                               : Kill session
+
+### Pane size ###
+F11                              : Maximize current pane and vice-versa
+Ctrl+F11                         : Break current pane into separate window
