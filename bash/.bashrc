@@ -10,7 +10,6 @@ if shopt -q login_shell; then
 	export VISUAL=${EDITOR}
 	export BROWSER="google-chrome-stable"
 	export JAVA_HOME=/usr/lib/jvm/default
-	export NVIM_TUI_ENABLE_TRUE_COLOR=
 	export _JAVA_AWT_WM_NONREPARENTING=1
 
 	# Aliases
