@@ -8,6 +8,8 @@
     set -gx M2_HOME /export/home/mcoenen/opt/maven
     set -gx WORKON_HOME ~/.virtualenvs
     set -gx NODE_HOME /export/home/mcoenen/opt/node
+    set -gx GOROOT /export/home/mcoenen/opt/go
+    set -gx GOPATH /export/home/mcoenen/workspace/go
 
     set -gx SHELL (command -s fish)
 #end

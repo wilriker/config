@@ -18,6 +18,7 @@ call plug#begin('~/.vim/plugged')
 
 " Code formatting
 Plug 'tpope/vim-endwise'
+Plug 'godlygeek/tabular'
 
 " Other stuff
 Plug 'bling/vim-airline'
@@ -35,8 +36,8 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'ap/vim-css-color'
 Plug 'jaxbot/semantic-highlight.vim'
 
-" Format helper
-Plug 'godlygeek/tabular'
+" Code completion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Filetype plugin
 Plug 'wilriker/vim-fish',			{ 'for':  'fish' }
@@ -46,6 +47,7 @@ Plug 'wilriker/udev-vim-syntax',	{ 'for' : 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for' : 'coffee' }
 Plug 'chrisbra/csv.vim',			{ 'for' : 'csv' }
 Plug 'tmux-plugins/vim-tmux',		{ 'for' : 'tmux' }
+Plug 'fatih/vim-go',				{ 'for' : 'go' }
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
@@ -104,8 +106,19 @@ let g:airline_powerline_fonts = 1
 set termguicolors					" Enable 24 bit colors
 colorscheme jellybeans
 
+" Code completion
+let g:deoplete#enable_at_startup = 1
+
 " Silver Searcher ag.vim
 let g:ag_working_path_mode="r" " start search in project root
+
+" vim-go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 " Font selection for GUI
 if has('gui')
