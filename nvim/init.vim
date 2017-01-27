@@ -84,7 +84,9 @@ set noerrorbells					" don't ring the bell for error messages
 set title							" show info in the window title
 set noshowmode						" don't show the current mode in status line (airline already has it)
 
+set undofile						" Save undo information to a file
 set undolevels=1000					" maximum number of changes that can be undone
+
 set backspace=indent,eol,start		" make backspace more flexible
 set showmatch						" show matching brackets
 set matchpairs+=<:>					" define the matching brackets
@@ -108,6 +110,7 @@ colorscheme jellybeans
 
 " Code completion
 let g:deoplete#enable_at_startup = 1
+set completeopt=menu,preview,noinsert
 
 " Silver Searcher ag.vim
 let g:ag_working_path_mode="r" " start search in project root
@@ -119,6 +122,7 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
 
 " Font selection for GUI
 if has('gui')
@@ -194,11 +198,19 @@ nmap <Leader>t: ggVG:Tabularize /:<CR>
 nmap <Leader>t, ggVG:Tabularize /,<CR>
 nmap <Leader>t; ggVG:Tabularize /;<CR>
 nmap <Leader>t" ggVG:Tabularize /"<CR>
+nmap <Leader>tt ggVG:Tabularize /\t<CR>
 vmap <Leader>t= :Tabularize /=<CR>
 vmap <Leader>t: :Tabularize /:<CR>
 vmap <Leader>t, :Tabularize /,<CR>
 vmap <Leader>t; :Tabularize /;<CR>
 vmap <Leader>t" :Tabularize /"<CR>
+vmap <Leader>tt :Tabularize /\t<CR>
+
+" vim-go
+au FileType go nmap <leader>gr <Plug>(go-run)
+au FileType go nmap <leader>gb <Plug>(go-build)
+au FileType go nmap <leader>gi <Plug>(go-install)
+au FileType go nmap <leader>go <Plug>(go-imports)
 
 " Remove trailing whitespace
 nmap <silent> <Leader>w :silent! %s/\s\+$//<CR>
