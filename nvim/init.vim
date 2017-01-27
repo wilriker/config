@@ -48,6 +48,8 @@ Plug 'kchmck/vim-coffee-script',	{ 'for' : 'coffee' }
 Plug 'chrisbra/csv.vim',			{ 'for' : 'csv' }
 Plug 'tmux-plugins/vim-tmux',		{ 'for' : 'tmux' }
 Plug 'fatih/vim-go',				{ 'for' : 'go' }
+Plug 'firef0x/pkgbuild.vim'
+Plug 'smancill/conky-syntax.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
