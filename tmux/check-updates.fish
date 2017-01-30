@@ -1,15 +1,15 @@
 #!/usr/bin/env fish
 
 set -l updates 0
+set -l lock_file /tmp/update-check.lock
 
 if type -q pacaura
-    set updates (pacaur -Qu | wc -l)
+    set updates (flock -xn $lock_file pacaur -Qu | wc -l)
 else if type -q pacman
-    set updates (pacman -Qu | wc -l)
+    set updates (flock -xn $lock_file pacman -Qu | wc -l)
 else if type -q yum
-    set -l update_check_file /tmp/last-yum-update-check
-    set -l update_result_file /tmp/yum-update-count
-    set -l lock_file /tmp/yum-update-check.lock
+    set -l update_check_file /tmp/last-update-check
+    set -l update_result_file /tmp/update-count
     if not test -f $update_check_file
         echo 0 > $update_check_file
     end
@@ -25,4 +25,4 @@ else if type -q yum
     end
 end
 
-echo -n "$updates"
+echo -n $updates
