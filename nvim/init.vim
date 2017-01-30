@@ -32,9 +32,7 @@ Plug 'junegunn/fzf.vim'
 
 " Color schemes
 Plug 'nanotech/jellybeans.vim'
-"Plug 'godlygeek/csapprox'
 Plug 'ap/vim-css-color'
-"Plug 'jaxbot/semantic-highlight.vim'
 
 " Code completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
