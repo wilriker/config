@@ -34,7 +34,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'nanotech/jellybeans.vim'
 "Plug 'godlygeek/csapprox'
 Plug 'ap/vim-css-color'
-Plug 'jaxbot/semantic-highlight.vim'
+"Plug 'jaxbot/semantic-highlight.vim'
 
 " Code completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -220,8 +220,7 @@ nmap <silent> <Leader>c :noh<CR>
 
 " Show/hide whitespace (except space)
 nmap <silent> <F12> :set list!<CR>
-
-nmap <silent> <Leader>h :SemanticHighlightToggle<CR>
+imap <silent> <F12> <C-o>:set list!<CR>
 
 " Key mappings to edit/reload config files
 nmap <silent> <Leader>s :w <Bar> source ~/.config/nvim/init.vim<CR>
