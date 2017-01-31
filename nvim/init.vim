@@ -35,19 +35,21 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'ap/vim-css-color'
 
 " Code completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim',		{ 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-go',			{ 'do': 'make'}
+Plug 'jiangmiao/auto-pairs'
 
 " Filetype plugin
 Plug 'wilriker/vim-fish',			{ 'for':  'fish' }
 Plug 'tfnico/vim-gradle',			{ 'for':  'groovy' }
-Plug 'wilriker/systemd-vim-syntax',	{ 'for' : 'systemd' }
-Plug 'wilriker/udev-vim-syntax',	{ 'for' : 'udev' }
-Plug 'kchmck/vim-coffee-script',	{ 'for' : 'coffee' }
-Plug 'chrisbra/csv.vim',			{ 'for' : 'csv' }
-Plug 'tmux-plugins/vim-tmux',		{ 'for' : 'tmux' }
-Plug 'fatih/vim-go',				{ 'for' : 'go' }
-Plug 'firef0x/pkgbuild.vim'
-Plug 'smancill/conky-syntax.vim'
+Plug 'wilriker/systemd-vim-syntax',	{ 'for': 'systemd' }
+Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
+Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
+Plug 'chrisbra/csv.vim'
+Plug 'tmux-plugins/vim-tmux',		{ 'for': 'tmux' }
+Plug 'fatih/vim-go',				{ 'for': 'go', 'do': ':GoUpdateBinaries' }
+Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
+Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
@@ -112,8 +114,13 @@ colorscheme jellybeans
 let g:deoplete#enable_at_startup = 1
 set completeopt=menu,preview,noinsert
 
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#use_cache = 1
+let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/linux_amd64'
+
 " Silver Searcher ag.vim
-let g:ag_working_path_mode="r" " start search in project root
+let g:ag_working_path_mode="r"		" start search in project root
 
 " vim-go
 let g:go_highlight_functions = 1
@@ -193,18 +200,18 @@ nmap <silent> <Leader>fll :Lines<CR>
 nmap <silent> <Leader>flb :BLines<CR>
 
 " Tabularize
-nmap <Leader>t= ggVG:Tabularize /=<CR>
-nmap <Leader>t: ggVG:Tabularize /:<CR>
-nmap <Leader>t, ggVG:Tabularize /,<CR>
-nmap <Leader>t; ggVG:Tabularize /;<CR>
-nmap <Leader>t" ggVG:Tabularize /"<CR>
-nmap <Leader>tt ggVG:Tabularize /\t<CR>
-vmap <Leader>t= :Tabularize /=<CR>
-vmap <Leader>t: :Tabularize /:<CR>
-vmap <Leader>t, :Tabularize /,<CR>
-vmap <Leader>t; :Tabularize /;<CR>
-vmap <Leader>t" :Tabularize /"<CR>
-vmap <Leader>tt :Tabularize /\t<CR>
+nmap <silent> <Leader>t= ggVG:Tabularize /=<CR>
+nmap <silent> <Leader>t: ggVG:Tabularize /:<CR>
+nmap <silent> <Leader>t, ggVG:Tabularize /,<CR>
+nmap <silent> <Leader>t; ggVG:Tabularize /;<CR>
+nmap <silent> <Leader>t" ggVG:Tabularize /"<CR>
+nmap <silent> <Leader>tt ggVG:Tabularize /\t<CR>
+vmap <silent> <Leader>t= :Tabularize /=<CR>
+vmap <silent> <Leader>t: :Tabularize /:<CR>
+vmap <silent> <Leader>t, :Tabularize /,<CR>
+vmap <silent> <Leader>t; :Tabularize /;<CR>
+vmap <silent> <Leader>t" :Tabularize /"<CR>
+vmap <silent> <Leader>tt :Tabularize /\t<CR>
 
 " vim-go
 au FileType go nmap <leader>gr <Plug>(go-run)
