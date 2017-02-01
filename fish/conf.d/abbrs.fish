@@ -62,10 +62,6 @@ if type -q yum
     abbr -a yumr 'sudo yum remove'
 end
 
-if type -q grc
-    abbr -a './configure' 'grc -es --colour=auto ./configure'
-end
-
 if type -q unarchive
     abbr -a x unarchive
 end
@@ -76,4 +72,8 @@ end
 
 if type -q colordiff
     abbr -a diff colordiff
+end
+
+if type -q free
+    abbr -a free 'free -m'
 end
