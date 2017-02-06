@@ -23,5 +23,5 @@ if status is-login
         echo "function $exec --wraps $exec; command grc -es --colour=auto $exec \$argv; end" | source
     end
 
-    abbr -a './configure' 'grc -es --colour=auto ./configure'
+    echo "function configure; grc -es --colour=auto ./configure \$argv; end" | source
 end
