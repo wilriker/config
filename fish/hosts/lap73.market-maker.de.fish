@@ -1,6 +1,6 @@
 # Init environment on login
 # As we do not have login on this machine we do it just everytime
-#if status --is-login
+#if status is-login
 
     # $PROG_HOME dirs
     set -gx JAVA_HOME /export/home/mcoenen/opt/jdk1.8

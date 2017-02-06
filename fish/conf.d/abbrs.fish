@@ -1,7 +1,7 @@
 # This file contains abbreveations per command
 
 # Only run in interactive shells
-if not status --is-interactive
+if not status is-interactive
     exit
 end
 

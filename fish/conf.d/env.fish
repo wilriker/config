@@ -1,4 +1,4 @@
-if status --is-login
+if status is-login
 
     # Environment variables
     set -gx LANG en_DK.UTF-8

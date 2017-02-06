@@ -1,4 +1,4 @@
-if status --is-login
+if status is-login
 
     # LESS related settings
     set -gx LESS '-g -i -M -R -w -z-4'

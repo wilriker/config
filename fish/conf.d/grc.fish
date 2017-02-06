@@ -9,18 +9,16 @@ set -l execs    blkid dig docker docker-machine env free gcc g++ ip iptables \
                 mvn netstat nmap ping ping6 ps sar showmount stat sysctl \
                 systemctl tcpdump traceroute tune2fs ulimit uptime vmstat w who
 
-for executable in $execs
+for exec in $execs
 
     # If program is not installed or function is already present skip
-    if not command -s $executable >/dev/null
-        or functions -q $executable
+    if not command -sq $exec
+        or functions -q $exec
         continue
     end
 
     # Create function
-    function $executable --inherit-variable executable --wraps=$executable
-        command grc -es --colour=auto $executable $argv
-    end
+    echo "function $exec --wraps $exec; command grc -es --colour=auto $exec \$argv; end" | source
 end
 
 abbr -a './configure' 'grc -es --colour=auto ./configure'
