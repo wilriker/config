@@ -1,14 +1,13 @@
-# Nothing to do if grc is not installed at all
-if not type -q nvim
-    exit
-end
+if status is-login
 
-for executable in edit ex rview rvim vedit vi view vim
-    function $executable --wraps=$executable
-        nvim $argv
+    # Nothing to do if nvim is not installed at all
+    if not type -q nvim
+        exit
     end
-end
 
-function vimdiff --wraps=vimdiff
-    nvim -d $argv
+    for exec in edit ex rview rvim vedit vi view vim
+        echo "function $exec --wraps $exec; nvim \$argv; end" | source
+    end
+
+    echo "function vimdiff --wraps vimdiff; nvim -d \$argv; end" | source
 end
