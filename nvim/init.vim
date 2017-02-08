@@ -25,6 +25,7 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 "Plug 'edkolev/tmuxline.vim'
+Plug 'schickling/vim-bufonly'
 
 " Searching/Fuzzyfind
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-key-bindings --no-completion --update-rc' }
@@ -50,6 +51,7 @@ Plug 'tmux-plugins/vim-tmux',		{ 'for': 'tmux' }
 Plug 'fatih/vim-go',				{ 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
+Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
@@ -183,6 +185,9 @@ let mapleader = ","
 
 noremap <silent> <C-k> :call <SID>swap_up()<CR>
 noremap <silent> <C-j> :call <SID>swap_down()<CR>
+
+" BufOnly
+nmap <silent> <Leader>bo :BufOnly<CR>
 
 " Buffer management
 nmap <silent> <Leader>T :enew<CR>
