@@ -218,6 +218,9 @@ vmap <silent> <Leader>t; :Tabularize /;<CR>
 vmap <silent> <Leader>t" :Tabularize /"<CR>
 vmap <silent> <Leader>tt :Tabularize /\t<CR>
 
+" vim-fish
+nmap <silent> <Leader>fi gggqG<CR>
+
 " vim-go
 au FileType go nmap <leader>gr <Plug>(go-run)
 au FileType go nmap <leader>gb <Plug>(go-build)
