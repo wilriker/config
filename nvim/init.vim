@@ -173,10 +173,14 @@ nmap <silent> <Leader>bo :BufOnly<CR>
 
 " vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
-"nnoremap <S-Up>    :TmuxNavigateUp<CR>
-"nnoremap <S-Down>  :TmuxNavigateDown<CR>
-"nnoremap <S-Left>  :TmuxNavigateLeft<CR>
-"nnoremap <S-Right> :TmuxNavigateRight<CR>
+nnoremap <S-Up>    :TmuxNavigateUp<CR>
+nnoremap <S-Down>  :TmuxNavigateDown<CR>
+nnoremap <S-Left>  :TmuxNavigateLeft<CR>
+nnoremap <S-Right> :TmuxNavigateRight<CR>
+nnoremap <C-W>k    :TmuxNavigateUp<CR>
+nnoremap <C-W>j    :TmuxNavigateDown<CR>
+nnoremap <C-W>h    :TmuxNavigateLeft<CR>
+nnoremap <C-W>l    :TmuxNavigateRight<CR>
 
 " Buffer management
 nmap <silent> <Leader>T :enew<CR>
