@@ -84,7 +84,7 @@ set hlsearch						" highlight all matches for the last used search pattern
 set inccommand=split				" interactive search-and-replace
 
 set nowrap							" do not wrap lines
-set scrolloff=1						" Number of lines to keep above/below cursor as context
+set scrolloff=5						" Number of lines to keep above/below cursor as context
 set sidescrolloff=5					" Number of columns to keep left/right of cursor as context
 
 set cursorline						" highlight current line
@@ -95,6 +95,7 @@ set showcmd							" show the command being typed
 set noerrorbells					" don't ring the bell for error messages
 set title							" show info in the window title
 set noshowmode						" don't show the current mode in status line (airline already has it)
+set wildmode=longest:full			" Only complete until the longest common match and then show wildmenu
 
 set undofile						" Save undo information to a file
 set undolevels=1000					" maximum number of changes that can be undone
