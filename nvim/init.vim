@@ -27,6 +27,10 @@ Plug 'airblade/vim-gitgutter'
 "Plug 'edkolev/tmuxline.vim'
 Plug 'schickling/vim-bufonly'
 
+" Navigation
+Plug 'rhysd/clever-f.vim'
+Plug 'matze/vim-move'
+
 " Searching/Fuzzyfind
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-key-bindings --no-completion --update-rc' }
 Plug 'junegunn/fzf.vim'
@@ -52,6 +56,7 @@ Plug 'fatih/vim-go',				{ 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
+Plug 'fidian/hexmode'
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
@@ -62,7 +67,6 @@ set dir=~/tmp,/tmp,/var/tmp,.
 set hidden							" Enable automatic hiding of buffers even when they are modified
 
 set laststatus=2					" Always display statusline
-set ttimeoutlen=0
 set updatetime=250					" Update gitgutter after this many ms (also write swapfile)
 
 set number							" turn on line numbers
@@ -78,6 +82,8 @@ set hlsearch						" highlight all matches for the last used search pattern
 set inccommand=split				" interactive search-and-replace
 
 set nowrap							" do not wrap lines
+set scrolloff=1						" Number of lines to keep above/below cursor as context
+set sidescrolloff=5					" Number of columns to keep left/right of cursor as context
 
 set cursorline						" highlight current line
 
@@ -133,10 +139,19 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 
+" move
+let g:move_key_modifier = 'C'
+
 " Font selection for GUI
 if has('gui')
 	set guifont=Inconsolata-g\ for\ Powerline\ Medium\ 9
 endif
+
+" Open help as vertical split
+augroup vimrc_help
+  autocmd!
+  autocmd BufWinEnter *.txt if &buftype == 'help' | wincmd L | endif
+augroup END
 
 " match lines containing todos regardless if filetype highlights differently
 augroup HighlightTodos
@@ -152,39 +167,8 @@ augroup HighlightExtraWhitespace
 	autocmd WinEnter,VimEnter * call matchadd('ExtraWhitespace', '\s\+$', -1)
 augroup END
 
-" Functions
-function! s:swap_lines(n1, n2)
-	let line1 = getline(a:n1)
-	let line2 = getline(a:n2)
-	call setline(a:n1, line2)
-	call setline(a:n2, line1)
-endfunction
-
-function! s:swap_up()
-	let n = line('.')
-	if n == 1
-		return
-	endif
-
-	call s:swap_lines(n, n - 1)
-	exec n - 1
-endfunction
-
-function! s:swap_down()
-	let n = line('.')
-	if n == line('$')
-		return
-	endif
-
-	call s:swap_lines(n, n + 1)
-	exec n + 1
-endfunction
-
 " Custom key mappings
 let mapleader = ","
-
-noremap <silent> <C-k> :call <SID>swap_up()<CR>
-noremap <silent> <C-j> :call <SID>swap_down()<CR>
 
 " BufOnly
 nmap <silent> <Leader>bo :BufOnly<CR>
@@ -229,7 +213,7 @@ au FileType go nmap <leader>go <Plug>(go-imports)
 
 " Remove trailing whitespace
 nmap <silent> <Leader>w :silent! %s/\s\+$//<CR>
-nmap <silent> <Leader>c :noh<CR>
+nmap <silent> <Leader>c :nohlsearch<CR>
 
 " Show/hide whitespace (except space)
 nmap <silent> <F12> :set list!<CR>
