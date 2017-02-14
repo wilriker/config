@@ -1,10 +1,10 @@
 " Prevent issues with non-bourne-shells
-if $SHELL =~ 'bin/zsh'
-	set shell=/bin/bash
-endif
-if $SHELL =~ 'bin/fish'
-	set shell=/bin/bash
-endif
+"if $SHELL =~ 'bin/zsh'
+"	set shell=/bin/bash
+"endif
+"if $SHELL =~ 'bin/fish'
+"	set shell=/bin/bash
+"endif
 
 " Make sure vim-plug is installed
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
