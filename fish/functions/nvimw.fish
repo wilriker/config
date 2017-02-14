@@ -1,6 +1,6 @@
 function nvimw
     if command -sq $argv
-        vim (which $argv)
+        nvim (which $argv)
     else if functions -q $argv
         funced $argv
     else
