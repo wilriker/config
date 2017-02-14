@@ -19,6 +19,7 @@ call plug#begin('~/.vim/plugged')
 " Code formatting
 Plug 'tpope/vim-endwise'
 Plug 'godlygeek/tabular'
+Plug 'scrooloose/nerdcommenter'
 
 " Other stuff
 Plug 'bling/vim-airline'
