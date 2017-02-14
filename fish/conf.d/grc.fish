@@ -1,5 +1,5 @@
 # Nothing to do if grc is not installed at all
-if not type -q grc
+if not command -sq grc
     exit
 end
 
@@ -8,6 +8,8 @@ set -l execs    blkid dig docker docker-machine env free gcc g++ ip iptables \
                 iostat journalctl last lsattr lsblk lsmod lspci make mount \
                 mvn netstat nmap ping ping6 ps sar showmount stat sysctl \
                 systemctl tcpdump traceroute tune2fs ulimit uptime vmstat w who
+
+alias grc 'grc -es --colour=auto'
 
 for exec in $execs
 
@@ -18,7 +20,7 @@ for exec in $execs
     end
 
     # Create function
-    echo "function $exec --wraps $exec; command grc -es --colour=auto $exec \$argv; end" | source
+    echo "function $exec --wraps $exec; grc $exec \$argv; end" | source
 end
 
-echo "function configure; grc -es --colour=auto ./configure \$argv; end" | source
+echo "function configure; grc ./configure \$argv; end" | source
