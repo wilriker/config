@@ -30,6 +30,8 @@ Plug 'schickling/vim-bufonly'
 " Navigation
 Plug 'rhysd/clever-f.vim'
 Plug 'matze/vim-move'
+Plug 'majutsushi/tagbar'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Searching/Fuzzyfind
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-key-bindings --no-completion --update-rc' }
@@ -137,6 +139,8 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_auto_type_info = 1
+let g:go_def_reuse_buffer = 1
 let g:go_fmt_command = "goimports"
 
 " move
@@ -146,12 +150,6 @@ let g:move_key_modifier = 'C'
 if has('gui')
 	set guifont=Inconsolata-g\ for\ Powerline\ Medium\ 9
 endif
-
-" Open help as vertical split
-augroup vimrc_help
-  autocmd!
-  autocmd BufWinEnter *.txt if &buftype == 'help' | wincmd L | endif
-augroup END
 
 " match lines containing todos regardless if filetype highlights differently
 augroup HighlightTodos
@@ -172,6 +170,13 @@ let mapleader = ","
 
 " BufOnly
 nmap <silent> <Leader>bo :BufOnly<CR>
+
+" vim-tmux-navigator
+let g:tmux_navigator_no_mappings = 1
+nnoremap <S-Up>    :TmuxNavigateUp<CR>
+nnoremap <S-Down>  :TmuxNavigateDown<CR>
+nnoremap <S-Left>  :TmuxNavigateLeft<CR>
+nnoremap <S-Right> :TmuxNavigateRight<CR>
 
 " Buffer management
 nmap <silent> <Leader>T :enew<CR>
@@ -205,11 +210,21 @@ vmap <silent> <Leader>tt :Tabularize /\t<CR>
 " vim-fish
 nmap <silent> <Leader>fi gggqG<CR>
 
+" tagbar
+nmap <silent> <Leader>o :TagbarToggle<CR>
+
 " vim-go
-au FileType go nmap <leader>gr <Plug>(go-run)
-au FileType go nmap <leader>gb <Plug>(go-build)
-au FileType go nmap <leader>gi <Plug>(go-install)
-au FileType go nmap <leader>go <Plug>(go-imports)
+augroup VimGo
+	autocmd!
+	autocmd FileType go nmap <silent> <Leader>gr <Plug>(go-run)
+	autocmd FileType go nmap <silent> <Leader>gb <Plug>(go-build)
+	autocmd FileType go nmap <silent> <Leader>gi <Plug>(go-install)
+	autocmd FileType go nmap <silent> <Leader>go <Plug>(go-imports)
+	autocmd FileType go nmap <silent> <Leader>gd <Plug>(go-doc-browser)
+	autocmd FileType go nmap <silent> <Leader>gv <Plug>(go-def-vertical)
+	autocmd FileType go nmap <silent> <Leader>gn <Plug>(go-rename)
+	autocmd FileType go nmap <silent> <Leader>gh <Plug>(go-callers)
+augroup END
 
 " Remove trailing whitespace
 nmap <silent> <Leader>w :silent! %s/\s\+$//<CR>
