@@ -4,7 +4,7 @@ if status is-login
     set -gx LANG en_DK.UTF-8
     set -gx LC_COLLATE C
     set -gx EDITOR nvim
-    set -gx VISUAL nvim
+    set -gx VISUAL $EDITOR
     set -gx PAGER less
     set -gx BROWSER google-chrome-stable
     set -gx XKB_DEFAULT_LAYOUT de
