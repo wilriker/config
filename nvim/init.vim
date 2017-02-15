@@ -96,7 +96,7 @@ set showcmd							" show the command being typed
 set noerrorbells					" don't ring the bell for error messages
 set title							" show info in the window title
 set noshowmode						" don't show the current mode in status line (airline already has it)
-set wildmode=longest:full			" Only complete until the longest common match and then show wildmenu
+set wildmode=full					" Only complete until the longest common match and then show wildmenu
 
 set undofile						" Save undo information to a file
 set undolevels=1000					" maximum number of changes that can be undone
@@ -156,15 +156,15 @@ endif
 " match lines containing todos regardless if filetype highlights differently
 augroup HighlightTodos
 	autocmd!
-	autocmd WinEnter,VimEnter * highlight ToDoLine ctermbg=red guibg=#ff00ff guifg=#222222
-	autocmd WinEnter,VimEnter * call matchadd('ToDoLine', '^.*(TODO|FIXME).*$', -1)
+	autocmd WinEnter,VimEnter * highlight ToDoLine ctermbg=red guibg=#2C362C guifg=#13D613
+	autocmd WinEnter,VimEnter * call matchadd('ToDoLine', '\v(TODO|FIXME|XXX).*$')
 augroup END
 
 " match extra whitespace at the end of lines
 augroup HighlightExtraWhitespace
 	autocmd!
 	autocmd WinEnter,VimEnter * highlight ExtraWhitespace ctermbg=red guibg=#ff0000
-	autocmd WinEnter,VimEnter * call matchadd('ExtraWhitespace', '\s\+$', -1)
+	autocmd WinEnter,VimEnter * call matchadd('ExtraWhitespace', '\s\+$')
 augroup END
 
 " Custom key mappings
@@ -175,14 +175,14 @@ nmap <silent> <Leader>bo :BufOnly<CR>
 
 " vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
-nnoremap <S-Up>    :TmuxNavigateUp<CR>
-nnoremap <S-Down>  :TmuxNavigateDown<CR>
-nnoremap <S-Left>  :TmuxNavigateLeft<CR>
-nnoremap <S-Right> :TmuxNavigateRight<CR>
-nnoremap <C-W>k    :TmuxNavigateUp<CR>
-nnoremap <C-W>j    :TmuxNavigateDown<CR>
-nnoremap <C-W>h    :TmuxNavigateLeft<CR>
-nnoremap <C-W>l    :TmuxNavigateRight<CR>
+nnoremap <silent> <S-Up>    :TmuxNavigateUp<CR>
+nnoremap <silent> <S-Down>  :TmuxNavigateDown<CR>
+nnoremap <silent> <S-Left>  :TmuxNavigateLeft<CR>
+nnoremap <silent> <S-Right> :TmuxNavigateRight<CR>
+nnoremap <silent> <C-W>k    :TmuxNavigateUp<CR>
+nnoremap <silent> <C-W>j    :TmuxNavigateDown<CR>
+nnoremap <silent> <C-W>h    :TmuxNavigateLeft<CR>
+nnoremap <silent> <C-W>l    :TmuxNavigateRight<CR>
 
 " Buffer management
 nmap <silent> <Leader>T :enew<CR>
@@ -234,7 +234,7 @@ augroup END
 
 " Remove trailing whitespace
 nmap <silent> <Leader>w :silent! %s/\s\+$//<CR>
-nmap <silent> <Leader>c :nohlsearch<CR>
+nmap <silent> <Leader><Space> :nohlsearch<CR>
 
 " Show/hide whitespace (except space)
 nmap <silent> <F12> :set list!<CR>
