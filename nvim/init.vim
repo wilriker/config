@@ -3,7 +3,7 @@
 "	set shell=/bin/bash
 "endif
 "if $SHELL =~ 'bin/fish'
-"	set shell=/bin/bash
+	"set shell=/bin/bash
 "endif
 
 " Make sure vim-plug is installed
@@ -16,10 +16,15 @@ endif
 " initialize vim-plug
 call plug#begin('~/.vim/plugged')
 
+" Color schemes
+Plug 'nanotech/jellybeans.vim'
+Plug 'ap/vim-css-color'
+
 " Code formatting
 Plug 'tpope/vim-endwise'
 Plug 'godlygeek/tabular'
 Plug 'scrooloose/nerdcommenter'
+Plug 'junegunn/rainbow_parentheses.vim'
 
 " Other stuff
 Plug 'bling/vim-airline'
@@ -27,6 +32,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 "Plug 'edkolev/tmuxline.vim'
 Plug 'schickling/vim-bufonly'
+Plug 'valloric/listtoggle'
 
 " Navigation
 Plug 'rhysd/clever-f.vim'
@@ -37,10 +43,6 @@ Plug 'christoomey/vim-tmux-navigator'
 " Searching/Fuzzyfind
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-key-bindings --no-completion --update-rc' }
 Plug 'junegunn/fzf.vim'
-
-" Color schemes
-Plug 'nanotech/jellybeans.vim'
-Plug 'ap/vim-css-color'
 
 " Code completion
 Plug 'Shougo/deoplete.nvim',		{ 'do': ':UpdateRemotePlugins' }
@@ -67,15 +69,25 @@ call plug#end()						" Add plugins to &runtimepath
 " Working directories
 set dir=~/tmp,/tmp,/var/tmp,.
 
+" Buffers
 set hidden							" Enable automatic hiding of buffers even when they are modified
+set splitright						" a new window is put right of the current one
 
+" Statusline and title
 set laststatus=2					" Always display statusline
+set showcmd							" show the command being typed
+set noerrorbells					" don't ring the bell for error messages
+set title							" show info in the window title
+set noshowmode						" don't show the current mode in status line (airline already has it)
+set wildmode=full					" Only complete until the longest common match and then show wildmenu
+
 set updatetime=250					" Update gitgutter after this many ms (also write swapfile)
 
+" Line numbers
 set number							" turn on line numbers
 set numberwidth=5					" We are good up to 9999 lines
-set listchars=tab:▸\ ,eol:$,nbsp:%	" change the tab and eol characters
 
+" Search and Replace
 set autochdir						" always switch to the current file directory
 set wrapscan						" searches wrap around the end of the buffer
 set ignorecase						" case insensitive searches
@@ -84,43 +96,43 @@ set incsearch						" show match for partly typed searches
 set hlsearch						" highlight all matches for the last used search pattern
 set inccommand=split				" interactive search-and-replace
 
+" Line display
 set nowrap							" do not wrap lines
 set scrolloff=5						" Number of lines to keep above/below cursor as context
 set sidescrolloff=5					" Number of columns to keep left/right of cursor as context
 
-set cursorline						" highlight current line
-
-set splitright						" a new window is put right of the current one
-
-set showcmd							" show the command being typed
-set noerrorbells					" don't ring the bell for error messages
-set title							" show info in the window title
-set noshowmode						" don't show the current mode in status line (airline already has it)
-set wildmode=full					" Only complete until the longest common match and then show wildmenu
-
+" Undo
 set undofile						" Save undo information to a file
 set undolevels=1000					" maximum number of changes that can be undone
 
 set backspace=indent,eol,start		" make backspace more flexible
+set listchars=tab:▸\ ,eol:$,nbsp:%	" change the tab and eol characters
+
+" Brace/Bracket/Parantheses matching
 set showmatch						" show matching brackets
 set matchpairs+=<:>					" define the matching brackets
 au FileType c,cpp,java set mps+==:;	" Set a pair for assignments in Java and C/C++
 
-"	15 tabs and indenting
+" tabs and indenting
 set tabstop=4						" make tabs 4 characters wide
 set shiftwidth=4					" make whitespace indentation 4 characters wide
 set nosmarttab						" don't insert spaces for <TAB> in indentations
 set softtabstop=4					" make expanded tabs 4 characters wide
 set noexpandtab						" do not expand tabs to single whitespaces
 
+" Colorscheme and other UI settings
+set termguicolors					" Enable 24 bit colors
+set cursorline						" highlight current line
+colorscheme jellybeans
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1	" Enable pipe as cursor in INPUT mode - can be removed in nvim 0.2.0
+if has('gui')
+	set guifont=Inconsolata-g\ for\ Powerline\ Medium\ 9
+endif
+
 " Airline settings
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_powerline_fonts = 1
-
-" Colorscheme
-set termguicolors					" Enable 24 bit colors
-colorscheme jellybeans
 
 " Code completion
 let g:deoplete#enable_at_startup = 1
@@ -148,15 +160,10 @@ let g:go_fmt_command = "goimports"
 " move
 let g:move_key_modifier = 'C'
 
-" Font selection for GUI
-if has('gui')
-	set guifont=Inconsolata-g\ for\ Powerline\ Medium\ 9
-endif
-
 " match lines containing todos regardless if filetype highlights differently
 augroup HighlightTodos
 	autocmd!
-	autocmd WinEnter,VimEnter * highlight ToDoLine ctermbg=red guibg=#2C362C guifg=#13D613
+	autocmd WinEnter,VimEnter * highlight ToDoLine ctermbg=red guibg=#362C2C guifg=#FF2424
 	autocmd WinEnter,VimEnter * call matchadd('ToDoLine', '\v(TODO|FIXME|XXX).*$')
 augroup END
 
@@ -166,6 +173,27 @@ augroup HighlightExtraWhitespace
 	autocmd WinEnter,VimEnter * highlight ExtraWhitespace ctermbg=red guibg=#ff0000
 	autocmd WinEnter,VimEnter * call matchadd('ExtraWhitespace', '\s\+$')
 augroup END
+
+" rainbow_parentheses
+autocmd VimEnter * RainbowParentheses
+let g:rainbow#pairs = [['{', '}'], ['(', ')'], ['[', ']']]
+"let g:rainbow#colors = [[
+	"\ [1, "#f20085"],
+	"\ [1, "#5353f2"],
+	"\ [1, "#8fff8b"],
+	"\ [1, "#e831e8"],
+	"\ [1, "#009000"],
+	"\ [1, "#f2f266"],
+	"\ [1, "#defff2"],
+	"\ [1, "#f7996e"],
+	"\ [1, "#8cada7"],
+	"\ [1, "#f48498"],
+	"\ [1, "#acd8aa"],
+	"\ [1, "#f4d35e"],
+	"\ [1, "#00cecb"],
+	"\ [1, "#dc602e"],
+	"\ [1, "#9a031e"],
+	"\ [1, "#e0fbfc"]]]
 
 " Custom key mappings
 let mapleader = ","
@@ -256,4 +284,11 @@ nnoremap <Leader>ac :Ag <C-r><C-w><CR>
 
 " Save as root if forgotten to start with sudo
 cmap w!! w !sudo tee % > /dev/null
+
+" prevent ex mode
+nnoremap Q <Nop>
+nnoremap gQ <Nop>
+
+" Manually activate code completion
+imap <silent> <C-Space> <C-x><C-o>
 
