@@ -143,9 +143,6 @@ let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const
 let g:deoplete#sources#go#use_cache = 1
 let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/linux_amd64'
 
-" Silver Searcher ag.vim
-let g:ag_working_path_mode="r"		" start search in project root
-
 " vim-go
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -198,9 +195,6 @@ let g:rainbow#pairs = [['{', '}'], ['(', ')'], ['[', ']']]
 " Custom key mappings
 let mapleader = ","
 
-" BufOnly
-nmap <silent> <Leader>bo :BufOnly<CR>
-
 " vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <S-Up>    :TmuxNavigateUp<CR>
@@ -219,13 +213,18 @@ nmap <silent> <Leader>bk :bdelete!<CR>
 nmap <silent> gb :bnext<CR>
 nmap <silent> gB :bprevious<CR>
 
+" BufOnly
+nmap <silent> <Leader>bo :BufOnly<CR>
+
 " FuzzyFind
 nmap <silent> <Leader>fg :GFiles<CR>
-nmap <silent> <Leader>ff :Files<CR>
 nmap <silent> <Leader>fb :Buffers<CR>
+nmap <silent> <Leader>fl :Lines<CR>
 nmap <silent> <Leader>fc :Commits<CR>
-nmap <silent> <Leader>fll :Lines<CR>
-nmap <silent> <Leader>flb :BLines<CR>
+nmap <silent> <Leader>fm :Maps<CR>
+nmap <Leader><Tab> <Plug>(fzf-maps-n)
+xmap <Leader><Tab> <Plug>(fzf-maps-x)
+omap <Leader><Tab> <Plug>(fzf-maps-o)
 
 " Tabularize
 nmap <silent> <Leader>t= ggVG:Tabularize /=<CR>
@@ -242,7 +241,10 @@ vmap <silent> <Leader>t" :Tabularize /"<CR>
 vmap <silent> <Leader>tt :Tabularize /\t<CR>
 
 " vim-fish
-nmap <silent> <Leader>fi gggqG<CR>
+augroup VimFish
+	autocmd!
+	autocmd FileType fish nmap <silent> <Leader>i gggqG<CR>
+augroup END
 
 " tagbar
 nmap <silent> <Leader>o :TagbarToggle<CR>
@@ -269,8 +271,8 @@ nmap <silent> <F12> :set list!<CR>
 imap <silent> <F12> <C-o>:set list!<CR>
 
 " Key mappings to edit/reload config files
-nmap <silent> <Leader>s :w <Bar> source ~/.config/nvim/init.vim<CR>
-nmap <silent> <Leader>v :e ~/.config/nvim/init.vim<CR>
+nmap <silent> <Leader>s :w <Bar> source $MYVIMRC<CR>
+nmap <silent> <Leader>v :e $MYVIMRC<CR>
 nmap <silent> <Leader>f :e ~/.config/fish/config.fish<CR>
 
 " Copy/Paste
