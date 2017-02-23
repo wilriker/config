@@ -33,6 +33,7 @@ Plug 'airblade/vim-gitgutter'
 "Plug 'edkolev/tmuxline.vim'
 Plug 'schickling/vim-bufonly'
 Plug 'valloric/listtoggle'
+Plug 'tpope/vim-obsession'
 
 " Navigation
 Plug 'rhysd/clever-f.vim'
@@ -50,8 +51,8 @@ Plug 'zchee/deoplete-go',			{ 'do': 'make'}
 Plug 'jiangmiao/auto-pairs'
 
 " Filetype plugin
-Plug 'wilriker/vim-fish',			{ 'for':  'fish' }
-Plug 'tfnico/vim-gradle',			{ 'for':  'groovy' }
+Plug 'wilriker/vim-fish',			{ 'for': 'fish' }
+Plug 'tfnico/vim-gradle',			{ 'for': 'groovy' }
 Plug 'wilriker/systemd-vim-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
@@ -172,25 +173,11 @@ augroup HighlightExtraWhitespace
 augroup END
 
 " rainbow_parentheses
-autocmd VimEnter * RainbowParentheses
 let g:rainbow#pairs = [['{', '}'], ['(', ')'], ['[', ']']]
-"let g:rainbow#colors = [[
-	"\ [1, "#f20085"],
-	"\ [1, "#5353f2"],
-	"\ [1, "#8fff8b"],
-	"\ [1, "#e831e8"],
-	"\ [1, "#009000"],
-	"\ [1, "#f2f266"],
-	"\ [1, "#defff2"],
-	"\ [1, "#f7996e"],
-	"\ [1, "#8cada7"],
-	"\ [1, "#f48498"],
-	"\ [1, "#acd8aa"],
-	"\ [1, "#f4d35e"],
-	"\ [1, "#00cecb"],
-	"\ [1, "#dc602e"],
-	"\ [1, "#9a031e"],
-	"\ [1, "#e0fbfc"]]]
+augroup RainbowParentheses
+	autocmd!
+	autocmd FileType java,c,go,list,clojure RainbowParentheses
+augroup END
 
 " Custom key mappings
 let mapleader = ","
@@ -206,10 +193,15 @@ nnoremap <silent> <C-W>j    :TmuxNavigateDown<CR>
 nnoremap <silent> <C-W>h    :TmuxNavigateLeft<CR>
 nnoremap <silent> <C-W>l    :TmuxNavigateRight<CR>
 
+" Splits
+nmap <silent> <Leader>ss :split<CR>
+nmap <silent> <Leader>sv :vsplit<CR>
+
 " Buffer management
 nmap <silent> <Leader>T :enew<CR>
 nmap <silent> <Leader>bq :bprevious <Bar> bdelete! #<CR>
 nmap <silent> <Leader>bk :bdelete!<CR>
+nmap <silent> <Leader>be :checktime<CR>
 nmap <silent> gb :bnext<CR>
 nmap <silent> gB :bprevious<CR>
 
@@ -217,11 +209,11 @@ nmap <silent> gB :bprevious<CR>
 nmap <silent> <Leader>bo :BufOnly<CR>
 
 " FuzzyFind
+nmap <silent> <Leader>ff :Files<CR>
 nmap <silent> <Leader>fg :GFiles<CR>
 nmap <silent> <Leader>fb :Buffers<CR>
 nmap <silent> <Leader>fl :Lines<CR>
 nmap <silent> <Leader>fc :Commits<CR>
-nmap <silent> <Leader>fm :Maps<CR>
 nmap <Leader><Tab> <Plug>(fzf-maps-n)
 xmap <Leader><Tab> <Plug>(fzf-maps-x)
 omap <Leader><Tab> <Plug>(fzf-maps-o)
@@ -246,8 +238,17 @@ augroup VimFish
 	autocmd FileType fish nmap <silent> <Leader>i gggqG<CR>
 augroup END
 
+" listtoggle
+let g:lt_location_list_toggle_map = '<leader>ql'
+let g:lt_quickfix_list_toggle_map = '<leader>qq'
+
 " tagbar
-nmap <silent> <Leader>o :TagbarToggle<CR>
+nmap <silent> <F2> :TagbarToggle<CR>
+
+" obsession
+nmap <silent> <Leader>os :Obsess<CR>
+nmap <silent> <Leader>ok :Obsess!<CR>
+nmap <silent> <Leader>ol :source Session.vim<CR>
 
 " vim-go
 augroup VimGo
@@ -271,12 +272,13 @@ nmap <silent> <F12> :set list!<CR>
 imap <silent> <F12> <C-o>:set list!<CR>
 
 " Key mappings to edit/reload config files
-nmap <silent> <Leader>s :w <Bar> source $MYVIMRC<CR>
-nmap <silent> <Leader>v :e $MYVIMRC<CR>
+nmap <silent> <Leader>vs :w <Bar> source $MYVIMRC<CR>
+nmap <silent> <Leader>vv :e $MYVIMRC<CR>
 nmap <silent> <Leader>f :e ~/.config/fish/config.fish<CR>
 
-" Copy/Paste
+" Copy/Paste to/from system clipboard
 vnoremap <silent> <Leader>y "+y<CR>
+nnoremap <silent> <Leader>y "+yy<CR>
 nnoremap <silent> <Leader>p "+gp<CR>
 nnoremap <silent> <Leader>P "+gP<CR>
 
