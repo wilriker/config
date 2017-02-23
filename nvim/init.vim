@@ -199,8 +199,7 @@ nmap <silent> <Leader>sv :vsplit<CR>
 
 " Buffer management
 nmap <silent> <Leader>T :enew<CR>
-nmap <silent> <Leader>bq :bprevious <Bar> bdelete! #<CR>
-nmap <silent> <Leader>bk :bdelete!<CR>
+nmap <silent> <expr> <Leader>bq len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1 ? ':bprevious <Bar> bdelete! #<CR>' : ':bdelete!<CR>'
 nmap <silent> <Leader>be :checktime<CR>
 nmap <silent> gb :bnext<CR>
 nmap <silent> gB :bprevious<CR>
