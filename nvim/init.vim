@@ -34,6 +34,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'schickling/vim-bufonly'
 Plug 'valloric/listtoggle'
 Plug 'tpope/vim-obsession'
+Plug 'scrooloose/nerdtree',			{ 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeCWD'] }
 
 " Navigation
 Plug 'rhysd/clever-f.vim'
@@ -67,15 +68,11 @@ Plug 'fidian/hexmode'
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
 
-" Working directories
-set dir=~/tmp,/tmp,/var/tmp,.
-
 " Buffers
 set hidden							" Enable automatic hiding of buffers even when they are modified
 set splitright						" a new window is put right of the current one
 
 " Statusline and title
-set laststatus=2					" Always display statusline
 set showcmd							" show the command being typed
 set noerrorbells					" don't ring the bell for error messages
 set title							" show info in the window title
@@ -89,12 +86,10 @@ set number							" turn on line numbers
 set numberwidth=5					" We are good up to 9999 lines
 
 " Search and Replace
-set autochdir						" always switch to the current file directory
+autocmd BufEnter * silent! lcd %:p:h " always switch to the current file directory
 set wrapscan						" searches wrap around the end of the buffer
 set ignorecase						" case insensitive searches
 set smartcase						" if there are caps, go case-sensitive
-set incsearch						" show match for partly typed searches
-set hlsearch						" highlight all matches for the last used search pattern
 set inccommand=split				" interactive search-and-replace
 
 " Line display
@@ -106,10 +101,9 @@ set sidescrolloff=5					" Number of columns to keep left/right of cursor as cont
 set undofile						" Save undo information to a file
 set undolevels=1000					" maximum number of changes that can be undone
 
-set backspace=indent,eol,start		" make backspace more flexible
 set listchars=tab:▸\ ,eol:$,nbsp:%	" change the tab and eol characters
 
-" Brace/Bracket/Parantheses matching
+" Brace/Bracket/Parentheses matching
 set showmatch						" show matching brackets
 set matchpairs+=<:>					" define the matching brackets
 au FileType c,cpp,java set mps+==:;	" Set a pair for assignments in Java and C/C++
@@ -123,7 +117,7 @@ set noexpandtab						" do not expand tabs to single whitespaces
 
 " Colorscheme and other UI settings
 set termguicolors					" Enable 24 bit colors
-set cursorline						" highlight current line
+"set cursorline						" highlight current line
 colorscheme jellybeans
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1	" Enable pipe as cursor in INPUT mode - can be removed in nvim 0.2.0
 if has('gui')
@@ -154,6 +148,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_auto_type_info = 1
 let g:go_def_reuse_buffer = 1
 let g:go_fmt_command = "goimports"
+let g:go_metalinter_autosave = 1
 
 " move
 let g:move_key_modifier = 'C'
@@ -178,6 +173,16 @@ augroup RainbowParentheses
 	autocmd!
 	autocmd FileType java,c,go,list,clojure RainbowParentheses
 augroup END
+
+" Open NERDTree in the directory of the current file (or /home if no file is open)
+function! NERDTreeToggleInCurDir()
+  " If NERDTree is open in the current buffer
+  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+    execute ":NERDTreeClose"
+  else
+    execute ":NERDTreeFind"
+  endif
+endfunction
 
 " Custom key mappings
 let mapleader = ","
@@ -244,6 +249,9 @@ let g:lt_quickfix_list_toggle_map = '<leader>qq'
 " tagbar
 nmap <silent> <F2> :TagbarToggle<CR>
 
+" NERDTree
+nmap <silent> <F3> :call NERDTreeToggleInCurDir()<CR>
+
 " obsession
 nmap <silent> <Leader>os :Obsess<CR>
 nmap <silent> <Leader>ok :Obsess!<CR>
@@ -252,13 +260,14 @@ nmap <silent> <Leader>ol :source Session.vim<CR>
 " vim-go
 augroup VimGo
 	autocmd!
-	autocmd FileType go nmap <silent> <Leader>gr <Plug>(go-run)
+	autocmd FileType go nmap <silent> <Leader>gR <Plug>(go-run)
+	autocmd FileType go nmap <silent> <Leader>gI <Plug>(go-install)
 	autocmd FileType go nmap <silent> <Leader>gb <Plug>(go-build)
-	autocmd FileType go nmap <silent> <Leader>gi <Plug>(go-install)
-	autocmd FileType go nmap <silent> <Leader>go <Plug>(go-imports)
+	autocmd FileType go nmap <silent> <Leader>gi <Plug>(go-imports)
+	autocmd FileType go nmap <silent> <Leader>gs <Plug>(go-implements)
 	autocmd FileType go nmap <silent> <Leader>gd <Plug>(go-doc-browser)
 	autocmd FileType go nmap <silent> <Leader>gv <Plug>(go-def-vertical)
-	autocmd FileType go nmap <silent> <Leader>gn <Plug>(go-rename)
+	autocmd FileType go nmap <silent> <Leader>gr <Plug>(go-rename)
 	autocmd FileType go nmap <silent> <Leader>gh <Plug>(go-callers)
 augroup END
 
@@ -277,7 +286,6 @@ nmap <silent> <Leader>f :e ~/.config/fish/config.fish<CR>
 
 " Copy/Paste to/from system clipboard
 vnoremap <silent> <Leader>y "+y<CR>
-nnoremap <silent> <Leader>y "+yy<CR>
 nnoremap <silent> <Leader>p "+gp<CR>
 nnoremap <silent> <Leader>P "+gP<CR>
 
