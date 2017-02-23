@@ -5,7 +5,6 @@ F4                               : Detach from session
 Alt+F7                           : Save current pane to $HOME/printscreen and open a new window displaying it in $EDITOR
 
 ### Copy Mode ###
-F3                               : Enter copy mode
 Ctrl+F3                          : Paste buffer
 
 ### Switching windows/panes ###
