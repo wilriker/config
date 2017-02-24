@@ -34,7 +34,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'schickling/vim-bufonly'
 Plug 'valloric/listtoggle'
 Plug 'tpope/vim-obsession'
-Plug 'scrooloose/nerdtree',			{ 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeCWD'] }
+Plug 'scrooloose/nerdtree'
 
 " Navigation
 Plug 'rhysd/clever-f.vim'
@@ -174,16 +174,6 @@ augroup RainbowParentheses
 	autocmd FileType java,c,go,list,clojure RainbowParentheses
 augroup END
 
-" Open NERDTree in the directory of the current file (or /home if no file is open)
-function! NERDTreeToggleInCurDir()
-  " If NERDTree is open in the current buffer
-  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-    execute ":NERDTreeClose"
-  else
-    execute ":NERDTreeFind"
-  endif
-endfunction
-
 " Custom key mappings
 let mapleader = ","
 
@@ -250,7 +240,7 @@ let g:lt_quickfix_list_toggle_map = '<leader>qq'
 nmap <silent> <F2> :TagbarToggle<CR>
 
 " NERDTree
-nmap <silent> <F3> :call NERDTreeToggleInCurDir()<CR>
+nmap <silent> <expr> <F3> g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : ':NERDTreeFind<CR>'
 
 " obsession
 nmap <silent> <Leader>os :Obsess<CR>
