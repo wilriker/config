@@ -219,7 +219,8 @@ nnoremap <silent> <Leader>fg :GFiles<CR>
 nnoremap <silent> <Leader>fb :Buffers<CR>
 nnoremap <silent> <Leader>fl :Lines<CR>
 nnoremap <silent> <Leader>fc :Commits<CR>
-" The following mappings do not work when using *noremap
+" The following mappings do not work when using *noremap as <Plug>-prefixed
+" commands ARE mappings - noremap would ignore them
 nmap <Leader><Tab> <Plug>(fzf-maps-n)
 xmap <Leader><Tab> <Plug>(fzf-maps-x)
 omap <Leader><Tab> <Plug>(fzf-maps-o)
@@ -245,8 +246,8 @@ augroup VimFish
 augroup END
 
 " listtoggle
-let g:lt_location_list_toggle_map = '<leader>ql'
-let g:lt_quickfix_list_toggle_map = '<leader>qq'
+let g:lt_location_list_toggle_map = '<Leader>ql'
+let g:lt_quickfix_list_toggle_map = '<Leader>qq'
 
 " tagbar
 nnoremap <silent> <F2> :TagbarToggle<CR>
@@ -262,15 +263,15 @@ nnoremap <silent> <Leader>ol :source Session.vim<CR>
 " vim-go
 augroup VimGo
 	autocmd!
-	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>R <Plug>(go-run)
-	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>I <Plug>(go-install)
-	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>b <Plug>(go-build)
-	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>i <Plug>(go-imports)
-	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>s <Plug>(go-implements)
-	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>d <Plug>(go-doc-browser)
-	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>v <Plug>(go-def-vertical)
-	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>r <Plug>(go-rename)
-	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>h <Plug>(go-callers)
+	autocmd FileType go nmap <buffer> <silent> <LocalLeader>R <Plug>(go-run)
+	autocmd FileType go nmap <buffer> <silent> <LocalLeader>I <Plug>(go-install)
+	autocmd FileType go nmap <buffer> <silent> <LocalLeader>b <Plug>(go-build)
+	autocmd FileType go nmap <buffer> <silent> <LocalLeader>i <Plug>(go-imports)
+	autocmd FileType go nmap <buffer> <silent> <LocalLeader>s <Plug>(go-implements)
+	autocmd FileType go nmap <buffer> <silent> <LocalLeader>d <Plug>(go-doc-browser)
+	autocmd FileType go nmap <buffer> <silent> <LocalLeader>v <Plug>(go-def-vertical)
+	autocmd FileType go nmap <buffer> <silent> <LocalLeader>r <Plug>(go-rename)
+	autocmd FileType go nmap <buffer> <silent> <LocalLeader>h <Plug>(go-callers)
 augroup END
 
 " Remove trailing whitespace
