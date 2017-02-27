@@ -28,6 +28,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 
 " Other stuff
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 "Plug 'edkolev/tmuxline.vim'
@@ -43,7 +44,7 @@ Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Searching/Fuzzyfind
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-key-bindings --no-completion --update-rc' }
+Plug 'junegunn/fzf',				{ 'dir': '~/.fzf', 'do': './install --no-key-bindings --no-completion --update-rc' }
 Plug 'junegunn/fzf.vim'
 
 " Code completion
@@ -54,7 +55,7 @@ Plug 'jiangmiao/auto-pairs'
 " Filetype plugin
 Plug 'wilriker/vim-fish',			{ 'for': 'fish' }
 Plug 'tfnico/vim-gradle',			{ 'for': 'groovy' }
-Plug 'wilriker/systemd-vim-syntax',	{ 'for': 'systemd' }
+Plug 'towolf/systemd-vim-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
 Plug 'chrisbra/csv.vim'
@@ -85,12 +86,13 @@ set updatetime=250					" Update gitgutter after this many ms (also write swapfil
 set number							" turn on line numbers
 set numberwidth=5					" We are good up to 9999 lines
 
-" Search and Replace
 " always switch to the current file directory
 augroup CWD
 	autocmd!
 	autocmd BufEnter * silent! lcd %:p:h
 augroup END
+
+" Search and Replace
 set wrapscan						" searches wrap around the end of the buffer
 set ignorecase						" case insensitive searches
 set smartcase						" if there are caps, go case-sensitive
@@ -110,7 +112,11 @@ set listchars=tab:▸\ ,eol:$,nbsp:%	" change the tab and eol characters
 " Brace/Bracket/Parentheses matching
 set showmatch						" show matching brackets
 set matchpairs+=<:>					" define the matching brackets
-au FileType c,cpp,java set mps+==:;	" Set a pair for assignments in Java and C/C++
+" Set a pair for assignments in Java and C/C++
+augroup match_pairs
+	autocmd!
+	autocmd FileType c,cpp,java set mps+==:;
+augroup END
 
 " tabs and indenting
 set tabstop=4						" make tabs 4 characters wide
@@ -121,7 +127,7 @@ set noexpandtab						" do not expand tabs to single whitespaces
 
 " Colorscheme and other UI settings
 set termguicolors					" Enable 24 bit colors
-"set cursorline						" highlight current line
+"set cursorline						" highlight current line - can make scrolling painfully slow
 colorscheme jellybeans
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1	" Enable pipe as cursor in INPUT mode - can be removed in nvim 0.2.0
 if has('gui')
@@ -175,7 +181,7 @@ augroup END
 let g:rainbow#pairs = [['{', '}'], ['(', ')'], ['[', ']']]
 augroup RainbowParentheses
 	autocmd!
-	autocmd FileType java,c,go,lisp,clojure RainbowParentheses
+	autocmd FileType java,c,cpp,go,lisp,clojure RainbowParentheses
 augroup END
 
 " Custom key mappings
@@ -284,8 +290,8 @@ inoremap <silent> <F12> <C-o>:set list!<CR>
 
 " Key mappings to edit/reload config files
 nnoremap <silent> <Leader>vs :write <Bar> source $MYVIMRC<CR>
-nnoremap <silent> <Leader>vv :e $MYVIMRC<CR>
-nnoremap <silent> <Leader>f :e ~/.config/fish/config.fish<CR>
+nnoremap <silent> <Leader>vv :edit $MYVIMRC<CR>
+nnoremap <silent> <Leader>f :edit ~/.config/fish/config.fish<CR>
 
 " Copy/Paste to/from system clipboard
 vnoremap <silent> <Leader>y "+y<CR>
