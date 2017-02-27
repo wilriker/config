@@ -32,12 +32,12 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 "Plug 'edkolev/tmuxline.vim'
-Plug 'schickling/vim-bufonly'
 Plug 'valloric/listtoggle'
 Plug 'tpope/vim-obsession'
-Plug 'scrooloose/nerdtree'
 
 " Navigation
+Plug 'scrooloose/nerdtree'
+Plug 'schickling/vim-bufonly'
 Plug 'rhysd/clever-f.vim'
 Plug 'matze/vim-move'
 Plug 'majutsushi/tagbar'
@@ -78,7 +78,6 @@ set showcmd							" show the command being typed
 set noerrorbells					" don't ring the bell for error messages
 set title							" show info in the window title
 set noshowmode						" don't show the current mode in status line (airline already has it)
-set wildmode=full					" Only complete until the longest common match and then show wildmenu
 
 set updatetime=250					" Update gitgutter after this many ms (also write swapfile)
 
@@ -115,7 +114,7 @@ set matchpairs+=<:>					" define the matching brackets
 " Set a pair for assignments in Java and C/C++
 augroup match_pairs
 	autocmd!
-	autocmd FileType c,cpp,java set mps+==:;
+	autocmd FileType c,cpp,java set matchpairs+==:;
 augroup END
 
 " tabs and indenting
