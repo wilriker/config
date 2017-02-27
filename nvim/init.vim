@@ -219,9 +219,10 @@ nnoremap <silent> <Leader>fg :GFiles<CR>
 nnoremap <silent> <Leader>fb :Buffers<CR>
 nnoremap <silent> <Leader>fl :Lines<CR>
 nnoremap <silent> <Leader>fc :Commits<CR>
-nnoremap <Leader><Tab> <Plug>(fzf-maps-n)
-xnoremap <Leader><Tab> <Plug>(fzf-maps-x)
-onoremap <Leader><Tab> <Plug>(fzf-maps-o)
+" The following mappings do not work when using *noremap
+nmap <Leader><Tab> <Plug>(fzf-maps-n)
+xmap <Leader><Tab> <Plug>(fzf-maps-x)
+omap <Leader><Tab> <Plug>(fzf-maps-o)
 
 " Tabularize
 nnoremap <silent> <Leader>t= ggVG:Tabularize /=<CR>
@@ -240,7 +241,7 @@ vnoremap <silent> <Leader>tt :Tabularize /\t<CR>
 " vim-fish
 augroup VimFish
 	autocmd!
-	autocmd FileType fish nnoremap <silent> <Leader>i gggqG<CR>
+	autocmd FileType fish nnoremap <buffer> <silent> <LocalLeader>i gggqG<CR>
 augroup END
 
 " listtoggle
@@ -261,15 +262,15 @@ nnoremap <silent> <Leader>ol :source Session.vim<CR>
 " vim-go
 augroup VimGo
 	autocmd!
-	autocmd FileType go nnoremap <silent> <LocalLeader>R <Plug>(go-run)
-	autocmd FileType go nnoremap <silent> <LocalLeader>I <Plug>(go-install)
-	autocmd FileType go nnoremap <silent> <LocalLeader>b <Plug>(go-build)
-	autocmd FileType go nnoremap <silent> <LocalLeader>i <Plug>(go-imports)
-	autocmd FileType go nnoremap <silent> <LocalLeader>s <Plug>(go-implements)
-	autocmd FileType go nnoremap <silent> <LocalLeader>d <Plug>(go-doc-browser)
-	autocmd FileType go nnoremap <silent> <LocalLeader>v <Plug>(go-def-vertical)
-	autocmd FileType go nnoremap <silent> <LocalLeader>r <Plug>(go-rename)
-	autocmd FileType go nnoremap <silent> <LocalLeader>h <Plug>(go-callers)
+	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>R <Plug>(go-run)
+	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>I <Plug>(go-install)
+	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>b <Plug>(go-build)
+	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>i <Plug>(go-imports)
+	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>s <Plug>(go-implements)
+	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>d <Plug>(go-doc-browser)
+	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>v <Plug>(go-def-vertical)
+	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>r <Plug>(go-rename)
+	autocmd FileType go nnoremap <buffer> <silent> <LocalLeader>h <Plug>(go-callers)
 augroup END
 
 " Remove trailing whitespace
