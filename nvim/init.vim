@@ -86,7 +86,11 @@ set number							" turn on line numbers
 set numberwidth=5					" We are good up to 9999 lines
 
 " Search and Replace
-autocmd BufEnter * silent! lcd %:p:h " always switch to the current file directory
+" always switch to the current file directory
+augroup CWD
+	autocmd!
+	autocmd BufEnter * silent! lcd %:p:h
+augroup END
 set wrapscan						" searches wrap around the end of the buffer
 set ignorecase						" case insensitive searches
 set smartcase						" if there are caps, go case-sensitive
@@ -171,11 +175,18 @@ augroup END
 let g:rainbow#pairs = [['{', '}'], ['(', ')'], ['[', ']']]
 augroup RainbowParentheses
 	autocmd!
-	autocmd FileType java,c,go,list,clojure RainbowParentheses
+	autocmd FileType java,c,go,lisp,clojure RainbowParentheses
 augroup END
 
 " Custom key mappings
 let mapleader = ","
+let maplocalleader = "-"
+
+" Force myself to use hjkl
+noremap  <silent> <Left>  <Nop>
+noremap  <silent> <Down>  <Nop>
+noremap  <silent> <Up>    <Nop>
+noremap  <silent> <Right> <Nop>
 
 " vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
@@ -189,47 +200,47 @@ nnoremap <silent> <C-W>h    :TmuxNavigateLeft<CR>
 nnoremap <silent> <C-W>l    :TmuxNavigateRight<CR>
 
 " Splits
-nmap <silent> <Leader>ss :split<CR>
-nmap <silent> <Leader>sv :vsplit<CR>
+nnoremap <silent> <Leader>ss :split<CR>
+nnoremap <silent> <Leader>sv :vsplit<CR>
 
 " Buffer management
-nmap <silent> <Leader>T :enew<CR>
-nmap <silent> <expr> <Leader>bq len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1 ? ':bprevious <Bar> bdelete! #<CR>' : ':bdelete!<CR>'
-nmap <silent> <Leader>be :checktime<CR>
-nmap <silent> gb :bnext<CR>
-nmap <silent> gB :bprevious<CR>
+nnoremap <silent> <Leader>T :enew<CR>
+nnoremap <silent> <expr> <Leader>bq len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1 ? ':bprevious <Bar> bdelete! #<CR>' : ':bdelete!<CR>'
+nnoremap <silent> <Leader>be :checktime<CR>
+nnoremap <silent> gb :bnext<CR>
+nnoremap <silent> gB :bprevious<CR>
 
 " BufOnly
-nmap <silent> <Leader>bo :BufOnly<CR>
+nnoremap <silent> <Leader>bo :BufOnly<CR>
 
 " FuzzyFind
-nmap <silent> <Leader>ff :Files<CR>
-nmap <silent> <Leader>fg :GFiles<CR>
-nmap <silent> <Leader>fb :Buffers<CR>
-nmap <silent> <Leader>fl :Lines<CR>
-nmap <silent> <Leader>fc :Commits<CR>
-nmap <Leader><Tab> <Plug>(fzf-maps-n)
-xmap <Leader><Tab> <Plug>(fzf-maps-x)
-omap <Leader><Tab> <Plug>(fzf-maps-o)
+nnoremap <silent> <Leader>ff :Files<CR>
+nnoremap <silent> <Leader>fg :GFiles<CR>
+nnoremap <silent> <Leader>fb :Buffers<CR>
+nnoremap <silent> <Leader>fl :Lines<CR>
+nnoremap <silent> <Leader>fc :Commits<CR>
+nnoremap <Leader><Tab> <Plug>(fzf-maps-n)
+xnoremap <Leader><Tab> <Plug>(fzf-maps-x)
+onoremap <Leader><Tab> <Plug>(fzf-maps-o)
 
 " Tabularize
-nmap <silent> <Leader>t= ggVG:Tabularize /=<CR>
-nmap <silent> <Leader>t: ggVG:Tabularize /:<CR>
-nmap <silent> <Leader>t, ggVG:Tabularize /,<CR>
-nmap <silent> <Leader>t; ggVG:Tabularize /;<CR>
-nmap <silent> <Leader>t" ggVG:Tabularize /"<CR>
-nmap <silent> <Leader>tt ggVG:Tabularize /\t<CR>
-vmap <silent> <Leader>t= :Tabularize /=<CR>
-vmap <silent> <Leader>t: :Tabularize /:<CR>
-vmap <silent> <Leader>t, :Tabularize /,<CR>
-vmap <silent> <Leader>t; :Tabularize /;<CR>
-vmap <silent> <Leader>t" :Tabularize /"<CR>
-vmap <silent> <Leader>tt :Tabularize /\t<CR>
+nnoremap <silent> <Leader>t= ggVG:Tabularize /=<CR>
+nnoremap <silent> <Leader>t: ggVG:Tabularize /:<CR>
+nnoremap <silent> <Leader>t, ggVG:Tabularize /,<CR>
+nnoremap <silent> <Leader>t; ggVG:Tabularize /;<CR>
+nnoremap <silent> <Leader>t" ggVG:Tabularize /"<CR>
+nnoremap <silent> <Leader>tt ggVG:Tabularize /\t<CR>
+vnoremap <silent> <Leader>t= :Tabularize /=<CR>
+vnoremap <silent> <Leader>t: :Tabularize /:<CR>
+vnoremap <silent> <Leader>t, :Tabularize /,<CR>
+vnoremap <silent> <Leader>t; :Tabularize /;<CR>
+vnoremap <silent> <Leader>t" :Tabularize /"<CR>
+vnoremap <silent> <Leader>tt :Tabularize /\t<CR>
 
 " vim-fish
 augroup VimFish
 	autocmd!
-	autocmd FileType fish nmap <silent> <Leader>i gggqG<CR>
+	autocmd FileType fish nnoremap <silent> <Leader>i gggqG<CR>
 augroup END
 
 " listtoggle
@@ -237,42 +248,42 @@ let g:lt_location_list_toggle_map = '<leader>ql'
 let g:lt_quickfix_list_toggle_map = '<leader>qq'
 
 " tagbar
-nmap <silent> <F2> :TagbarToggle<CR>
+nnoremap <silent> <F2> :TagbarToggle<CR>
 
 " NERDTree
-nmap <silent> <expr> <F3> g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : ':NERDTreeFind<CR>'
+nnoremap <silent> <expr> <F3> g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : ':NERDTreeFind<CR>'
 
 " obsession
-nmap <silent> <Leader>os :Obsess<CR>
-nmap <silent> <Leader>ok :Obsess!<CR>
-nmap <silent> <Leader>ol :source Session.vim<CR>
+nnoremap <silent> <Leader>os :Obsess<CR>
+nnoremap <silent> <Leader>od :Obsess!<CR>
+nnoremap <silent> <Leader>ol :source Session.vim<CR>
 
 " vim-go
 augroup VimGo
 	autocmd!
-	autocmd FileType go nmap <silent> <Leader>gR <Plug>(go-run)
-	autocmd FileType go nmap <silent> <Leader>gI <Plug>(go-install)
-	autocmd FileType go nmap <silent> <Leader>gb <Plug>(go-build)
-	autocmd FileType go nmap <silent> <Leader>gi <Plug>(go-imports)
-	autocmd FileType go nmap <silent> <Leader>gs <Plug>(go-implements)
-	autocmd FileType go nmap <silent> <Leader>gd <Plug>(go-doc-browser)
-	autocmd FileType go nmap <silent> <Leader>gv <Plug>(go-def-vertical)
-	autocmd FileType go nmap <silent> <Leader>gr <Plug>(go-rename)
-	autocmd FileType go nmap <silent> <Leader>gh <Plug>(go-callers)
+	autocmd FileType go nnoremap <silent> <LocalLeader>R <Plug>(go-run)
+	autocmd FileType go nnoremap <silent> <LocalLeader>I <Plug>(go-install)
+	autocmd FileType go nnoremap <silent> <LocalLeader>b <Plug>(go-build)
+	autocmd FileType go nnoremap <silent> <LocalLeader>i <Plug>(go-imports)
+	autocmd FileType go nnoremap <silent> <LocalLeader>s <Plug>(go-implements)
+	autocmd FileType go nnoremap <silent> <LocalLeader>d <Plug>(go-doc-browser)
+	autocmd FileType go nnoremap <silent> <LocalLeader>v <Plug>(go-def-vertical)
+	autocmd FileType go nnoremap <silent> <LocalLeader>r <Plug>(go-rename)
+	autocmd FileType go nnoremap <silent> <LocalLeader>h <Plug>(go-callers)
 augroup END
 
 " Remove trailing whitespace
-nmap <silent> <Leader>w :silent! %s/\s\+$//<CR>
-nmap <silent> <Leader><Space> :nohlsearch<CR>
+nnoremap <silent> <Leader>w :silent! %s/\s\+$//<CR>
+nnoremap <silent> <Leader><Space> :nohlsearch<CR>
 
 " Show/hide whitespace (except space)
-nmap <silent> <F12> :set list!<CR>
-imap <silent> <F12> <C-o>:set list!<CR>
+nnoremap <silent> <F12> :set list!<CR>
+inoremap <silent> <F12> <C-o>:set list!<CR>
 
 " Key mappings to edit/reload config files
-nmap <silent> <Leader>vs :w <Bar> source $MYVIMRC<CR>
-nmap <silent> <Leader>vv :e $MYVIMRC<CR>
-nmap <silent> <Leader>f :e ~/.config/fish/config.fish<CR>
+nnoremap <silent> <Leader>vs :write <Bar> source $MYVIMRC<CR>
+nnoremap <silent> <Leader>vv :e $MYVIMRC<CR>
+nnoremap <silent> <Leader>f :e ~/.config/fish/config.fish<CR>
 
 " Copy/Paste to/from system clipboard
 vnoremap <silent> <Leader>y "+y<CR>
@@ -284,12 +295,12 @@ nnoremap <Leader>ag :Ag<Space>
 nnoremap <Leader>ac :Ag <C-r><C-w><CR>
 
 " Save as root if forgotten to start with sudo
-cmap w!! w !sudo tee % > /dev/null
+cnoremap w!! w !sudo tee % > /dev/null
 
 " prevent ex mode
 nnoremap Q <Nop>
 nnoremap gQ <Nop>
 
 " Manually activate code completion
-imap <silent> <C-Space> <C-x><C-o>
+inoremap <silent> <C-Space> <C-x><C-o>
 
