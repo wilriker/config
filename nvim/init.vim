@@ -111,7 +111,7 @@ set undolevels=1000					" maximum number of changes that can be undone
 
 " change the appearance of whitespace when :set list is on
 set listchars=tab:>\ ,eol:$,nbsp:%,space:.,precedes:<,extends:>
-set showbreak=↳\ 
+set showbreak=↳\					" Show marker for wrapped lines
 
 " Brace/Bracket/Parentheses matching
 set showmatch						" show matching brackets
