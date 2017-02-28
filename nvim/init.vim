@@ -112,7 +112,7 @@ set listchars=tab:▸\ ,eol:$,nbsp:%	" change the tab and eol characters
 set showmatch						" show matching brackets
 set matchpairs+=<:>					" define the matching brackets
 " Set a pair for assignments in Java and C/C++
-augroup match_pairs
+augroup MatchPairs
 	autocmd!
 	autocmd FileType c,cpp,java set matchpairs+==:;
 augroup END
