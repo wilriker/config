@@ -19,6 +19,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Color schemes
 Plug 'nanotech/jellybeans.vim'
 Plug 'ap/vim-css-color'
+Plug 'wilriker/vim-trailing-whitespace'
 
 " Code formatting
 Plug 'tpope/vim-endwise'
@@ -165,15 +166,9 @@ let g:move_key_modifier = 'C'
 " match lines containing todos regardless if filetype highlights differently
 augroup HighlightTodos
 	autocmd!
-	autocmd WinEnter,VimEnter * highlight ToDoLine ctermbg=red guibg=#362C2C guifg=#FF2424
-	autocmd WinEnter,VimEnter * call matchadd('ToDoLine', '\v(TODO|FIXME|XXX).*$')
-augroup END
-
-" match extra whitespace at the end of lines
-augroup HighlightExtraWhitespace
-	autocmd!
-	autocmd WinEnter,VimEnter * highlight ExtraWhitespace ctermbg=red guibg=#ff0000
-	autocmd WinEnter,VimEnter * call matchadd('ExtraWhitespace', '\s\+$')
+	highlight default ToDoLine ctermbg=red guibg=#362C2C guifg=#FF2424
+	autocmd ColorScheme * highlight default ToDoLine ctermbg=red guibg=#362C2C guifg=#FF2424
+	autocmd BufRead,BufNew * call matchadd('ToDoLine', '\v(TODO|FIXME|XXX).*$')
 augroup END
 
 " rainbow_parentheses
@@ -280,7 +275,7 @@ augroup VimGo
 augroup END
 
 " Remove trailing whitespace
-nnoremap <silent> <Leader>w :silent! %s/\s\+$//<CR>
+nnoremap <silent> <Leader>w :FixWhitespace<CR>
 nnoremap <silent> <Leader><Space> :nohlsearch<CR>
 
 " Show/hide whitespace (except space)
