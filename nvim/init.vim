@@ -100,6 +100,8 @@ set inccommand=split				" interactive search-and-replace
 
 " Line display
 set nowrap							" do not wrap lines
+set linebreak						" but do break at word boundaries if wrapping is enabled
+set breakindent						" and also indent broken lines
 set scrolloff=5						" Number of lines to keep above/below cursor as context
 set sidescrolloff=5					" Number of columns to keep left/right of cursor as context
 
@@ -107,7 +109,9 @@ set sidescrolloff=5					" Number of columns to keep left/right of cursor as cont
 set undofile						" Save undo information to a file
 set undolevels=1000					" maximum number of changes that can be undone
 
-set listchars=tab:▸\ ,eol:$,nbsp:%	" change the tab and eol characters
+" change the appearance of whitespace when :set list is on
+set listchars=tab:>\ ,eol:$,nbsp:%,space:.,precedes:<,extends:>
+set showbreak=↳\ 
 
 " Brace/Bracket/Parentheses matching
 set showmatch						" show matching brackets
