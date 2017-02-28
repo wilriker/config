@@ -245,7 +245,7 @@ vnoremap <silent> <Leader>tt :Tabularize /\t<CR>
 " vim-fish
 augroup VimFish
 	autocmd!
-	autocmd FileType fish nnoremap <buffer> <silent> <LocalLeader>i gggqG<CR>
+	autocmd FileType fish nnoremap <buffer> <silent> <LocalLeader>i :FishIndent<CR>
 augroup END
 
 " listtoggle
