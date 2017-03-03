@@ -1,0 +1,7 @@
+feh --scale-down \
+	--image-bg black \
+	--sort name \
+	--auto-rotate \
+	--no-menus \
+	--quiet \
+	--title "[%u/%l] %n (%wx%h)"
