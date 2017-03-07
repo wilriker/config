@@ -28,7 +28,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/rainbow_parentheses.vim'
 
 " Other stuff
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -39,7 +39,7 @@ Plug 'tpope/vim-obsession'
 " Navigation
 Plug 'scrooloose/nerdtree'
 Plug 'schickling/vim-bufonly'
-Plug 'rhysd/clever-f.vim'
+"Plug 'rhysd/clever-f.vim'
 Plug 'matze/vim-move'
 Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
@@ -166,6 +166,21 @@ let g:go_metalinter_autosave = 1
 " move
 let g:move_key_modifier = 'C'
 
+
+" Functions
+function! s:MapNextFamily(map,cmd)
+	let cmd = '".(v:count ? v:count : "")."'.a:cmd
+	let end = '"<CR>'.(a:cmd == 'l' || a:cmd == 'c' ? 'zv' : '')
+	execute 'nnoremap <silent> ['.a:map.'          :<C-U>exe "'.cmd.'previous'.end
+	execute 'nnoremap <silent> ]'.a:map.'          :<C-U>exe "'.cmd.'next'.end
+	execute 'nnoremap <silent> ['.toupper(a:map).' :<C-U>exe "'.cmd.'first'.end
+	execute 'nnoremap <silent> ]'.toupper(a:map).' :<C-U>exe "'.cmd.'last'.end
+	if exists(':'.a:cmd.'nfile')
+		execute 'nnoremap <silent> [<C-'.a:map.'> :<C-U>exe "'.cmd.'pfile'.end
+		execute 'nnoremap <silent> ]<C-'.a:map.'> :<C-U>exe "'.cmd.'nfile'.end
+	endif
+endfunction
+
 " match lines containing todos regardless if filetype highlights differently
 augroup HighlightTodos
 	autocmd!
@@ -184,6 +199,16 @@ augroup END
 " Custom key mappings
 let mapleader = ","
 let maplocalleader = "-"
+
+" Create prevnext mappings
+call s:MapNextFamily('b','b')
+call s:MapNextFamily('l','l')
+call s:MapNextFamily('q','c')
+call s:MapNextFamily('t','tab')
+
+" prevnext - German Keyboard Layout TODO: Find a way to detect keyboard layout
+"nmap ü [
+"nmap + ]
 
 " Force myself to use hjkl
 noremap  <silent> <Left>  <Nop>
@@ -210,8 +235,6 @@ nnoremap <silent> <Leader>sv :vsplit<CR>
 nnoremap <silent> <Leader>T :enew<CR>
 nnoremap <silent> <expr> <Leader>bq len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1 ? ':bprevious <Bar> bdelete! #<CR>' : ':bdelete!<CR>'
 nnoremap <silent> <Leader>be :checktime<CR>
-nnoremap <silent> gb :bnext<CR>
-nnoremap <silent> gB :bprevious<CR>
 
 " BufOnly
 nnoremap <silent> <Leader>bo :BufOnly<CR>
@@ -251,6 +274,7 @@ augroup END
 " listtoggle
 let g:lt_location_list_toggle_map = '<Leader>ql'
 let g:lt_quickfix_list_toggle_map = '<Leader>qq'
+nnoremap <silent> <Leader>qp :pclose<CR>
 
 " tagbar
 nnoremap <silent> <F2> :TagbarToggle<CR>
