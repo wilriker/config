@@ -1,6 +1,8 @@
 feh --scale-down \
+	--draw-filename \
 	--image-bg black \
 	--sort name \
+	--slideshow-delay -3 \
 	--auto-rotate \
 	--no-menus \
 	--quiet \
