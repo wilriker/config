@@ -1,6 +1,6 @@
 # Keyboard & Mouse
 xsetroot -cursor_name left_ptr
-setxkbmap -layout de -variant nodeadkeys -option caps:none
+setxkbmap -layout gb -option caps:none
 
 # VirtualBox Guest Additions
 [[ -x /usr/bin/VBoxClient-all ]] && VBoxClient-all
