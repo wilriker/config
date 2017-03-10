@@ -24,6 +24,10 @@ herbstclient keybind $Mod-l spawn slock
 herbstclient keybind $Mod-Print spawn scrot
 herbstclient keybind $Mod-Alt-r spawn $config_dir/scratchpad.fish "calculator" gnome-calculator
 
+# Keybindings to change keyboard layouts
+herbstclient keybind $Mod-Control-d spawn setxkbmap -layout de -variant nodeadkeys -option caps:none
+herbstclient keybind $Mod-Control-g spawn setxkbmap -layout gb -option caps:none
+
 herbstclient set default_frame_layout 3
 
 # tags
