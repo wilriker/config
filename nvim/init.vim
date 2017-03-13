@@ -169,15 +169,15 @@ let g:move_key_modifier = 'C'
 
 " Functions
 
-" Close buffers and skip quickfix/location
+" Close buffer and skip quickfix/location
 function! s:CloseBuffer()
-	if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-		bdelete!
-		return
-	endif
 	let l:buffernr = bufnr('%')
-	bprevious
-	while &buftype ==# 'quickfix' | bprevious | endwhile
+	if len(filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") !=# "quickfix"')) == 1
+		enew | setlocal noswapfile bufhidden=wipe buftype=
+	else
+		bprevious
+		while &buftype ==# 'quickfix' | bprevious | endwhile
+	endif
 	execute 'bdelete! '.l:buffernr
 endfunction
 
