@@ -61,7 +61,7 @@ Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
 Plug 'chrisbra/csv.vim'
 Plug 'tmux-plugins/vim-tmux',		{ 'for': 'tmux' }
-Plug 'fatih/vim-go',				{ 'for': 'go', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go',				{ 'for': 'go' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
@@ -168,6 +168,20 @@ let g:move_key_modifier = 'C'
 
 
 " Functions
+
+" Close buffers and skip quickfix/location
+function! s:CloseBuffer()
+	if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+		bdelete!
+		return
+	endif
+	let l:buffernr = bufnr('%')
+	bprevious
+	while &buftype ==# 'quickfix' | bprevious | endwhile
+	execute 'bdelete! '.l:buffernr
+endfunction
+
+" Create mappings to switch buffers/quickfix/location/tabs
 function! s:MapNextFamily(map,cmd)
 	let cmd = '".(v:count ? v:count : "")."'.a:cmd
 	let end = '"<CR>'.(a:cmd == 'l' || a:cmd == 'c' ? 'zv' : '')
@@ -196,6 +210,15 @@ augroup RainbowParentheses
 	autocmd FileType java,c,cpp,go,lisp,clojure RainbowParentheses
 augroup END
 
+" Window positions and skipping
+augroup WindowProperties
+	autocmd!
+	" Always place quickfix/location at the bottom with full width
+	autocmd FileType qf wincmd J
+	" Unlist preview window so it will be skipped when switching buffers
+	autocmd WinEnter * if &previewwindow | setlocal nobuflisted | endif
+augroup END
+
 " Custom key mappings
 let mapleader = ","
 let maplocalleader = "-"
@@ -205,10 +228,6 @@ call s:MapNextFamily('b','b')
 call s:MapNextFamily('l','l')
 call s:MapNextFamily('q','c')
 call s:MapNextFamily('t','tab')
-
-" prevnext - German Keyboard Layout TODO: Find a way to detect keyboard layout
-"nmap ü [
-"nmap + ]
 
 " Force myself to use hjkl
 noremap  <silent> <Left>  <Nop>
@@ -233,7 +252,7 @@ nnoremap <silent> <Leader>sv :vsplit<CR>
 
 " Buffer management
 nnoremap <silent> <Leader>T :enew<CR>
-nnoremap <silent> <expr> <Leader>bq len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1 ? ':bprevious <Bar> bdelete! #<CR>' : ':bdelete!<CR>'
+nnoremap <silent> <Leader>bq :call <SID>CloseBuffer()<CR>
 nnoremap <silent> <Leader>be :checktime<CR>
 
 " BufOnly
