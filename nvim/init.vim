@@ -66,6 +66,7 @@ Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
 Plug 'fidian/hexmode'
+Plug 'txt.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
@@ -162,6 +163,7 @@ let g:go_auto_type_info = 1
 let g:go_def_reuse_buffer = 1
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
+let g:go_auto_sameids = 1
 
 " move
 let g:move_key_modifier = 'C'
@@ -217,6 +219,12 @@ augroup WindowProperties
 	autocmd FileType qf wincmd J
 	" Unlist preview window so it will be skipped when switching buffers
 	autocmd WinEnter * if &previewwindow | setlocal nobuflisted | endif
+augroup END
+
+" txt.vim
+augroup TxtVim
+	autocmd!
+	autocmd BufRead,BufNewFile * setfiletype txt
 augroup END
 
 " Custom key mappings
