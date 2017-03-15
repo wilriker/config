@@ -60,13 +60,14 @@ Plug 'towolf/systemd-vim-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
 Plug 'chrisbra/csv.vim'
-Plug 'tmux-plugins/vim-tmux',		{ 'for': 'tmux' }
+Plug 'ericpruitt/tmux.vim',			{ 'for': 'tmux', 'rtp': 'vim' }
 Plug 'fatih/vim-go',				{ 'for': 'go' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
 Plug 'fidian/hexmode'
 Plug 'txt.vim'
+Plug 'uarun/vim-protobuf',			{ 'for': 'proto' }
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
@@ -335,6 +336,7 @@ nnoremap <silent> <Leader><Space> :nohlsearch<CR>
 " Show/hide whitespace (except space)
 nnoremap <silent> <F12> :set list!<CR>
 inoremap <silent> <F12> <C-o>:set list!<CR>
+nnoremap <silent> <Leader>sh :echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<CR>
 
 " Key mappings to edit/reload config files
 nnoremap <silent> <Leader>vs :write <Bar> source $MYVIMRC<CR>
