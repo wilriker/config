@@ -171,11 +171,22 @@ let g:move_key_modifier = 'C'
 
 
 " Functions
+let g:true = 1
+let g:false = 0
+
+" Buffer Count
+function! s:BufferCount(ignoreQuickfix)
+	let l:buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)')
+	if a:ignoreQuickfix
+		let l:buffers = filter(l:buffers, 'getbufvar(v:val, "&buftype") !=# "quickfix"')
+	endif
+	return len(l:buffers)
+endfunction
 
 " Close buffer and skip quickfix/location
 function! s:CloseBuffer()
 	let l:buffernr = bufnr('%')
-	if len(filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") !=# "quickfix"')) == 1
+	if s:BufferCount(g:true) == 1
 		enew | setlocal noswapfile bufhidden=wipe buftype=
 	else
 		bprevious
