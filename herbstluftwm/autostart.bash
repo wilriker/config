@@ -28,8 +28,8 @@ herbstclient set default_frame_layout 3
 # tags
 herbstclient rename default 1
 for tag_name in $(seq 9) ; do
-    herbstclient add ${tag_name}
-    local key
+	herbstclient add ${tag_name}
+	local key
 	key="${tag_name}"
 	herbstclient keybind "$Mod-$key" use "${tag_name}"
 	herbstclient keybind "$Mod-Shift-$key" move "${tag_name}"
@@ -54,10 +54,10 @@ herbstclient keybind $Mod-p pseudotile toggle
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
-herbstclient keybind $Mod-space                                                           \
-            or , and . compare tags.focus.curframe_wcount = 2                   \
-                     . cycle_layout +1 vertical horizontal max vertical grid    \
-               , cycle_layout +1
+herbstclient keybind $Mod-space                                         \
+	or	, and	. compare tags.focus.curframe_wcount = 2                \
+				. cycle_layout +1 vertical horizontal max vertical grid \
+		, cycle_layout +1
 
 # resizing
 RESIZESTEP=0.01
@@ -151,7 +151,7 @@ herbstclient unlock
 panel=~/.config/herbstluftwm/panel.bash
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 for monitor in $(herbstclient list_monitors | cut -d: -f1); do
-    # start it on each monitor
-    "$panel" $monitor &
+	# start it on each monitor
+	"$panel" $monitor &
 done
 

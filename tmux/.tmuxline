@@ -32,3 +32,5 @@ set -g status-right "#[fg=colour41,bg=colour234,nobold,nounderscore,noitalics]�
 # Status bar Window-area format
 setw -g window-status-format "#[fg=colour254,bg=colour234] #I #[fg=colour254,bg=colour234] #W "
 setw -g window-status-current-format "#[fg=colour234,bg=colour237,nobold,nounderscore,noitalics]#[fg=colour254,bg=colour237] #I #[fg=colour254,bg=colour237] #W #[fg=colour237,bg=colour234,nobold,nounderscore,noitalics]"
+
+# vim: ft=tmux

@@ -18,19 +18,19 @@ width=${mrect[2]}
 height=${mrect[3]}
 
 rect=(
-    $((width/2))
-    $((height/2))
-    $((${mrect[0]}+(width/4)))
-    $((${mrect[1]}+(height/4)))
+	$((width/2))
+	$((height/2))
+	$((${mrect[0]}+(width/4)))
+	$((${mrect[1]}+(height/4)))
 )
 
 monitor=scratchpad
 
 herbstclient add "$tag"
 if herbstclient add_monitor $(printf "%dx%d%+d%+d" "${rect[@]}") "$tag" $monitor 2> /dev/null; then
-    herbstclient chain , \
+	herbstclient chain , \
 		lock , \
-	    raise_monitor "$monitor" , \
+		raise_monitor "$monitor" , \
 		focus_monitor "$monitor" , \
 		unlock , \
 		lock_tag "$monitor" , \
