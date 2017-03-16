@@ -238,7 +238,7 @@ augroup END
 " txt.vim
 augroup TxtVim
 	autocmd!
-	autocmd BufRead,BufNewFile * if &ft == '' | setfiletype txt | endif
+	autocmd BufRead,BufNewFile * if &filetype == '' | setfiletype txt | endif
 augroup END
 
 " Custom key mappings
