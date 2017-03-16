@@ -172,6 +172,9 @@ let g:move_key_modifier = 'C'
 " vim-tmux-navigator
 let g:tmux_navigator_diplay_panes = 1
 
+" rainbow_parentheses
+let g:rainbow#pairs = [['{', '}'], ['(', ')'], ['[', ']']]
+
 " Functions
 let g:true = 1
 let g:false = 0
@@ -220,7 +223,6 @@ augroup HighlightTodos
 augroup END
 
 " rainbow_parentheses
-let g:rainbow#pairs = [['{', '}'], ['(', ')'], ['[', ']']]
 augroup RainbowParentheses
 	autocmd!
 	autocmd VimEnter * RainbowParentheses
