@@ -42,7 +42,7 @@ Plug 'schickling/vim-bufonly'
 "Plug 'rhysd/clever-f.vim'
 Plug 'matze/vim-move'
 Plug 'majutsushi/tagbar'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'wilriker/vim-tmux-navigator'
 
 " Searching/Fuzzyfind
 Plug 'junegunn/fzf',				{ 'dir': '~/.fzf', 'do': './install --no-key-bindings --no-completion --update-rc' }
@@ -169,6 +169,8 @@ let g:go_auto_sameids = 1
 " move
 let g:move_key_modifier = 'C'
 
+" vim-tmux-navigator
+let g:tmux_navigator_diplay_panes = 1
 
 " Functions
 let g:true = 1
@@ -221,7 +223,7 @@ augroup END
 let g:rainbow#pairs = [['{', '}'], ['(', ')'], ['[', ']']]
 augroup RainbowParentheses
 	autocmd!
-	autocmd FileType java,c,cpp,go,lisp,clojure RainbowParentheses
+	autocmd VimEnter * RainbowParentheses
 augroup END
 
 " Window positions and skipping
@@ -236,7 +238,7 @@ augroup END
 " txt.vim
 augroup TxtVim
 	autocmd!
-	autocmd BufRead,BufNewFile * setfiletype txt
+	autocmd BufRead,BufNewFile * if &ft == '' | setfiletype txt | endif
 augroup END
 
 " Custom key mappings
