@@ -181,16 +181,16 @@ let g:false = 0
 
 " Buffer Count
 function! s:BufferCount(ignoreQuickfix)
-	let l:buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)')
-	if a:ignoreQuickfix
-		let l:buffers = filter(l:buffers, 'getbufvar(v:val, "&buftype") !=# "quickfix"')
-	endif
-	return len(l:buffers)
+	let l:filter = 'buflisted(v:val)' . (a:ignoreQuickfix ? ' && getbufvar(v:val, "&buftype") !=# "quickfix"' : '')
+	return len(filter(range(1, bufnr('$')), l:filter))
 endfunction
 
 " Close buffer and skip quickfix/location
 function! s:CloseBuffer()
 	let l:buffernr = bufnr('%')
+
+	" If the current buffer is the last one create a new one to switch to
+	" and that disappears once we load a new file into it
 	if s:BufferCount(g:true) == 1
 		enew | setlocal noswapfile bufhidden=wipe buftype=
 	else
