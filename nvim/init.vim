@@ -18,6 +18,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Color schemes
 Plug 'nanotech/jellybeans.vim'
+Plug 'maxst/flatcolor'
+Plug 'joshdick/onedark.vim'
 Plug 'ap/vim-css-color'
 Plug 'wilriker/vim-trailing-whitespace'
 
@@ -35,6 +37,7 @@ Plug 'airblade/vim-gitgutter'
 "Plug 'edkolev/tmuxline.vim'
 Plug 'valloric/listtoggle'
 Plug 'tpope/vim-obsession'
+Plug 'dylanaraps/root.vim'
 
 " Navigation
 Plug 'scrooloose/nerdtree'
@@ -52,6 +55,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'Shougo/deoplete.nvim',		{ 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go',			{ 'do': 'make'}
 Plug 'jiangmiao/auto-pairs'
+Plug 'sirver/ultisnips'
 
 " Filetype plugin
 Plug 'wilriker/vim-fish',			{ 'for': 'fish' }
@@ -133,7 +137,15 @@ set noexpandtab						" do not expand tabs to single whitespaces
 " Colorscheme and other UI settings
 set termguicolors					" Enable 24 bit colors
 "set cursorline						" highlight current line - can make scrolling painfully slow
-colorscheme jellybeans
+let g:jellybeans_use_term_italics = 1
+let g:jellybeans_overrides = {
+\    'background': { 'guibg': '0A0A0A', 'ctermbg': 'none', '256ctermbg': 'none' },
+\}
+augroup Onedark
+	autocmd!
+	autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": {"gui": "#ABB2BF", "cterm": "145", "cterm16": "7"} })
+augroup END
+colorscheme onedark
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1	" Enable pipe as cursor in INPUT mode - can be removed in nvim 0.2.0
 if has('gui')
 	set guifont=Inconsolata-g\ for\ Powerline\ Medium\ 9
@@ -152,6 +164,10 @@ let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 let g:deoplete#sources#go#use_cache = 1
 let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/linux_amd64'
+
+" UltiSnips
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " vim-go
 let g:go_highlight_functions = 1
@@ -214,6 +230,17 @@ function! s:MapNextFamily(map,cmd)
 	endif
 endfunction
 
+" Wrapper function to execute Ag with cwd of project root (if detected).
+" This requires https://github.com/dylanaraps/root.vim
+function! s:AgInVCSRoot(query, ...)
+	let l:cwd_back = getcwd()
+	call root#FindRoot()
+	call call('fzf#vim#ag', extend([a:query], a:000))
+	execute "lcd ".l:cwd_back
+endfunction
+
+command! -bang -nargs=* Ag call s:AgInVCSRoot(<q-args>, <bang>0)
+
 " match lines containing todos regardless if filetype highlights differently
 augroup HighlightTodos
 	autocmd!
@@ -240,7 +267,7 @@ augroup END
 " txt.vim
 augroup TxtVim
 	autocmd!
-	autocmd BufRead,BufNewFile * if &filetype == '' | setfiletype txt | endif
+	autocmd BufWinEnter,BufNewFile * if &filetype == '' | setfiletype txt | endif
 augroup END
 
 " Custom key mappings
@@ -288,6 +315,7 @@ nnoremap <silent> <Leader>fg :GFiles<CR>
 nnoremap <silent> <Leader>fb :Buffers<CR>
 nnoremap <silent> <Leader>fl :Lines<CR>
 nnoremap <silent> <Leader>fc :Commits<CR>
+nnoremap <silent> <Leader>fs :Snippets<CR>
 " The following mappings do not work when using *noremap as <Plug>-prefixed
 " commands ARE mappings - noremap would ignore them
 nmap <Leader><Tab> <Plug>(fzf-maps-n)
