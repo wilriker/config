@@ -46,7 +46,7 @@ if test $monitor -eq 0
     end
 
     # Start conky
-    conky -d -c "$script_dir/conkyrc.mon$monitor" >>/tmp/conky.log ^^&1
+    conky -d -c "$script_dir/conkyrc.mon$monitor"
     echo "started conky on monitor $monitor" >>/tmp/herbstluftwm.log
 end
 
