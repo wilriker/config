@@ -232,11 +232,11 @@ endfunction
 
 " Wrapper function to execute Ag with cwd of project root (if detected).
 " This requires https://github.com/dylanaraps/root.vim
-function! s:AgInVCSRoot(query, ...)
-	let l:cwd_back = getcwd()
+function! s:AgInVCSRoot(...)
+	let l:cwd = getcwd()
 	call root#FindRoot()
-	call call('fzf#vim#ag', extend([a:query], a:000))
-	execute "lcd ".l:cwd_back
+	call call('fzf#vim#ag', a:000)
+	execute "lcd ".l:cwd
 endfunction
 
 command! -bang -nargs=* Ag call s:AgInVCSRoot(<q-args>, <bang>0)
