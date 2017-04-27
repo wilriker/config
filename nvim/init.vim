@@ -16,34 +16,40 @@ endif
 " initialize vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
 
+" Status extensions
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'edkolev/tmuxline.vim'
+
+" Functional extentions
+Plug 'scrooloose/nerdcommenter'
+Plug 'valloric/listtoggle'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-repeat'
+Plug 'ReplaceWithRegister'
+Plug 'matze/vim-move'
+"Plug 'christoomey/vim-system-copy'
+
 " Color schemes
 Plug 'nanotech/jellybeans.vim'
 Plug 'maxst/flatcolor'
 Plug 'joshdick/onedark.vim'
 Plug 'ap/vim-css-color'
 Plug 'wilriker/vim-trailing-whitespace'
-
-" Code formatting
-Plug 'tpope/vim-endwise'
-Plug 'godlygeek/tabular'
-Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/rainbow_parentheses.vim'
 
-" Other stuff
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Code formatting
+Plug 'godlygeek/tabular'
+
+" VCS related
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-"Plug 'edkolev/tmuxline.vim'
-Plug 'valloric/listtoggle'
-Plug 'tpope/vim-obsession'
 Plug 'dylanaraps/root.vim'
 
 " Navigation
 Plug 'scrooloose/nerdtree'
 Plug 'schickling/vim-bufonly'
 "Plug 'rhysd/clever-f.vim'
-Plug 'matze/vim-move'
 Plug 'majutsushi/tagbar'
 Plug 'wilriker/vim-tmux-navigator'
 
@@ -56,6 +62,7 @@ Plug 'Shougo/deoplete.nvim',		{ 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go',			{ 'do': 'make'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'sirver/ultisnips'
+Plug 'tpope/vim-endwise'
 
 " Filetype plugin
 Plug 'wilriker/vim-fish',			{ 'for': 'fish' }
@@ -63,15 +70,15 @@ Plug 'tfnico/vim-gradle',			{ 'for': 'groovy' }
 Plug 'towolf/systemd-vim-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
-Plug 'chrisbra/csv.vim'
 Plug 'ericpruitt/tmux.vim',			{ 'for': 'tmux', 'rtp': 'vim' }
 Plug 'fatih/vim-go',				{ 'for': 'go' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
+Plug 'uarun/vim-protobuf',			{ 'for': 'proto' }
+Plug 'chrisbra/csv.vim'
 Plug 'fidian/hexmode'
 Plug 'txt.vim'
-Plug 'uarun/vim-protobuf',			{ 'for': 'proto' }
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
@@ -387,9 +394,11 @@ nnoremap <silent> <Leader>vv :edit $MYVIMRC<CR>
 nnoremap <silent> <Leader>f :edit ~/.config/fish/config.fish<CR>
 
 " Copy/Paste to/from system clipboard
+nnoremap <silent> <Leader>Y :yank +<CR>
 vnoremap <silent> <Leader>y "+y<CR>
 nnoremap <silent> <Leader>p "+gp<CR>
 nnoremap <silent> <Leader>P "+gP<CR>
+nnoremap <silent> cv :put +<CR>
 
 " silver searcher (through fzf)
 nnoremap <Leader>ag :Ag<Space>
