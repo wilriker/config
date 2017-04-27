@@ -152,6 +152,7 @@ augroup Onedark
 	autocmd!
 	autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": {"gui": "#ABB2BF", "cterm": "145", "cterm16": "7"} })
 augroup END
+let g:onedark_terminal_italics = 1
 colorscheme onedark
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1	" Enable pipe as cursor in INPUT mode - can be removed in nvim 0.2.0
 if has('gui')
