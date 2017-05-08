@@ -142,6 +142,7 @@ set softtabstop=4					" make expanded tabs 4 characters wide
 set noexpandtab						" do not expand tabs to single whitespaces
 
 " Colorscheme and other UI settings
+set mouse=a
 set termguicolors					" Enable 24 bit colors
 "set cursorline						" highlight current line - can make scrolling painfully slow
 let g:jellybeans_use_term_italics = 1
@@ -154,10 +155,7 @@ augroup Onedark
 augroup END
 let g:onedark_terminal_italics = 1
 colorscheme onedark
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1	" Enable pipe as cursor in INPUT mode - can be removed in nvim 0.2.0
-if has('gui')
-	set guifont=Inconsolata-g\ for\ Powerline\ Medium\ 9
-endif
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
 " Airline settings
 let g:airline#extensions#tabline#enabled = 1
