@@ -22,11 +22,12 @@ Plug 'vim-airline/vim-airline-themes'
 "Plug 'edkolev/tmuxline.vim'
 
 " Functional extentions
-Plug 'scrooloose/nerdcommenter'
+"Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 Plug 'valloric/listtoggle'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
-Plug 'ReplaceWithRegister'
+Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'matze/vim-move'
 "Plug 'christoomey/vim-system-copy'
 
@@ -78,7 +79,7 @@ Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
 Plug 'uarun/vim-protobuf',			{ 'for': 'proto' }
 Plug 'chrisbra/csv.vim'
 Plug 'fidian/hexmode'
-Plug 'txt.vim'
+Plug 'vim-scripts/txt.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
