@@ -133,15 +133,15 @@ herbstclient detect_monitors
 
 set -lx monitor_count (herbstclient get_attr monitors.count)
 # tags other monitor
-if test $monitor_count -gt 1
-    set -l tag_names (seq -f '%0.fr' 9)
+# if test $monitor_count -gt 1
+#     set -l tag_names (seq -f '%0.fr' 9)
 
-    for key in (seq 9)
-        herbstclient add $tag_names[$key]
-        herbstclient keybind $Mod-Alt-$key use $tag_names[$key]
-        herbstclient keybind $Mod-Alt-Shift-$key move $tag_names[$key]
-    end
-end
+#     for key in (seq 9)
+#         herbstclient add $tag_names[$key]
+#         herbstclient keybind $Mod-Alt-$key use $tag_names[$key]
+#         herbstclient keybind $Mod-Alt-Shift-$key move $tag_names[$key]
+#     end
+# end
 
 # unlock, just to be sure
 herbstclient unlock
