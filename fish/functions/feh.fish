@@ -5,7 +5,11 @@ function feh
         command feh $argv
     else
         set -l file (realpath $argv[1])
-        set -l dir (dirname $file)
-        command feh $dir --start-at $file
+        if test -d $file
+            command feh $file
+        else
+            set -l dir (dirname $file)
+            command feh $dir --start-at $file
+        end
     end
 end
