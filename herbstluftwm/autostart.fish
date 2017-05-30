@@ -131,7 +131,7 @@ herbstclient set tree_style '╾│ ├└╼─┐'
 # do multi monitor setup here
 herbstclient detect_monitors
 
-set -lx monitor_count (herbstclient get_attr monitors.count)
+# set -lx monitor_count (herbstclient get_attr monitors.count)
 # tags other monitor
 # if test $monitor_count -gt 1
 #     set -l tag_names (seq -f '%0.fr' 9)
