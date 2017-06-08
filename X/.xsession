@@ -23,4 +23,8 @@ setxkbmap -layout gb -option caps:none
 # Dropbox
 (sleep 15 && DISPLAY=:0 dropboxd) &
 
+xrandr --output HDMI2 --left-of DP2
+
+(sleep 2 && ~/.fehbg) &
+
 exec /usr/bin/env herbstluftwm
