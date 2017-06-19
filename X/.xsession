@@ -11,12 +11,9 @@ fi
 #setxkbmap -layout de -variant nodeadkeys -option caps:none
 setxkbmap -layout gb -option caps:none
 
-# Unset possibly broken variables
-#export DBUS_SESSION_BUS_ADDRESS=
-
 # Services and tray icons
-(sleep 5 && /usr/libexec/notification-daemon) &
-(sleep 5 && gnome-volume-control-applet) &
+(sleep 5 && /usr/libexec/mate-notification-daemon) &
+(sleep 5 && volumeicon) &
 (sleep 25 && gnome-power-manager) &
 (sleep 3 && nm-applet) &
 
