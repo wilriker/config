@@ -287,12 +287,6 @@ call s:MapNextFamily('l','l')
 call s:MapNextFamily('q','c')
 call s:MapNextFamily('t','tab')
 
-" Force myself to use hjkl
-noremap  <silent> <Left>  <Nop>
-noremap  <silent> <Down>  <Nop>
-noremap  <silent> <Up>    <Nop>
-noremap  <silent> <Right> <Nop>
-
 " vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <S-Up>    :TmuxNavigateUp<CR>
