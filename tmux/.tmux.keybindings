@@ -6,6 +6,7 @@ Alt+F7                           : Save current pane to $HOME/printscreen and op
 
 ### Copy Mode ###
 Ctrl+F3                          : Paste buffer
+Alt+F3                           : Toggle sending keyboard input to all splits
 
 ### Switching windows/panes ###
 F5                               : Previous window
