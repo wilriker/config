@@ -77,3 +77,7 @@ end
 if type -q free
     abbr -a free 'free -m'
 end
+
+if type -q pgrep
+    abbr -a pgrep 'pgreg -a'
+end
