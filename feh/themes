@@ -1,9 +1,13 @@
 feh --scale-down \
 	--draw-filename \
+	--draw-exif \
 	--image-bg black \
 	--sort name \
 	--slideshow-delay -3 \
 	--auto-rotate \
-	--no-menus \
 	--quiet \
+	--cache-thumbnails \
+	--thumb-height 256 \
+	--thumb-width 256 \
+	--limit-width 1360 \
 	--title "[%u/%l] %n (%wx%h)"
