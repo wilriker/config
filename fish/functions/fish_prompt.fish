@@ -18,49 +18,72 @@ set segment_separator \uE0B0
 # Helper methods
 # ===========================
 
-function git_branch_status -d "Get the branch state compared to upstream"
-    set count (command git rev-list --count --left-right "@{upstream}...HEAD" ^/dev/null)
-    echo $count | read -l behind ahead
-    switch "$count"
-        case '' # no upstream
-        case "0	0" # equal to upstream
-        case "0	*" # ahead of upstream
-            echo -n " ↑$ahead"
-        case "*	0" # behind upstream
-            echo -n " ↓$behind"
-        case '*' # diverged from upstream
-            echo -n " ↑$ahead↓$behind"
+function git_state -d "Information on current repo state and branch compared to upstream"
+    set -l st 0
+    set -l git_status (command git status --porcelain -b)
+
+    # Read branch state into array
+    echo $git_status[1] | read -al branch_state
+
+    # Remove first to elements of branch state
+    set -e branch_state[1]
+    set -e branch_state[1]
+
+    # Remove branch state from repo state
+    set -e git_status[1]
+
+    set -l changedFiles 0
+    set -l conflictingFiles 0
+    set -l stagedFiles 0
+    set -l deletedFiles 0
+    set -l untrackedFiles 0
+
+    while test (count $git_status) -ge 1
+        set -l fileState (string sub -l 2 -- $git_status[1])
+        switch "$fileState"
+            case '\?\?'
+                set untrackedFiles (math "$untrackedFiles + 1")
+            case 'DD' 'AU' 'UD' 'UA' 'DU' 'AA' 'UU'
+                set conflicingFiles (math "$conflictingFiles + 1")
+            case 'D ' ' D'
+                set deletedFiles (math "$deletedFiles + 1")
+            case '*'
+                if string match -rq -- '\s\S' $fileState
+                    set changedFiles (math "$changedFiles + 1")
+                else if string match -rq -- '\S\s' $fileState
+                    set stagedFiles (math "$stagedFiles + 1")
+                end
+        end
+        set -e git_status[1]
     end
-end
 
-function git_repo_state -d "Information on current repo state"
-    set -l changedFiles     (command git diff --name-status | cut -c 1-2)
-    set -l stagedFiles      (command git diff --name-status --staged | cut -c 1-2)
-    set -l deletedFiles     (command git diff --name-status --staged --diff-filter=D | cut -c 1-2)
-
-    set -l dirtystate       (count $changedFiles)
-    set -l deletestate      (count $deletedFiles)
-    set -l stagedstate      (math (count $stagedFiles) - $deletestate)
-    set -l untrackedfiles   (count (command git ls-files --others --exclude-standard))
-
-    if test (math $dirtystate + $deletestate + $stagedstate + $untrackedfiles) -eq 0
+    if test (math "$changedFiles + $deletedFiles + $stagedFiles + $untrackedFiles") -eq 0
         echo -n ' ✔'
-        return
     else
-        if test $stagedstate -ne 0
-            echo -n " $stagedstate✚"
+        if test $stagedFiles -ne 0
+            echo -n " $stagedFiles✚"
         end
-        if test $deletestate -ne 0
-            echo -n " $deletestate✖"
+        if test $deletedFiles -ne 0
+            echo -n " $deletedFiles✖"
         end
-        if test $dirtystate -ne 0
-            echo -n " $dirtystate⚡"
+        if test $changedFiles -ne 0
+            echo -n " $changedFiles⚡"
         end
-        if test $untrackedfiles -ne 0
-            echo -n " $untrackedfiles…"
+        if test $untrackedFiles -ne 0
+            echo -n " $untrackedFiles…"
         end
-        return 1
+        set st 1
     end
+
+    if string match -rq -- '.*\[(ahead \d+, behind \d+\].*)' "$branch_state"
+        echo -n (string replace -r -- '.*\[ahead ' ' ↑' (string replace -- ', behind ' '↓' (string replace -r -- '\].*' '' "$branch_state")))
+    else if string match -rq -- '.*\[ahead \d+\].*' "$branch_state"
+        echo -n (string replace -r -- '.*\[ahead ' ' ↑' (string replace -r -- '\].*' '' "$branch_state"))
+    else if string match -rq -- '.*\[behind \d+\].*' "$branch_state"
+        echo -n (string replace -r -- '.*\[behind ' ' ↓' (string replace -r -- '\].*' '' "$branch_state"))
+    end
+
+    return $st
 end
 
 
@@ -174,13 +197,11 @@ function prompt_git -d "Display the current git state"
     set -l repo_state
 
     set -l branch
-    set -l branch_state
     set -l ref (command git symbolic-ref HEAD ^/dev/null; set os $status)
     if test $os -ne 0
         set branch "➦ $short_sha"
     else
         set branch ' '(string replace 'refs/heads/' '' $ref)
-        set branch_state (git_branch_status)
     end
 
     if test "true" = $inside_gitdir
@@ -190,10 +211,10 @@ function prompt_git -d "Display the current git state"
             set branch "GIT_DIR!"
         end
     else if test "true" = $inside_worktree
-        set repo_state (git_repo_state; or set bg yellow)
+        set repo_state (git_state; or set bg yellow)
     end
 
-    prompt_segment $bg $fg "$branch$repo_state$branch_state"
+    prompt_segment $bg $fg "$branch$repo_state"
 end
 
 function prompt_status -S -d "the symbols for a non zero exit status, root and background jobs"
