@@ -68,7 +68,7 @@ Plug 'tpope/vim-endwise'
 " Filetype plugin
 Plug 'wilriker/vim-fish',			{ 'for': 'fish' }
 Plug 'tfnico/vim-gradle',			{ 'for': 'groovy' }
-Plug 'towolf/systemd-vim-syntax',	{ 'for': 'systemd' }
+Plug 'Matt-Deacalion/vim-systemd-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
 Plug 'ericpruitt/tmux.vim',			{ 'for': 'tmux', 'rtp': 'vim' }
