@@ -1,5 +1,6 @@
+# Defined in /tmp/fish.Mia1PA/unarchive.fish @ line 2
 function unarchive --description 'Extract with whatever it takes'
-    for archive in $argv
+	for archive in $argv
         switch $archive
             case "*.tgz" "*.tar.gz" # tar compressed with gzip
                 type -q pigz
@@ -35,6 +36,8 @@ function unarchive --description 'Extract with whatever it takes'
                 unzip $archive
             case "*.7z"
                 7za x $archive
+            case "*.deb"
+                ar x $archive
             case '*'
                 echo "unknown extension"
         end

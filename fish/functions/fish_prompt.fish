@@ -32,30 +32,35 @@ function git_state -d "Information on current repo state and branch compared to 
     # Remove branch state from repo state
     set -e git_status[1]
 
-    set -l changedFiles 0
-    set -l conflictingFiles 0
-    set -l stagedFiles 0
-    set -l deletedFiles 0
-    set -l untrackedFiles 0
+    set -l changedFiles
+    set -l conflictingFiles
+    set -l stagedFiles
+    set -l deletedFiles
+    set -l untrackedFiles
 
-    while test (count $git_status) -ge 1
-        set -l fileState (string sub -l 2 -- $git_status[1])
-        switch "$fileState"
-            case '\?\?'
-                set untrackedFiles (math "$untrackedFiles + 1")
-            case 'DD' 'AU' 'UD' 'UA' 'DU' 'AA' 'UU'
-                set conflicingFiles (math "$conflictingFiles + 1")
-            case 'D ' ' D'
-                set deletedFiles (math "$deletedFiles + 1")
+    for line in $git_status
+        switch "$line"
+            case '\?\?*'
+                set untrackedFiles $untrackedFiles 1
+            case 'DD*' 'AU*' 'UD*' 'UA*' 'DU*' 'AA*' 'UU*'
+                set conflicingFiles $conflictingFiles 1
+            case 'D *' ' D*'
+                set deletedFiles $deletedFiles 1
             case '*'
                 if string match -rq -- '\s\S' $fileState
-                    set changedFiles (math "$changedFiles + 1")
+                    set changedFiles $changedFiles 1
                 else if string match -rq -- '\S\s' $fileState
-                    set stagedFiles (math "$stagedFiles + 1")
+                    set stagedFiles $stagedFiles 1
                 end
         end
-        set -e git_status[1]
     end
+
+    set untrackedFiles (count $untrackedFiles)
+    set conflicingFiles (count $conflicingFiles)
+    set deletedFiles (count $deletedFiles)
+    set changedFiles (count $changedFiles)
+    set stagedFiles (count $stagedFiles)
+
 
     if test (math "$changedFiles + $deletedFiles + $stagedFiles + $untrackedFiles") -eq 0
         echo -n ' ✔'
