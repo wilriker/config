@@ -32,8 +32,6 @@ Plug 'matze/vim-move'
 "Plug 'christoomey/vim-system-copy'
 
 " Color schemes
-Plug 'nanotech/jellybeans.vim'
-Plug 'maxst/flatcolor'
 Plug 'joshdick/onedark.vim'
 Plug 'ap/vim-css-color'
 Plug 'wilriker/vim-trailing-whitespace'
@@ -146,10 +144,6 @@ set noexpandtab						" do not expand tabs to single whitespaces
 set mouse=a
 set termguicolors					" Enable 24 bit colors
 "set cursorline						" highlight current line - can make scrolling painfully slow
-let g:jellybeans_use_term_italics = 1
-let g:jellybeans_overrides = {
-\    'background': { 'guibg': '0A0A0A', 'ctermbg': 'none', '256ctermbg': 'none' },
-\}
 augroup Onedark
 	autocmd!
 	autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": {"gui": "#ABB2BF", "cterm": "145", "cterm16": "7"} })
