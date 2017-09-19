@@ -47,9 +47,9 @@ function git_state -d "Information on current repo state and branch compared to 
             case 'D *' ' D*'
                 set deletedFiles $deletedFiles 1
             case '*'
-                if string match -rq -- '\s\S' $fileState
+                if string match -rq -- '\s\S' $line
                     set changedFiles $changedFiles 1
-                else if string match -rq -- '\S\s' $fileState
+                else if string match -rq -- '\S\s' $line
                     set stagedFiles $stagedFiles 1
                 end
         end
