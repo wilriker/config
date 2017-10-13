@@ -59,7 +59,7 @@ if type -q yum
     abbr -a yums 'yum search'
     abbr -a yumi 'sudo yum install'
     abbr -a yumq 'yum info'
-    abbr -a yumr 'sudo yum remove'
+    abbr -a yumr 'sudo yum autoremove'
 end
 
 if type -q unarchive
