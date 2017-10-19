@@ -1,9 +1,9 @@
 if not status is-interactive
-    return
+    exit
 end
 
 if type -q __fish_command_not_found_handler
-    return
+    exit
 end
 
 if type -p -q yum
