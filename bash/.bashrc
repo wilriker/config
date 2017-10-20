@@ -10,7 +10,6 @@ if shopt -q login_shell; then
 	export VISUAL=${EDITOR}
 	export BROWSER="google-chrome-stable"
 	export JAVA_HOME=/usr/lib/jvm/default
-	export _JAVA_AWT_WM_NONREPARENTING=1
 
 	# Aliases
 	alias mkdir='mkdir -p -v'
