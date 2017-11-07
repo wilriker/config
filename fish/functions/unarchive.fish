@@ -1,4 +1,4 @@
-# Defined in /tmp/fish.Mia1PA/unarchive.fish @ line 2
+# Defined in /tmp/fish.3lTfik/unarchive.fish @ line 2
 function unarchive --description 'Extract with whatever it takes'
 	for archive in $argv
         switch $archive
@@ -32,7 +32,7 @@ function unarchive --description 'Extract with whatever it takes'
                 type -q unrar
                 and unrar x $archive
                 or rar x -ad $archive
-            case "*.zip" "*.jar" "*.war"
+            case "*.zip" "*.jar" "*.war" "*.jmod"
                 unzip $archive
             case "*.7z"
                 7za x $archive
