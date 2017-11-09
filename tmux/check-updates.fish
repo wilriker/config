@@ -17,6 +17,9 @@ set -l now (date +%s)
 set -l old (cat $update_check_file)
 set -l diff (math "$now - $old")
 set -l icon 
+if type -q yum
+    set icon 
+end
 if test $diff -gt $update_interval
     echo $now >$update_check_file
     if type -q pacaura
@@ -24,7 +27,6 @@ if test $diff -gt $update_interval
     else if type -q pacman
         set updates (flock -xn $lock_file pacman -Qu | wc -l)
     else if type -q yum
-        set icon 
         set updates (flock -xn $lock_file yum check-update | egrep "(\.i386|\.x86_64|\.noarch|\.src)" | wc -l)
     end
     echo $updates >$update_result_file
