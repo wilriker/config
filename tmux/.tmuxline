@@ -27,7 +27,7 @@ setw -g window-status-bg "colour234"
 set -g status-justify centre
 set -g status-interval 15
 set -g status-left "#[fg=colour16,bg=colour110,bold] #h #[fg=colour110,bg=colour234,nobold,nounderscore,noitalics]"
-set -g status-right "#[fg=colour110,bg=colour234,nobold,nounderscore,noitalics]#[fg=colour16,bg=colour110] #(check-backup-running.fish) #[fg=colour41,bg=colour110,nobold,nounderscore,noitalics]#[fg=colour16,bg=colour41] #(check-updates.fish) updates #[fg=colour237,bg=colour41,nobold,nounderscore,noitalics]#[fg=colour254,bg=colour237] %Y-%m-%d  %H:%M #[fg=colour110,bg=colour237,nobold,nounderscore,noitalics]"
+set -g status-right "#[fg=colour110,bg=colour234,nobold,nounderscore,noitalics]#[fg=colour16,bg=colour110] #(check-backup-running.fish) #[fg=colour41,bg=colour110,nobold,nounderscore,noitalics]#[fg=colour16,bg=colour41] #(check-updates.fish) #[fg=colour237,bg=colour41,nobold,nounderscore,noitalics]#[fg=colour254,bg=colour237] %Y-%m-%d  %H:%M #[fg=colour110,bg=colour237,nobold,nounderscore,noitalics]"
 
 # Status bar Window-area format
 setw -g window-status-format "#[fg=colour254,bg=colour234] #I #[fg=colour254,bg=colour234] #W "
