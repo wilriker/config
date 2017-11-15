@@ -1,6 +1,7 @@
 #!/usr/bin/env fish
 
 set -l config_dir ~/.config/herbstluftwm
+set -l hostname (hostname)
 # this is a simple config for herbstluftwm
 
 herbstclient emit_hook reload
@@ -16,7 +17,11 @@ herbstclient keybind $Mod-Shift-c close
 
 # Keybindings to start applications
 herbstclient keybind $Mod-Shift-p spawn $config_dir/restartpanels.fish
-herbstclient keybind $Mod-Return spawn st -f 'Inconsolata Nerd Font:size=10'
+if test $hostname = "archie-in-a-box"
+    herbstclient keybind $Mod-Return spawn st -f 'Inconsolata Nerd Font:size=6.5'
+else
+    herbstclient keybind $Mod-Return spawn st -f 'Inconsolata Nerd Font:size=10'
+end
 herbstclient keybind $Mod-d spawn $config_dir/dmenu_run_hlwm -i -nb '#1e1e1e' -nf '#888888' -sb '#87afd7' -sf '#1e1e1e'
 herbstclient keybind $Mod-e spawn nemo
 herbstclient keybind $Mod-c spawn google-chrome-stable
