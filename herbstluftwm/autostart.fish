@@ -130,6 +130,7 @@ herbstclient rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' m
 herbstclient rule windowtype~'_NET_WM_WINDOW_TPYE_(FULLSCREEN|FS)' fullscreen=on
 herbstclient rule title='gnome-calculator' pseudotile=on
 herbstclient rule title='Connect to MySQL Server' pseudotile=on
+herbstclient rule class='qemu-system-x86_64' tag=7 fullscreen=on
 
 herbstclient set tree_style '╾│ ├└╼─┐'
 
