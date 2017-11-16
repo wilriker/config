@@ -33,7 +33,7 @@ set -g status-right \
 	#[fg=colour237,bg=colour41]#[fg=colour254,bg=colour237] %Y-%m-%d  %H:%M "
 
 # Status bar Window-area format
-setw -g window-status-format "#[fg=colour254,bg=colour234] #I  #W #{?window_zoomed_flag,(Z),}"
-setw -g window-status-current-format "#[fg=colour234,bg=colour237]#[fg=colour254,bg=colour237] #I  #W #{?window_zoomed_flag,(Z),} #[fg=colour237,bg=colour234]"
+setw -g window-status-format "#[fg=colour254,bg=colour234] #I  #W#{?window_zoomed_flag, (Z),}"
+setw -g window-status-current-format "#[fg=colour234,bg=colour237]#[fg=colour254,bg=colour237] #I  #W#{?window_zoomed_flag, (Z),} #[fg=colour237,bg=colour234]"
 
 # vim: ft=tmux
