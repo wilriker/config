@@ -1,5 +1,24 @@
 #!/usr/bin/env fish
 
+function install_pacman_hook -S -d "Install a pacman hook to reset update count if not existing"
+    set -l hook /etc/pacman.d/hooks/reset-update-count.hook
+    if not test -f $hook
+        sudo mkdir -p /etc/pacman.d/hooks
+        echo "\
+[Trigger]
+Description = Reset available updates count after upgrade
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Depends = coreutils
+When = PostTransaction
+Exec = /usr/bin/echo 0 > $update_result_file \
+        " | sudo tee $hook >&-
+    end
+end
+
 set -l update_interval 3600
 if type -q pacaur
     or type -q pacman
@@ -23,9 +42,11 @@ end
 if test $diff -gt $update_interval
     echo $now >$update_check_file
     if type -q pacaur
+        install_pacman_hook
         pacaur -Sy >&- ^&-
         set updates (flock -xn $lock_file pacaur -Qu | wc -l)
     else if type -q pacman
+        install_pacman_hook
         sudo pacman -Sy >&- ^&-
         set updates (flock -xn $lock_file pacman -Qu | wc -l)
     else if type -q yum
