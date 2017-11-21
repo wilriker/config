@@ -6,16 +6,17 @@ function install_pacman_hook -S -d "Install a pacman hook to reset update count 
         sudo mkdir -p /etc/pacman.d/hooks
         echo "\
 [Trigger]
-Description = Reset available updates count after upgrade
 Operation = Upgrade
 Type = Package
 Target = *
 
 [Action]
+Description = Reset available updates count after upgrade
 Depends = coreutils
+Depends = bash
 When = PostTransaction
-Exec = /usr/bin/echo 0 > $update_result_file \
-        " | sudo tee $hook >&-
+Exec = /usr/bin/sh -c '/usr/bin/echo 0 > $update_result_file'\
+" | sudo tee $hook >&-
     end
 end
 
