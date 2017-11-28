@@ -56,10 +56,10 @@ if type -q git
 end
 
 if type -q yum
-    abbr -a yums 'yum search'
-    abbr -a yumi 'sudo yum install'
-    abbr -a yumq 'yum info'
-    abbr -a yumr 'sudo yum autoremove'
+    abbr -a yums 'yum -q search'
+    abbr -a yumi 'sudo yum -q install'
+    abbr -a yumq 'yum -q info'
+    abbr -a yumr 'sudo yum -q autoremove'
 end
 
 if type -q unarchive
