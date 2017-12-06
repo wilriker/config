@@ -27,6 +27,8 @@ herbstclient add $tag
 if herbstclient add_monitor $rect $tag $monitor ^/dev/null
     herbstclient chain , \
         lock , \
+        new_attr int monitors.by-name.$monitor.my_prev_focus , \
+        substitute M monitors.focus.index set_attr monitors.by-name.$monitor.my_prev_focus M , \
         raise_monitor $monitor , \
         focus_monitor $monitor , \
         lock_tag $monitor , \
@@ -37,6 +39,7 @@ else
         lock , \
         focus_monitor $monitor , \
         close_or_remove , \
+        substitute M monitors.by-name.$monitor.my_prev_focus focus_monitor M , \
         remove_monitor $monitor , \
         merge_tag $tag , \
         unlock
