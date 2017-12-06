@@ -9,22 +9,18 @@
 set -l tag $argv[1]
 set -l application $argv[2..-1]
 
-set -l geometry
-begin
-    set -l IFS ' '
-    herbstclient monitor_rect $monitor | read -a geometry
-end
+herbstclient monitor_rect | read -al geometry
 
+set -l x $geometry[1]
+set -l y $geometry[2]
 set -l width $geometry[3]
 set -l height $geometry[4]
 
-set -l rect (math "$width/2")'x'(math "$height/2")'+'(math "$geometry[1]+($width/4)")'+'(math "$geometry[2]+($height/4)")
+set -l rect (math "$width/2")'x'(math "$height/2")'+'(math "$x+($width/4)")'+'(math "$y+($height/4)")
 
-set -l monitor scratchpad
+set -l monitor scratchpad-for-$application[1]
 
-herbstclient add $tag
-
-if herbstclient add_monitor $rect $tag $monitor ^/dev/null
+if herbstclient and + add $tag + add_monitor $rect $tag $monitor ^/dev/null
     herbstclient chain , \
         lock , \
         new_attr int monitors.by-name.$monitor.my_prev_focus , \
@@ -33,15 +29,25 @@ if herbstclient add_monitor $rect $tag $monitor ^/dev/null
         focus_monitor $monitor , \
         lock_tag $monitor , \
         unlock , \
-        spawn $application
-else
-    herbstclient chain , \
-        lock , \
-        focus_monitor $monitor , \
-        close_or_remove , \
-        substitute M monitors.by-name.$monitor.my_prev_focus focus_monitor M , \
-        remove_monitor $monitor , \
-        merge_tag $tag , \
-        unlock
-end
+        floating $tag on
 
+    if test $application[1] = st
+        st $application[2..-1]
+    else
+        eval $application
+    end
+else
+    # TODO: Remove this else block as soon as I am used to the new flow
+    if command -sq notify-send
+        notify-send "Close the app!"
+    end
+    exit
+end
+herbstclient chain , \
+    lock , \
+    focus_monitor $monitor , \
+    close , \
+    substitute M monitors.by-name.$monitor.my_prev_focus focus_monitor M , \
+    remove_monitor $monitor , \
+    merge_tag $tag , \
+    unlock
