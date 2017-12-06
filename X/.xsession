@@ -18,7 +18,10 @@ setxkbmap -layout gb -option caps:none
 # Dropbox
 (sleep 15 && DISPLAY=:0 dropboxd) &
 
+# At work
 xrandr --output HDMI-2 --primary --left-of DP-2
+# At home
+# xrandr --output eDP-1 --primary --left-of HDMI-2
 
 (sleep 2 && ~/.fehbg) &
 

@@ -1,6 +1,6 @@
 # Things to do in login shell
 if shopt -q login_shell; then
-	export JAVA_HOME=$HOME/opt/jdk9
+	export JAVA_HOME=$HOME/opt/jdk8
 	export M2_HOME=$HOME/opt/maven
 	export GRADLE_HOME=$HOME/opt/gradle
 	export LC_COLLATE=C
