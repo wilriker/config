@@ -13,6 +13,7 @@ setxkbmap -layout gb -option caps:none
 
 # Services and tray icons
 (sleep 5 && /usr/libexec/mate-notification-daemon) &
+(sleep 2 && start-pulseaudio-x11) &
 (sleep 30 && volumeicon) &
 
 # Dropbox
