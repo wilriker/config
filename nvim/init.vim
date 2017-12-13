@@ -44,6 +44,7 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'dylanaraps/root.vim'
+Plug 'sjl/splice.vim'
 
 " Navigation
 Plug 'scrooloose/nerdtree'
