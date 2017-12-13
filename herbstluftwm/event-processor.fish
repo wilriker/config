@@ -75,7 +75,7 @@ while true
                 herbstclient pad $monitor $panel_height
             end
         case window_title_changed
-            set windowtitle "$cmd[3..-1]"
+            test (count $cmd) -gt 3; and set windowtitle "$cmd[3..-1]"; or set windowtitle ""
         case focus_changed
             set windowtitle (herbstclient get_attr clients.focus.title)
     end
