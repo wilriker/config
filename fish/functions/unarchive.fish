@@ -1,4 +1,4 @@
-# Defined in /tmp/fish.3lTfik/unarchive.fish @ line 2
+# Defined in /tmp/fish.P0tQsg/unarchive.fish @ line 2
 function unarchive --description 'Extract with whatever it takes'
 	for archive in $argv
         switch $archive
@@ -34,6 +34,11 @@ function unarchive --description 'Extract with whatever it takes'
                 or rar x -ad $archive
             case "*.zip" "*.jar" "*.war" "*.jmod"
                 unzip $archive
+            case "*.crx"
+                set -l inner_zip_offset (fgrep --byte-offset --only-matching --text PK\x03\x04 $archive | head -1 | cut -d: -f1)
+                set -l inner_zip (mktemp --suffix=".zip")
+                dd if=$archive of=$inner_zip skip=$inner_zip_offset iflag=skip_bytes >&- ^&-
+                unzip $inner_zip
             case "*.7z"
                 7za x $archive
             case "*.deb"
