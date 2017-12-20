@@ -1,11 +1,3 @@
-" Prevent issues with non-bourne-shells
-"if $SHELL =~ 'bin/zsh'
-"	set shell=/bin/bash
-"endif
-"if $SHELL =~ 'bin/fish'
-	"set shell=/bin/bash
-"endif
-
 " Make sure vim-plug is installed
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -19,17 +11,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Status extensions
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'edkolev/tmuxline.vim'
 
 " Functional extentions
-"Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
 Plug 'valloric/listtoggle'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'matze/vim-move'
-"Plug 'christoomey/vim-system-copy'
 
 " Color schemes
 Plug 'joshdick/onedark.vim'
@@ -38,7 +27,7 @@ Plug 'wilriker/vim-trailing-whitespace'
 Plug 'junegunn/rainbow_parentheses.vim'
 
 " Code formatting
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular',			{ 'on': 'Tabularize' }
 
 " VCS related
 Plug 'tpope/vim-fugitive'
@@ -47,10 +36,9 @@ Plug 'dylanaraps/root.vim'
 Plug 'sjl/splice.vim'
 
 " Navigation
-Plug 'scrooloose/nerdtree'
-Plug 'schickling/vim-bufonly'
-"Plug 'rhysd/clever-f.vim'
-Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree',			{ 'on': 'NERDTreeFind' }
+Plug 'schickling/vim-bufonly',		{ 'on': 'BufOnly' }
+Plug 'majutsushi/tagbar',			{ 'on': 'TagbarToggle' }
 Plug 'wilriker/vim-tmux-navigator'
 
 " Searching/Fuzzyfind
@@ -165,8 +153,6 @@ set completeopt=menu,preview,noinsert
 
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-let g:deoplete#sources#go#use_cache = 1
-let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/linux_amd64'
 
 " UltiSnips
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -326,6 +312,7 @@ nnoremap <silent> <Leader>t, ggVG:Tabularize /,<CR>
 nnoremap <silent> <Leader>t; ggVG:Tabularize /;<CR>
 nnoremap <silent> <Leader>t" ggVG:Tabularize /"<CR>
 nnoremap <silent> <Leader>tt ggVG:Tabularize /\t<CR>
+nnoremap <silent> <Leader>t. ylggVG:Tabularize /<C-r>"<CR>
 vnoremap <silent> <Leader>t= :Tabularize /=<CR>
 vnoremap <silent> <Leader>t: :Tabularize /:<CR>
 vnoremap <silent> <Leader>t, :Tabularize /,<CR>
@@ -348,7 +335,7 @@ nnoremap <silent> <Leader>qp :pclose<CR>
 nnoremap <silent> <F2> :TagbarToggle<CR>
 
 " NERDTree
-nnoremap <silent> <expr> <F3> g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : ':NERDTreeFind<CR>'
+nnoremap <silent> <expr> <F3> exists("g:NERDTree") && g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : ':NERDTreeFind<CR>'
 
 " obsession
 nnoremap <silent> <Leader>os :Obsess<CR>
