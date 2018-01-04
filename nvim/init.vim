@@ -65,6 +65,7 @@ Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
 Plug 'uarun/vim-protobuf',			{ 'for': 'proto' }
 Plug 'rid9/vim-fstab',				{ 'for': 'fstab' }
+Plug 'lervag/vimtex',				{ 'for': 'tex' }
 Plug 'chrisbra/csv.vim'
 Plug 'fidian/hexmode'
 Plug 'vim-scripts/txt.vim'
