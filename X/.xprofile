@@ -16,7 +16,7 @@ dunst &
 source ~/.fehbg
 
 # Start dropbox
-#dropbox &
+(sleep 5 && dropbox) &
 
 # Battery tray icon
 cbatticon &
