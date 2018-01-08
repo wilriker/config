@@ -1,13 +1,13 @@
 # Things to do in login shell
 if shopt -q login_shell; then
-	export JAVA_HOME=$HOME/opt/jdk8
-	export M2_HOME=$HOME/opt/maven
-	export GRADLE_HOME=$HOME/opt/gradle
+	export JAVA_HOME=${HOME}/opt/jdk8
+	export M2_HOME=${HOME}/opt/maven
+	export GRADLE_HOME=${HOME}/opt/gradle
 	export LC_COLLATE=C
 	export BROWSER=vivaldi-stable
 
-	export PATH=~/bin:$PATH
-	export MANPATH=$HOME/share/man:$HOME/local/httpd24/man:$HOME/opt/neovim/share/man::$(man --path)
+	export PATH=~/bin:${PATH}
+	export MANPATH=${HOME}/share/man:${HOME}/local/httpd24/man:${HOME}/opt/neovim/share/man::$(man --path)
 else
 	: # Things to do in interactive shell
 fi

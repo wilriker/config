@@ -35,10 +35,12 @@ function unarchive --description 'Extract with whatever it takes'
             case "*.zip" "*.jar" "*.war" "*.jmod"
                 unzip $archive
             case "*.crx"
-                set -l inner_zip_offset (fgrep --byte-offset --only-matching --text PK\x03\x04 $archive | head -1 | cut -d: -f1)
-                set -l inner_zip (mktemp --suffix=".zip")
-                dd if=$archive of=$inner_zip skip=$inner_zip_offset iflag=skip_bytes >&- ^&-
-                unzip $inner_zip
+                if not unzip $archive
+                    set -l inner_zip_offset (fgrep --byte-offset --only-matching --text PK\x03\x04 $archive | head -1 | cut -d: -f1)
+                    set -l inner_zip (mktemp --suffix=".zip")
+                    dd if=$archive of=$inner_zip skip=$inner_zip_offset iflag=skip_bytes >&- ^&-
+                    unzip $inner_zip
+                end
             case "*.7z"
                 7za x $archive
             case "*.deb"
