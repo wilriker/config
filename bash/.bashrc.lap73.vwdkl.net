@@ -4,7 +4,7 @@ if shopt -q login_shell; then
 	export M2_HOME=$HOME/opt/maven
 	export GRADLE_HOME=$HOME/opt/gradle
 	export LC_COLLATE=C
-	export BROWSER=google-chrome
+	export BROWSER=vivaldi-stable
 
 	export PATH=~/bin:$PATH
 	export MANPATH=$HOME/share/man:$HOME/local/httpd24/man:$HOME/opt/neovim/share/man::$(man --path)

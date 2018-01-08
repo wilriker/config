@@ -9,6 +9,7 @@
     set -gx NODE_HOME $HOME/opt/node
     set -gx GOROOT $HOME/opt/go
     set -gx GOPATH $HOME/workspace/go
+    set -gx BROWSER vivaldi-stable
 
     set -gx SHELL (command -s fish)
 #end
