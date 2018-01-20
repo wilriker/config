@@ -5,5 +5,5 @@ set -gx EDITOR nvim
 set -gx DIFFPROG "$EDITOR -d"
 set -gx VISUAL $EDITOR
 set -gx PAGER less
-set -gx BROWSER google-chrome-stable
+set -gx BROWSER vivaldi-stable
 set -gx XKB_DEFAULT_LAYOUT gb
