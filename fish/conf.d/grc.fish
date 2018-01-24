@@ -24,3 +24,5 @@ for exec in $execs
 end
 
 echo "function configure; grc ./configure \$argv; end" | source
+
+echo "function drill --wraps drill; grc --config conf.dig drill \$argv; end" | source
