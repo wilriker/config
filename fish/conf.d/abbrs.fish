@@ -34,7 +34,7 @@ if type -q systemctl
     abbr -a enabled     'sudo systemctl enable'
     abbr -a reenabled   'sudo systemctl reenable'
     abbr -a disabled    'sudo systemctl disable'
-    abbr -a editd       'sudo systemctl edit'
+    abbr -a editd       'sudo -E systemctl edit'
 
     # User services
     abbr -a ustartd     'systemctl --user start'
@@ -48,6 +48,7 @@ if type -q systemctl
 
     # General
     abbr -a reloadd     'sudo systemctl daemon-reload'
+    abbr -a ureloadd     'systemctl --user daemon-reload'
 end
 
 if type -q git
@@ -56,10 +57,10 @@ if type -q git
 end
 
 if type -q yum
-    abbr -a yums 'yum -q search'
-    abbr -a yumi 'sudo yum -q install'
-    abbr -a yumq 'yum -q info'
-    abbr -a yumr 'sudo yum -q autoremove'
+    abbr -a yums 'yum search'
+    abbr -a yumi 'sudo yum install'
+    abbr -a yumq 'yum info'
+    abbr -a yumr 'sudo yum autoremove'
 end
 
 if type -q unarchive
