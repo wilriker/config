@@ -46,7 +46,7 @@ if type -q systemctl
     abbr -a ureenabled  'systemctl --user reenable'
     abbr -a udisabled   'systemctl --user disable'
     abbr -a ueditd      'systemctl --user edit'
-    abbr -a catd        'systemctl --user cat'
+    abbr -a ucatd        'systemctl --user cat'
 
     # General
     abbr -a reloadd     'sudo systemctl daemon-reload'
