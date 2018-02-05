@@ -46,11 +46,11 @@ if type -q systemctl
     abbr -a ureenabled  'systemctl --user reenable'
     abbr -a udisabled   'systemctl --user disable'
     abbr -a ueditd      'systemctl --user edit'
-    abbr -a ucatd        'systemctl --user cat'
+    abbr -a ucatd       'systemctl --user cat'
 
     # General
     abbr -a reloadd     'sudo systemctl daemon-reload'
-    abbr -a ureloadd     'systemctl --user daemon-reload'
+    abbr -a ureloadd    'systemctl --user daemon-reload'
 end
 
 if type -q git
