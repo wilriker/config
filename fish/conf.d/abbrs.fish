@@ -35,6 +35,7 @@ if type -q systemctl
     abbr -a reenabled   'sudo systemctl reenable'
     abbr -a disabled    'sudo systemctl disable'
     abbr -a editd       'sudo -E systemctl edit'
+    abbr -a catd        'systemctl cat'
 
     # User services
     abbr -a ustartd     'systemctl --user start'
@@ -45,6 +46,7 @@ if type -q systemctl
     abbr -a ureenabled  'systemctl --user reenable'
     abbr -a udisabled   'systemctl --user disable'
     abbr -a ueditd      'systemctl --user edit'
+    abbr -a catd        'systemctl --user cat'
 
     # General
     abbr -a reloadd     'sudo systemctl daemon-reload'
