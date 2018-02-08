@@ -7,7 +7,7 @@ set -l execs    blkid dig docker docker-machine env findmnt free gcc g++ ip ipta
                 mvn netstat nmap ping ping6 ps sar showmount stat sysctl \
                 systemctl tcpdump traceroute tune2fs ulimit uptime vmstat w who
 
-set -q grc 'grc -es --colour=auto'
+set -l grc 'grc -es --colour=auto'
 
 for exec in $execs
 
