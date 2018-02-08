@@ -14,14 +14,17 @@ end
 # Make PATH distinct
 vardistinct PATH
 
-# Every after here is only relevant for interactive shells
+# Every after here is only relevant for interactive login shells
 status is-interactive; or exit
+status is-login; or exit
 
 # startx
-if test -z "$SSH_CONNECTION"; and not command env DISPLAY=:0 xset -q >/dev/null ^&1
-    sleep 1
-    startx
-    # exit
+if test -z "$DISPLAY" -a -z "$SSH_CONNECTION"
+    if not command env DISPLAY=:0 xset -q >/dev/null ^&1
+        sleep 1
+        startx
+        # exit
+    end
 end
 
 # tmux
