@@ -1,7 +1,5 @@
 # Nothing to do if nvim is not installed at all
-if not type -q nvim
-    exit
-end
+type -q nvim; or exit
 
 alias ex 'nvim -e'
 alias exim 'nvim -E'

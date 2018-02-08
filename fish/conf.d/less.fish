@@ -1,3 +1,5 @@
+status is-interactive; or exit
+
 # LESS related settings
 set -gx LESS '-g -i -M -R -w -z-4'
 set -gx LESSOPEN '| /usr/bin/env lesspipe.sh %s 2>&-'

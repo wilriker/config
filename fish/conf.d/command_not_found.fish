@@ -1,10 +1,5 @@
-if not status is-interactive
-    exit
-end
-
-if type -q __fish_command_not_found_handler
-    exit
-end
+status is-interactive; or exit
+type -q __fish_command_not_found_handler; and exit
 
 if type -p -q yum
     function __fish_command_not_found_handler --on-event fish_command_not_found
