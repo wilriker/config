@@ -14,20 +14,11 @@ end
 # Make PATH distinct
 vardistinct PATH
 
-# Every after here is only relevant for interactive login shells
-status is-interactive; or exit
-status is-login; or exit
-
-# startx
-if test -z "$DISPLAY" -a -z "$SSH_CONNECTION" -a -z "$NO_STARTX"
-    if not command env DISPLAY=:0 xset -q >/dev/null ^&1
-        sleep 1
-        startx
-        # exit
-    end
+# As last part of initialization, source the autostart directory.
+set -l configdir ~/.config
+for file in $configdir/fish/autostart/*.fish
+    # Skip non-files or unreadable files.
+    # This allows one to use e.g. symlinks to /dev/null to "mask" something (like in systemd).
+    test -f $file -a -r $file
+    and source $file
 end
-
-# tmux
-# test (whoami) = "root"; and exit
-# test -z "$TMUX"; or exit
-# tmx
