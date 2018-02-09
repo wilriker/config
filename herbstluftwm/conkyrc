@@ -1,4 +1,4 @@
-use_xft true
+use_xft
 xftfont xft:Envy Code R-Powerline:pixelsize=11:antialias=true
 override_utf8_locale true
 
