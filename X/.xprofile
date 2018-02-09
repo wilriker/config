@@ -5,22 +5,20 @@ setxkbmap -layout gb -option caps:none
 # VirtualBox Guest Additions
 [[ -x /usr/bin/VBoxClient-all ]] && VBoxClient-all
 
-# Start udiskie
-#udiskie --tray &
-
 # Services and tray icons
 pnmixer &
-dunst &
+systemctl --user start dunst
 
 # Background image
 source ~/.fehbg
 
 # Start dropbox
-(sleep 5 && dropbox) &
+systemctl --user start dropbox
 
-# Battery tray icon
-cbatticon &
+if [[ $(hostname) = "archie" ]]; then
+	# Battery tray icon
+	cbatticon &
 
-# Network management
-(sleep 5 && wpa_gui -t) &
-
+	# Network management
+	(sleep 5 && wpa_gui -t) &
+fi
