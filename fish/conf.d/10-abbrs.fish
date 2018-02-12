@@ -82,3 +82,7 @@ end
 if type -q pgrep
     abbr -a pgrep 'pgrep -fa'
 end
+
+if type -q xdg-open
+    abbr -a xo xdg-open
+end
