@@ -8,6 +8,7 @@ setxkbmap -layout gb -option caps:none
 # Services and tray icons
 volumeicon &
 systemctl --user start dunst
+kalu &
 
 # Background image
 source ~/.fehbg
