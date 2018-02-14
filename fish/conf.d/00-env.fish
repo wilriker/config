@@ -6,4 +6,6 @@ set -gx DIFFPROG "$EDITOR -d"
 set -gx VISUAL $EDITOR
 set -gx PAGER less
 set -gx BROWSER vivaldi-stable
+set -gx FILE_MANAGER nemo
 set -gx XKB_DEFAULT_LAYOUT gb
+set -gx GOPATH $HOME/workspace/go

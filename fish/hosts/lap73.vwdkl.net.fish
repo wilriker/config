@@ -1,20 +1,17 @@
-# Init environment on login
-# As we do not have login on this machine we do it just everytime
-#if status is-login
+# Init environment
 
-    # $PROG_HOME dirs
-    set -gx JAVA_HOME $HOME/opt/jdk8
-    set -gx GRADLE_HOME $HOME/opt/gradle
-    set -gx M2_HOME $HOME/opt/maven
-    set -gx NODE_HOME $HOME/opt/node
-    set -gx GOROOT $HOME/opt/go
-    set -gx GOPATH $HOME/workspace/go
-    set -gx BROWSER vivaldi-stable
+# $PROG_HOME dirs
+set -gx JAVA_HOME $HOME/opt/jdk8
+set -gx GRADLE_HOME $HOME/opt/gradle
+set -gx M2_HOME $HOME/opt/maven
+set -gx NODE_HOME $HOME/opt/node
+set -gx GOROOT $HOME/opt/go
 
-    set -gx SHELL (command -s fish)
-#end
+set -gx SHELL (command -s fish)
 
-function ssh -d "Set another TERM value"
-    set -lx TERM xterm-256color
-    command ssh $argv
+if not functions -q ssh
+    function ssh -d "Set another TERM value"
+        set -lx TERM xterm-256color
+        command ssh $argv
+    end
 end
