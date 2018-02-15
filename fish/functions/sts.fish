@@ -1,14 +1,14 @@
-# Defined in /tmp/fish.9nMH0F/sts.fish @ line 2
+# Defined in /tmp/fish.QuNfHA/sts.fish @ line 2
 function sts --argument logout
-	set -l inhibitors (systemd-inhibit)
-    if test (count $inhibitors) -gt 1
+	set -l blockers (get_suspend_blockers)
+    if count $blockers >/dev/null ^&1
         if isatty
-            echo "The following process(es) delay suspend:"
-            echo -e (string join '\n' $inhibitors[1..-3])
+            echo "The following process(es) block suspend:"
+            echo -e (string join '\n' $blockers)
         else
-            notify-send "Suspend Delayed" (string join '\n' $inhibitors[1..-3])
+            notify-send "Suspend Blocked" (string join '\n' $blockers)
         end
-        while test (count (systemd-inhibit)) -gt 1
+        while test (count (get_suspend_blockers)) -gt 0
             sleep 2
             isatty; and echo -n "."
         end
