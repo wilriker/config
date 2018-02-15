@@ -18,7 +18,7 @@ herbstclient keybind $Mod-Shift-c close
 # Keybindings to start applications
 herbstclient keybind $Mod-Shift-p spawn $config_dir/restartpanels.fish
 herbstclient keybind $Mod-Return spawn $terminal
-herbstclient keybind $Mod-d spawn $config_dir/dmenu_run_hlwm -i -nb '#1e1e1e' -nf '#888888' -sb '#87afd7' -sf '#1e1e1e'
+herbstclient keybind $Mod-d spawn $config_dir/dmenu_run_hlwm -i
 herbstclient keybind $Mod-e spawn $FILE_MANAGER
 herbstclient keybind $Mod-c spawn google-chrome-stable
 herbstclient keybind $Mod-b spawn $BROWSER
@@ -63,7 +63,10 @@ herbstclient keybind $Mod-p pseudotile toggle
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
-herbstclient keybind $Mod-space or , and . compare tags.focus.curframe_wcount = 2 . cycle_layout +1 vertical horizontal max vertical grid , cycle_layout +1
+herbstclient keybind $Mod-space                                          \
+        or , and . compare tags.focus.curframe_wcount = 2                \
+                 . cycle_layout +1 vertical horizontal max vertical grid \
+           , cycle_layout +1
 
 # resizing
 set -l resizestep 0.01
