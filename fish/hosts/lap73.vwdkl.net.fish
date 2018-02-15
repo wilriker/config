@@ -7,6 +7,7 @@ set -gx M2_HOME $HOME/opt/maven
 set -gx NODE_HOME $HOME/opt/node
 set -gx GOROOT $HOME/opt/go
 
+set -gx FILE_MANAGER nautilus
 set -gx SHELL (command -s fish)
 
 if not functions -q ssh
