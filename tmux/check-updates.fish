@@ -43,13 +43,13 @@ end
 if test $diff -gt $update_interval
     echo $now >$update_check_file
     if type -q pacaur
-        install_pacman_hook
-        pacaur -Sy >&- ^&-
-        set updates (flock -xn $lock_file pacaur -Qu | wc -l)
+        # install_pacman_hook
+        # pacaur -Sy >&- ^&-
+        # set updates (flock -xn $lock_file pacaur -Qu | wc -l)
     else if type -q pacman
-        install_pacman_hook
-        sudo pacman -Sy >&- ^&-
-        set updates (flock -xn $lock_file pacman -Qu | wc -l)
+        # install_pacman_hook
+        # sudo pacman -Sy >&- ^&-
+        # set updates (flock -xn $lock_file pacman -Qu | wc -l)
     else if type -q yum
         set updates (flock -xn $lock_file yum check-update | egrep "(\.i386|\.x86_64|\.noarch|\.src)" | wc -l)
     end
