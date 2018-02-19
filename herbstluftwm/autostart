@@ -27,7 +27,7 @@ herbstclient keybind $Mod-l spawn slock
 herbstclient keybind $Mod-Print spawn scrot
 herbstclient keybind $Mod-Alt-r spawn $config_dir/scratchpad.fish calculator gnome-calculator
 herbstclient keybind $Mod-Alt-Return spawn $config_dir/scratchpad.fish terminal $terminal
-herbstclient keybind $Mod-Control-Pause spawn systemctl suspend
+herbstclient keybind $Mod-Control-Pause spawn fish -c sts
 
 # Keybindings to change keyboard layouts
 herbstclient keybind $Mod-Control-d spawn setxkbmap -layout de -variant nodeadkeys -option caps:none
