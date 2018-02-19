@@ -1,4 +1,4 @@
-# Defined in /tmp/fish.FoH6UH/sts.fish @ line 2
+# Defined in /tmp/fish.SQBQSn/sts.fish @ line 2
 function sts --argument logout
 	set -l blockers (get_suspend_blockers)
     if count $blockers >/dev/null ^&1
@@ -6,7 +6,7 @@ function sts --argument logout
             echo "The following process(es) block suspend:"
             echo -e (string join '\n' $blockers)
         else
-            notify-send "Suspend Blocked" (string join '\n' $blockers)
+            notify-send --app-name="Suspend" "Suspend Blocked" (string join '\n' $blockers)
         end
         while test (count (get_suspend_blockers)) -gt 0
             sleep 2
