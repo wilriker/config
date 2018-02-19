@@ -26,7 +26,7 @@ set -g status-interval 15
 set -g status-left "#[fg=colour16,bg=colour110,bold] #h #[fg=colour110,bg=colour234,nobold]"
 set -ug status-right
 # Add Update count only for CentOS machine
-if-shell -F "#{==:#{host},lap73}" 'set -g status-right "#[fg=colour41,bg=colour234]#[fg=colour16,bg=colour41] #(check-updates.fish) #[bg=colour41]"'
+if-shell -F "#{==:#h,lap73}" 'set -g status-right "#[fg=colour41,bg=colour234]#[fg=colour16,bg=colour41] #(check-updates.fish) #[bg=colour41]"'
 set -ga status-right "#[fg=colour237]#[fg=colour254,bg=colour237] %Y-%m-%d  %H:%M "
 
 # Status bar Window-area format
