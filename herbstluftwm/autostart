@@ -30,8 +30,7 @@ herbstclient keybind $Mod-Alt-Return spawn $config_dir/scratchpad.fish terminal 
 herbstclient keybind $Mod-Control-Pause spawn fish -c sts
 
 # Keybindings to change keyboard layouts
-herbstclient keybind $Mod-Control-d spawn setxkbmap -layout de -variant nodeadkeys -option caps:none
-herbstclient keybind $Mod-Control-g spawn setxkbmap -layout gb -option caps:none
+herbstclient keybind $Mod-Control-k spawn toggle-kb-layout.fish
 
 herbstclient set default_frame_layout 3
 

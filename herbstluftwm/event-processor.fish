@@ -47,6 +47,8 @@ while true
         echo -n "^ca(1,herbstclient and , focus_monitor $monitor , use '$tag_name') $tag_name ^ca()"
     end
     echo -n "$separator "
+    echo -n "^ca(1,toggle-kb-layout.fish; herbstclient emit_hook kb_changed)"(setxkbmap -query | grep layout | cut -d: -f2 | string trim)"^ca() "
+    echo -n "$separator "
     echo "^bg()^fg()"(string replace --all '^' '^^' -- $windowtitle)
 
     # wait for next event
