@@ -19,6 +19,8 @@ set -l color_empty_fg '#ababab'
 
 set -l separator "^bg()^fg($selbg)|"
 
+set -l kb_layout (setxkbmap -query | grep layout | cut -d: -f2 | string trim)
+
 while true
 
     ### Output ###
@@ -47,7 +49,7 @@ while true
         echo -n "^ca(1,herbstclient and , focus_monitor $monitor , use '$tag_name') $tag_name ^ca()"
     end
     echo -n "$separator "
-    echo -n "^ca(1,toggle-kb-layout.fish; herbstclient emit_hook kb_changed)"(setxkbmap -query | grep layout | cut -d: -f2 | string trim)"^ca() "
+    echo -n "^ca(1,toggle-kb-layout.fish; herbstclient emit_hook kb_changed)$kb_layout^ca() "
     echo -n "$separator "
     echo "^bg()^fg()"(string replace --all '^' '^^' -- $windowtitle)
 
@@ -80,5 +82,7 @@ while true
             test (count $cmd) -gt 3; and set windowtitle "$cmd[3..-1]"; or set windowtitle ""
         case focus_changed
             set windowtitle (herbstclient get_attr clients.focus.title)
+        case kb_changed
+            set kb_layout (setxkbmap -query | grep layout | cut -d: -f2 | string trim)
     end
 end
