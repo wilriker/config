@@ -22,7 +22,7 @@ setw -g window-status-bg "colour234"
 
 # Status bar overall format
 set -g status-justify centre
-set -g status-interval 15
+set -g status-interval 5
 set -g status-left "#[fg=colour16,bg=colour110,bold] #h #[fg=colour110,bg=colour234,nobold]"
 set -ug status-right
 # Add Update count only for CentOS machine
