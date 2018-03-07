@@ -49,7 +49,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'Shougo/deoplete.nvim',		{ 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go',			{ 'do': 'make'}
 Plug 'jiangmiao/auto-pairs'
-Plug 'sirver/ultisnips'
+Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-endwise'
 
 " Filetype plugin
@@ -59,7 +59,7 @@ Plug 'Matt-Deacalion/vim-systemd-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
 Plug 'ericpruitt/tmux.vim',			{ 'for': 'tmux', 'rtp': 'vim' }
-Plug 'fatih/vim-go',				{ 'for': 'go' }
+Plug 'fatih/vim-go',				{ 'for': 'go', 'tag': '*' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
@@ -84,7 +84,7 @@ set noerrorbells					" don't ring the bell for error messages
 set title							" show info in the window title
 set noshowmode						" don't show the current mode in status line (airline already has it)
 
-set updatetime=250					" Update gitgutter after this many ms (also write swapfile)
+set updatetime=100					" Update gitgutter after this many ms (also write swapfile)
 
 " Line numbers
 set number							" turn on line numbers
@@ -172,6 +172,7 @@ let g:go_def_reuse_buffer = 1
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
 let g:go_auto_sameids = 1
+let g:go_autodetect_gopath = 1
 
 " move
 let g:move_key_modifier = 'C'
@@ -205,6 +206,13 @@ function! s:CloseBuffer()
 		while &buftype ==# 'quickfix' | bprevious | endwhile
 	endif
 	execute 'bdelete! '.l:buffernr
+endfunction
+
+function! s:UpdateGitGutter()
+	let l:buffernr = bufnr('%')
+	execute 'GitGutterAll'
+	bnext
+	while bufnr('%') != l:buffernr | execute 'GitGutterAll' | bnext | endwhile
 endfunction
 
 " Create mappings to switch buffers/quickfix/location/tabs
@@ -289,7 +297,7 @@ nnoremap <silent> <Leader>sv :vsplit<CR>
 " Buffer management
 nnoremap <silent> <Leader>T :enew<CR>
 nnoremap <silent> <Leader>bq :call <SID>CloseBuffer()<CR>
-nnoremap <silent> <Leader>be :checktime<CR>
+nnoremap <silent> <Leader>be :call <SID>UpdateGitGutter()<CR>
 
 " BufOnly
 nnoremap <silent> <Leader>bo :BufOnly<CR>
