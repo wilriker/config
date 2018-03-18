@@ -6,7 +6,7 @@ setxkbmap -layout gb -option caps:none
 [[ -x /usr/bin/VBoxClient-all ]] && VBoxClient-all
 
 # Services and tray icons
-volumeicon &
+(sleep 5 && volumeicon) &
 systemctl --user start dunst
 kalu &
 
