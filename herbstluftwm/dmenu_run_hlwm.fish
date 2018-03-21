@@ -31,5 +31,5 @@ else
 	exit 2
 end
 
-set -l script_dir (cd (dirname (status filename)); and pwd)
+set -l script_dir (dirname (realpath (status filename)))
 exec env $script_dir/run_on_tag.fish --tag $tag $cmd

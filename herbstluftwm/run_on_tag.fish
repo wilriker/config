@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 set -l options 't/tag='
-argparse --name run_on_tag.fish $options -- $argv
+argparse --stop-nonopt --name run_on_tag.fish $options -- $argv
 or exit 1
 
 

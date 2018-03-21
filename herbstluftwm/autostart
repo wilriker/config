@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set -l script_dir (cd (dirname (status filename)); and pwd)
+set -l script_dir (dirname (realpath (status filename)))
 set -l terminal st -f 'Inconsolata Nerd Font:size=10'
 # this is a simple config for herbstluftwm
 
