@@ -31,13 +31,5 @@ else
 	exit 2
 end
 
-# Stop here if the user aborted
-test -z "$cmd"; and exit 0
-
-# Move next window from this process to this tag. Prepend the rule so
-# that it may be overwritten by existing custom rules e.g. in the
-# autostart. Also set a maximum age for this rule of 60 seconds and
-# mark it as one-time-only rule.
-herbstclient rule prepend maxage=60 pid=(echo -n %self) tag=$tag once
-
-exec env $cmd
+set -l script_dir (cd (dirname (status filename)); and pwd)
+exec env $script_dir/run_on_tag.fish --tag $tag $cmd

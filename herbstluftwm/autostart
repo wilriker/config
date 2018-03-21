@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set -l config_dir ~/.config/herbstluftwm
+set -l script_dir (cd (dirname (status filename)); and pwd)
 set -l terminal st -f 'Inconsolata Nerd Font:size=10'
 # this is a simple config for herbstluftwm
 
@@ -16,17 +16,16 @@ herbstclient keybind $Mod-Shift-r reload
 herbstclient keybind $Mod-Shift-c close
 
 # Keybindings to start applications
-herbstclient keybind $Mod-Shift-p spawn $config_dir/restartpanels.fish
-herbstclient keybind $Mod-Return spawn $terminal
-herbstclient keybind $Mod-d spawn $config_dir/dmenu_run_hlwm -i
-herbstclient keybind $Mod-e spawn $FILE_MANAGER
-herbstclient keybind $Mod-c spawn google-chrome-stable
-herbstclient keybind $Mod-b spawn $BROWSER
+herbstclient keybind $Mod-Shift-p spawn $script_dir/restartpanels.fish
+herbstclient keybind $Mod-Return spawn $script_dir/run_on_tag.fish $terminal
+herbstclient keybind $Mod-d spawn $script_dir/dmenu_run_hlwm.fish -i
+herbstclient keybind $Mod-e spawn $script_dir/run_on_tag.fish $FILE_MANAGER
+herbstclient keybind $Mod-b spawn $script_dir/run_on_tag.fish $BROWSER
 herbstclient keybind $Mod-Control-c spawn clipper
 herbstclient keybind $Mod-l spawn slock
 herbstclient keybind $Mod-Print spawn scrot
-herbstclient keybind $Mod-Alt-r spawn $config_dir/scratchpad.fish calculator gnome-calculator
-herbstclient keybind $Mod-Alt-Return spawn $config_dir/scratchpad.fish terminal $terminal
+herbstclient keybind $Mod-Alt-r spawn $script_dir/scratchpad.fish calculator gnome-calculator
+herbstclient keybind $Mod-Alt-Return spawn $script_dir/scratchpad.fish terminal $terminal
 herbstclient keybind $Mod-Control-Pause spawn fish -c sts
 
 # Keybindings to change keyboard layouts
@@ -155,7 +154,7 @@ herbstclient detect_monitors
 herbstclient unlock
 
 # find the panel
-set -l panel $config_dir/panel.fish
+set -l panel $script_dir/panel.fish
 for monitor in (herbstclient list_monitors | cut -d: -f1)
     # start it on each monitor
     fish $panel $monitor &
