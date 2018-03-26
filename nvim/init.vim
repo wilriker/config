@@ -209,13 +209,6 @@ function! s:CloseBuffer()
 	execute 'bdelete! '.l:buffernr
 endfunction
 
-function! s:UpdateGitGutter()
-	let l:buffernr = bufnr('%')
-	execute 'GitGutterAll'
-	bnext
-	while bufnr('%') != l:buffernr | execute 'GitGutterAll' | bnext | endwhile
-endfunction
-
 " Create mappings to switch buffers/quickfix/location/tabs
 function! s:MapNextFamily(map,cmd)
 	let cmd = '".(v:count ? v:count : "")."'.a:cmd
@@ -298,7 +291,7 @@ nnoremap <silent> <Leader>sv :vsplit<CR>
 " Buffer management
 nnoremap <silent> <Leader>T :enew<CR>
 nnoremap <silent> <Leader>bq :call <SID>CloseBuffer()<CR>
-nnoremap <silent> <Leader>be :call <SID>UpdateGitGutter()<CR>
+nnoremap <silent> <Leader>be :bufdo checktime <Bar> bufdo GitGutterAll<CR>
 
 " BufOnly
 nnoremap <silent> <Leader>bo :BufOnly<CR>
