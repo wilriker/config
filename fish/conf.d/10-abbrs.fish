@@ -22,6 +22,15 @@ if type -q pacaur
     abbr -a pao 'pacaur -Qtd'
 end
 
+if type -q yay
+    abbr -a yq 'yay -Ss'
+    abbr -a ys 'yay -S'
+    abbr -a yd 'yay -S --asdeps'
+    abbr -a yu 'yay'
+    abbr -a yr 'yay -Rns'
+    abbr -a yo 'yay -Qtd'
+end
+
 if type -q systemctl
 
     # System-wide services
