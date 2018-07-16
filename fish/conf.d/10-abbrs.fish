@@ -23,7 +23,7 @@ if type -q pacaur
 end
 
 if type -q yay
-    abbr -a yq 'yay -Ss'
+    abbr -a yq 'yay'
     abbr -a ys 'yay -S'
     abbr -a yd 'yay -S --asdeps'
     abbr -a yu 'yay'
