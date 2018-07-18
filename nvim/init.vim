@@ -365,6 +365,14 @@ augroup END
 nnoremap <silent> <Leader>w :FixWhitespace<CR>
 nnoremap <silent> <Leader><Space> :nohlsearch<CR>
 
+" Make search results appear in the middle of the screen
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
 " Show/hide whitespace (except space)
 nnoremap <silent> <F12> :set list!<CR>
 inoremap <silent> <F12> <C-o>:set list!<CR>
