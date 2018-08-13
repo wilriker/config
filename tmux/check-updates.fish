@@ -12,7 +12,8 @@ end
 set -l now (date +%s)
 set -l old (cat $update_check_file)
 set -l diff (math "$now - $old")
-set -l icon 
+# CentOS symbol in nerd font
+set -l icon \uf304
 if test $diff -gt $update_interval
     echo $now >$update_check_file
     set updates (flock -xn $lock_file yum check-update | egrep "(\.i386|\.x86_64|\.noarch|\.src)" | wc -l)
