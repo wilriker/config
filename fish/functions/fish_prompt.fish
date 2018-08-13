@@ -40,16 +40,16 @@ function git_state -d "Information on current repo state and branch compared to 
 
     for line in $git_status
         switch "$line"
-            case '\?\?*'
+            case '^\?\?*'
                 set untrackedFiles $untrackedFiles 1
-            case 'DD*' 'AU*' 'UD*' 'UA*' 'DU*' 'AA*' 'UU*'
+            case '^DD*' '^AU*' '^UD*' '^UA*' '^DU*' '^AA*' '^UU*'
                 set conflicingFiles $conflictingFiles 1
-            case 'D *' ' D*'
+            case '^D *' '^ D*'
                 set deletedFiles $deletedFiles 1
             case '*'
-                if string match -rq -- '\s\S' $line
+                if string match -rq -- '^\s\S' $line
                     set changedFiles $changedFiles 1
-                else if string match -rq -- '\S\s' $line
+                else if string match -rq -- '^\S\s' $line
                     set stagedFiles $stagedFiles 1
                 end
         end
