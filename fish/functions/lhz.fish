@@ -2,7 +2,7 @@
 function lhz --description 'List contents of compressed archives'
 	for a in $argv
         switch $a
-            case "*.tar*"
+            case "*.tar*" "*.tgz"
                 tar -tf $a
             case "*.zip"
                 unzip -l $a
