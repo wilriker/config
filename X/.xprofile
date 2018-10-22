@@ -6,15 +6,15 @@ setxkbmap -layout gb -option caps:none
 [[ -x /usr/bin/VBoxClient-all ]] && VBoxClient-all
 
 # Services and tray icons
-(sleep 5 && volumeicon) &
+[[ -x volumeicon  ]] && (sleep 5 && volumeicon) &
 systemctl --user start dunst
-kalu &
+#kalu &
 
 # Background image
-source ~/.fehbg
+(sleep 10 && source ~/.fehbg) &
 
 # Start dropbox
-systemctl --user start dropbox
+(sleep 10 && systemctl --user start dropbox) &
 
 if [[ $(hostname) = "archie" ]]; then
 	# Battery tray icon
@@ -22,4 +22,7 @@ if [[ $(hostname) = "archie" ]]; then
 
 	# Network management
 	(sleep 5 && wpa_gui -t) &
+elif [[ $(hostname) = "dekl-n0074" ]]; then
+	xrandr --output eDP-1 --off
+	(sleep 5 && pasystray) &
 fi
