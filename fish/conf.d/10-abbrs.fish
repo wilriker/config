@@ -31,6 +31,13 @@ if type -q yay
     abbr -a yo 'yay -Qtd'
 end
 
+if type -q apt
+    abbr -a aq 'apt search'
+    abbr -a as 'sudo apt install'
+    abbr -a au 'sudo apt update; sudo apt upgrade'
+    abbr -a ar 'sudo apt autoremove'
+end
+
 if type -q systemctl
 
     # System-wide services
@@ -63,13 +70,6 @@ end
 if type -q git
     abbr -a gti git
     abbr -a got git
-end
-
-if type -q yum
-    abbr -a yums 'yum search'
-    abbr -a yumi 'sudo yum install'
-    abbr -a yumq 'yum info'
-    abbr -a yumr 'sudo yum autoremove'
 end
 
 if type -q unarchive
