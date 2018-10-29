@@ -72,6 +72,7 @@ Plug 'sirtaj/vim-openscad',			{ 'for': 'openscad' }
 Plug 'chrisbra/csv.vim'
 Plug 'fidian/hexmode'
 Plug 'vim-scripts/txt.vim'
+Plug 'wilriker/gcode.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()						" Add plugins to &runtimepath
