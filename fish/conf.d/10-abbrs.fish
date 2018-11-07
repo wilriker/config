@@ -67,6 +67,10 @@ if type -q systemctl
     abbr -a ureloadd    'systemctl --user daemon-reload'
 end
 
+if type -q pacdiff
+    abbr -a pd 'sudo -E pacdiff'
+end
+
 if type -q git
     abbr -a gti git
     abbr -a got git
