@@ -1,4 +1,4 @@
-# Defined in /tmp/fish.hzxZdH/feh.fish @ line 2
+# Defined in /tmp/fish.PF7wwN/feh.fish @ line 2
 function feh
 	if test (count $argv) -eq 0
         command feh
@@ -9,8 +9,7 @@ function feh
         if test -d $file
             command feh $file
         else
-            set -l dir (dirname $file)
-            command feh $dir --start-at $file
+            command feh --start-at $file
         end
     end
 end
