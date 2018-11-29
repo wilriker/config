@@ -44,7 +44,7 @@ if type -q systemctl
     abbr -a startd      'sudo systemctl start'
     abbr -a stopd       'sudo systemctl stop'
     abbr -a restartd    'sudo systemctl restart'
-    abbr -a statusd     'sudo systemctl status'
+    abbr -a statusd     'systemctl status'
     abbr -a enabled     'sudo systemctl enable'
     abbr -a reenabled   'sudo systemctl reenable'
     abbr -a disabled    'sudo systemctl disable'
