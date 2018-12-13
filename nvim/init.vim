@@ -19,6 +19,7 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'matze/vim-move'
+" Plug 'liuchengxu/vim-which-key',	{ 'on': ['WhichKey', 'WhichKey!'] }
 
 " Color schemes
 Plug 'joshdick/onedark.vim'
@@ -265,6 +266,8 @@ augroup TxtVim
 	autocmd BufWinEnter,BufNewFile * if &filetype == '' | setfiletype txt | endif
 augroup END
 
+command! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
+
 " Custom key mappings
 let mapleader = ","
 let maplocalleader = "-"
@@ -365,6 +368,9 @@ augroup END
 " Remove trailing whitespace
 nnoremap <silent> <Leader>w :FixWhitespace<CR>
 nnoremap <silent> <Leader><Space> :nohlsearch<CR>
+
+" Pretty Format XML
+nnoremap <Leader>= :FormatXML<Cr>
 
 " Make search results appear in the middle of the screen
 nnoremap n nzz
