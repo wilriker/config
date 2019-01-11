@@ -6,7 +6,7 @@ switch $TERM
         set -gx is_simple_terminal 1
 
     case "linux"
-        set -ex is_simple_terminal
+        set -e is_simple_terminal
         function fish_prompt
             fish_fallback_prompt
         end
