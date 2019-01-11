@@ -15,6 +15,7 @@ systemctl --user start dunst
 
 # Start dropbox
 (sleep 10 && systemctl --user start dropbox) &
+(sleep 5 && syncthing-gtk) &
 
 if [[ $(hostname) = "archie" ]]; then
 	# Battery tray icon
