@@ -18,4 +18,4 @@ test -z "$cmd"; and exit 0
 # mark it as one-time-only rule.
 herbstclient rule prepend maxage=60 pid=(echo -n %self) tag=$_flag_tag once
 
-exec env $cmd
+exec $cmd
