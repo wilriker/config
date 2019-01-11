@@ -12,14 +12,14 @@ function __cmd_duration -S -d 'Show command duration'
         set -l one_minute     60000
         set -l one_hour     3600000
 
-        set duration (math "($CMD_DURATION%$one_minute)/$one_second") 's '
+        set duration (math --scale=0 "($CMD_DURATION % $one_minute) / $one_second") 's '
 
         if test "$CMD_DURATION" -ge $one_minute
             set_color $fish_color_error
-            set duration (math "($CMD_DURATION%$one_hour)/$one_minute") 'm ' $duration
+            set duration (math --scale=0 "($CMD_DURATION % $one_hour) / $one_minute") 'm ' $duration
 
             if test "$CMD_DURATION" -ge $one_hour
-                set duration (math "$CMD_DURATION/$one_hour") 'h ' $duration
+                set duration (math --scale=0 "$CMD_DURATION / $one_hour") 'h ' $duration
             end
         end
 

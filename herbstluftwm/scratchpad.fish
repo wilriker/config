@@ -16,7 +16,7 @@ set -l y $geometry[2]
 set -l width $geometry[3]
 set -l height $geometry[4]
 
-set -l rect (math "$width/2")'x'(math "$height/2")'+'(math "$x+($width/4)")'+'(math "$y+($height/4)")
+set -l rect (math --scale=0 "$width / 2")'x'(math --scale=0 "$height / 2")'+'(math --scale=0 "$x + ($width / 4)")'+'(math --scale=0 "$y + ($height / 4)")
 
 set -l monitor scratchpad-for-$application[1]
 
