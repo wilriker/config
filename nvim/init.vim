@@ -267,6 +267,7 @@ augroup TxtVim
 augroup END
 
 command! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
+command! FormatJSON :%!python -m "json.tool"
 
 " Custom key mappings
 let mapleader = ","
