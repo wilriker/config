@@ -31,11 +31,7 @@ if herbstclient and + add $tag + add_monitor $rect $tag $monitor 2>/dev/null
         unlock , \
         floating $tag on
 
-    if test $application[1] = st
-        st $application[2..-1]
-    else
-        eval $application
-    end
+    $application
 else
     # TODO: Remove this else block as soon as I am used to the new flow
     if command -sq notify-send
