@@ -6,10 +6,8 @@ if test (count $argv) -ge 1
     set monitor $argv[1]
 end
 set -l geometry
-begin
-    set -l IFS ' '
-    herbstclient monitor_rect $monitor | read -a geometry
-end
+herbstclient monitor_rect $monitor | read -a geometry
+
 if test -z "$geometry"
     echo "Invalid monitor $monitor"
     exit 1
