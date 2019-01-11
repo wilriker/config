@@ -16,6 +16,6 @@ test -z "$cmd"; and exit 0
 # that it may be overwritten by existing custom rules e.g. in the
 # autostart. Also set a maximum age for this rule of 60 seconds and
 # mark it as one-time-only rule.
-herbstclient rule prepend maxage=60 pid=(echo -n %self) tag=$_flag_tag once
+herbstclient rule prepend maxage=60 pid=$fish_pid tag=$_flag_tag once
 
 exec $cmd
