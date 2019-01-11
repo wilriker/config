@@ -1,7 +1,7 @@
 # Defined in /tmp/fish.SQBQSn/sts.fish @ line 2
 function sts --argument logout
 	set -l blockers (get_suspend_blockers)
-    if count $blockers >/dev/null ^&1
+    if count $blockers >/dev/null 2>&1
         if status is-interactive
             echo "The following process(es) block suspend:"
             echo -e (string join '\n' $blockers)

@@ -184,7 +184,7 @@ function prompt_git -d "Display the current git state"
     if not command -sq git
         return 1
     end
-    set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD ^/dev/null)
+    set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD 2>/dev/null)
     test -n "$repo_info"
     or return
 
@@ -202,7 +202,7 @@ function prompt_git -d "Display the current git state"
     set -l repo_state
 
     set -l branch
-    set -l ref (command git symbolic-ref HEAD ^/dev/null; set os $status)
+    set -l ref (command git symbolic-ref HEAD 2>/dev/null; set os $status)
     if test $os -ne 0
         set branch "➦ $short_sha"
     else

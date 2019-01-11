@@ -20,7 +20,7 @@ set -l rect (math "$width/2")'x'(math "$height/2")'+'(math "$x+($width/4)")'+'(m
 
 set -l monitor scratchpad-for-$application[1]
 
-if herbstclient and + add $tag + add_monitor $rect $tag $monitor ^/dev/null
+if herbstclient and + add $tag + add_monitor $rect $tag $monitor 2>/dev/null
     herbstclient chain , \
         lock , \
         new_attr int monitors.by-name.$monitor.my_prev_focus , \

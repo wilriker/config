@@ -11,7 +11,7 @@ function unarchive --description 'Extract with whatever it takes'
                 and tar -I pbzip2 -xf $archive
                 or tar -xf $archive
             case "*.tar.xz" "*.txz" # tar compressed with xz
-                if tar --xz --help >&- ^&- # ancient tar versions might not support it
+                if tar --xz --help >&- 2>&- # ancient tar versions might not support it
                     tar -xf $archive
                 else
                     xzcat $archive | tar -xf -
@@ -38,7 +38,7 @@ function unarchive --description 'Extract with whatever it takes'
                 if not unzip $archive
                     set -l inner_zip_offset (fgrep --byte-offset --only-matching --text PK\x03\x04 $archive | head -1 | cut -d: -f1)
                     set -l inner_zip (mktemp --suffix=".zip")
-                    dd if=$archive of=$inner_zip skip=$inner_zip_offset iflag=skip_bytes >&- ^&-
+                    dd if=$archive of=$inner_zip skip=$inner_zip_offset iflag=skip_bytes >&- 2>&-
                     unzip $inner_zip
                 end
             case "*.7z"
