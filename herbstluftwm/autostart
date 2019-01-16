@@ -21,6 +21,7 @@ herbstclient keybind $Mod-Return spawn $script_dir/run_on_tag.fish $terminal
 herbstclient keybind $Mod-d spawn $script_dir/dmenu_run_hlwm.fish -i
 herbstclient keybind $Mod-e spawn $script_dir/run_on_tag.fish $FILE_MANAGER
 herbstclient keybind $Mod-b spawn $script_dir/run_on_tag.fish $BROWSER
+herbstclient keybind $Mod-k spawn $script_dir/run_on_tag.fish $PASSWORD_MANAGER
 herbstclient keybind $Mod-Control-c spawn clipper
 herbstclient keybind $Mod-l spawn slock
 herbstclient keybind $Mod-Print spawn scrot
