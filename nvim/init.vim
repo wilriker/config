@@ -384,6 +384,8 @@ nnoremap g# g#zz
 " Show/hide whitespace (except space)
 nnoremap <silent> <F12> :set list!<CR>
 inoremap <silent> <F12> <C-o>:set list!<CR>
+
+" Output the highlight type of the element under the cursor
 nnoremap <silent> <Leader>sh :echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<CR>
 
 " Key mappings to edit/reload config files
