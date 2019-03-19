@@ -12,6 +12,16 @@ if type -q yaourt
     abbr -a yao 'yaourt -Qtd'
 end
 
+if type -q pacman
+    abbr -a pa 'pacman'
+    abbr -a paq 'pacman -Ss'
+    abbr -a pas 'sudo pacman -S'
+    abbr -a pad 'sudo pacman -S --asdeps'
+    abbr -a pau 'sudo pacman -Syu'
+    abbr -a par 'sudo pacman -Rns'
+    abbr -a pao 'pacman -Qtd'
+end
+
 if type -q pacaur
     abbr -a pa 'pacaur'
     abbr -a paq 'pacaur -Ss'
