@@ -53,6 +53,7 @@ if type -q systemctl
     # System-wide services
     abbr -a startd      'sudo systemctl start'
     abbr -a stopd       'sudo systemctl stop'
+    abbr -a killd       'sudo systemctl kill --signal=SIGKILL'
     abbr -a restartd    'sudo systemctl restart'
     abbr -a statusd     'sudo systemctl status'
     abbr -a enabled     'sudo systemctl enable'
@@ -64,6 +65,7 @@ if type -q systemctl
     # User services
     abbr -a ustartd     'systemctl --user start'
     abbr -a ustopd      'systemctl --user stop'
+    abbr -a ukilld      'systemctl --user kill --signal=SIGKILL'
     abbr -a urestartd   'systemctl --user restart'
     abbr -a ustatusd    'systemctl --user status'
     abbr -a uenabled    'systemctl --user enable'
