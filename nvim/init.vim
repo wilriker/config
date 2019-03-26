@@ -47,8 +47,9 @@ Plug 'junegunn/fzf',				{ 'dir': '~/.fzf', 'do': './install --no-key-bindings --
 Plug 'junegunn/fzf.vim'
 
 " Code completion
+Plug 'autozimu/languageclient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
 Plug 'Shougo/deoplete.nvim',		{ 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-go',			{ 'do': 'make'}
+" Plug 'zchee/deoplete-go',			{ 'do': 'make'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-endwise'
@@ -60,7 +61,7 @@ Plug 'Matt-Deacalion/vim-systemd-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
 Plug 'ericpruitt/tmux.vim',			{ 'for': 'tmux', 'rtp': 'vim' }
-Plug 'fatih/vim-go',				{ 'for': 'go', 'tag': '*' }
+" Plug 'fatih/vim-go',				{ 'for': 'go', 'tag': '*' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
@@ -157,26 +158,42 @@ let g:airline_powerline_fonts = 1
 let g:deoplete#enable_at_startup = 1
 set completeopt=menu,preview,noinsert
 
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:LanguageClient_rootMarkers = {
+        \ 'go': ['.git', 'go.mod'],
+        \ }
+
+let g:LanguageClient_serverCommands = {
+	\ 'c':          ['ccls', '--log-file=/tmp/cc.log'],
+    \ 'cpp':        ['ccls', '--log-file=/tmp/cc.log'],
+	\ 'go':         ['bingo', '--format-style', 'goimports', '--diagnostics-style', 'onsave'],
+	\ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
+	\ }
+
+let g:LanguageClient_loggingLevel = 'INFO'
+let g:LanguageClient_loggingFile = expand('/tmp/LanguageClient.log')
+let g:LanguageClient_serverStderr = expand('/tmp/LanguageClient.log')
+let g:LanguageClient_autoStart = 1
+
+" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " UltiSnips
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_auto_type_info = 1
-let g:go_def_reuse_buffer = 1
-let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-let g:go_auto_sameids = 1
-let g:go_autodetect_gopath = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_build_constraints = 1
+" let g:go_auto_type_info = 1
+" let g:go_def_reuse_buffer = 1
+" let g:go_fmt_command = "goimports"
+" let g:go_metalinter_autosave = 1
+" let g:go_auto_sameids = 1
+" let g:go_autodetect_gopath = 1
 
 " move
 let g:move_key_modifier = 'C'
@@ -352,19 +369,28 @@ nnoremap <silent> <Leader>os :Obsess<CR>
 nnoremap <silent> <Leader>od :Obsess!<CR>
 nnoremap <silent> <Leader>ol :source Session.vim<CR>
 
+" LanguageClient
+nnoremap <silent> <Leader>lm :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> <Leader>lk :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+nnoremap <silent> <Leader>lh :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <Leader>li :call LanguageClient#textDocument_implementation()<CR>
+
 " vim-go
-augroup VimGo
-	autocmd!
-	autocmd FileType go nmap <buffer> <silent> <LocalLeader>R <Plug>(go-run)
-	autocmd FileType go nmap <buffer> <silent> <LocalLeader>I <Plug>(go-install)
-	autocmd FileType go nmap <buffer> <silent> <LocalLeader>b <Plug>(go-build)
-	autocmd FileType go nmap <buffer> <silent> <LocalLeader>i <Plug>(go-imports)
-	autocmd FileType go nmap <buffer> <silent> <LocalLeader>s <Plug>(go-implements)
-	autocmd FileType go nmap <buffer> <silent> <LocalLeader>d <Plug>(go-doc-browser)
-	autocmd FileType go nmap <buffer> <silent> <LocalLeader>v <Plug>(go-def-vertical)
-	autocmd FileType go nmap <buffer> <silent> <LocalLeader>r <Plug>(go-rename)
-	autocmd FileType go nmap <buffer> <silent> <LocalLeader>h <Plug>(go-callers)
-augroup END
+" augroup VimGo
+" 	autocmd!
+" 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>R <Plug>(go-run)
+" 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>I <Plug>(go-install)
+" 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>b <Plug>(go-build)
+" 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>i <Plug>(go-imports)
+" 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>s <Plug>(go-implements)
+" 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>d <Plug>(go-doc-browser)
+" 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>v <Plug>(go-def-vertical)
+" 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>r <Plug>(go-rename)
+" 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>h <Plug>(go-callers)
+" augroup END
 
 " Remove trailing whitespace
 nnoremap <silent> <Leader>w :FixWhitespace<CR>
