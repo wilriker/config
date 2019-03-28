@@ -1,6 +1,7 @@
 # Init environment
 
 # $PROG_HOME dirs
+set -gx GOROOT $HOME/opt/go
 set -gx JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 set -gx GRADLE_HOME /usr/share/gradle
 set -gx M2_HOME /usr/share/maven
