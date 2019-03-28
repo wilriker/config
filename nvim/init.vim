@@ -61,7 +61,7 @@ Plug 'Matt-Deacalion/vim-systemd-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
 Plug 'ericpruitt/tmux.vim',			{ 'for': 'tmux', 'rtp': 'vim' }
-" Plug 'fatih/vim-go',				{ 'for': 'go', 'tag': '*' }
+Plug 'fatih/vim-go',				{ 'for': 'go', 'tag': '*' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
@@ -165,8 +165,10 @@ let g:LanguageClient_rootMarkers = {
 let g:LanguageClient_serverCommands = {
 	\ 'c':          ['ccls', '--log-file=/tmp/cc.log'],
     \ 'cpp':        ['ccls', '--log-file=/tmp/cc.log'],
+	\ 'css':        ['css-languageserver', '--stdio'],
 	\ 'go':         ['bingo', '--format-style', 'goimports', '--diagnostics-style', 'onsave'],
 	\ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
+	\ 'python':     ['/usr/bin/pyls'],
 	\ }
 
 let g:LanguageClient_loggingLevel = 'INFO'
@@ -182,17 +184,18 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " vim-go
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_build_constraints = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 " let g:go_auto_type_info = 1
-" let g:go_def_reuse_buffer = 1
+let g:go_def_reuse_buffer = 1
+let g:go_fmt_autosave = 0
 " let g:go_fmt_command = "goimports"
 " let g:go_metalinter_autosave = 1
-" let g:go_auto_sameids = 1
+let g:go_auto_sameids = 1
 " let g:go_autodetect_gopath = 1
 
 " move
@@ -379,18 +382,18 @@ nnoremap <silent> <Leader>lh :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <Leader>li :call LanguageClient#textDocument_implementation()<CR>
 
 " vim-go
-" augroup VimGo
+augroup VimGo
 " 	autocmd!
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>R <Plug>(go-run)
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>I <Plug>(go-install)
-" 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>b <Plug>(go-build)
+	autocmd FileType go nmap <buffer> <silent> <LocalLeader>b <Plug>(go-build)
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>i <Plug>(go-imports)
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>s <Plug>(go-implements)
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>d <Plug>(go-doc-browser)
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>v <Plug>(go-def-vertical)
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>r <Plug>(go-rename)
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>h <Plug>(go-callers)
-" augroup END
+augroup END
 
 " Remove trailing whitespace
 nnoremap <silent> <Leader>w :FixWhitespace<CR>
