@@ -167,6 +167,7 @@ let g:LanguageClient_serverCommands = {
     \ 'cpp':        ['ccls', '--log-file=/tmp/cc.log'],
 	\ 'css':        ['css-languageserver', '--stdio'],
 	\ 'go':         ['bingo', '--format-style', 'goimports', '--diagnostics-style', 'onsave'],
+	\ 'html':       ['html-languageserver', '--stdio'],
 	\ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
 	\ 'python':     ['/usr/bin/pyls'],
 	\ }
