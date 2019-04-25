@@ -1,32 +1,27 @@
 # Colors
 set -g status-bg "colour234"
-set -g message-command-fg "colour254"
+set -g message-command-style bg="colour254"
 set -g status-justify "left"
 set -g status-left-length "100"
 set -g status "on"
-set -g pane-active-border-fg "colour110"
-set -g message-bg "colour237"
+set -g pane-active-border-style fg="colour110"
+set -g message-style bg="colour237"
+set -g message-style fg="colour254"
 set -g status-right-length "100"
-set -g message-fg "colour254"
-set -g message-command-bg "colour237"
-set -g pane-border-fg "colour237"
+set -g message-command-style bg="colour237"
+set -g pane-border-style fg="colour237"
 
 # Window-area colors
-setw -g window-status-fg "colour254"
-setw -g window-status-attr "none"
-setw -g window-status-activity-bg "colour234"
-setw -g window-status-activity-attr "none"
-setw -g window-status-activity-fg "colour110"
+setw -g window-status-style bg="colour234"
+setw -g window-status-style fg="colour254"
+setw -g window-status-activity-style bg="colour234"
+setw -g window-status-activity-style fg="colour110"
 setw -g window-status-separator ""
-setw -g window-status-bg "colour234"
 
 # Status bar overall format
 set -g status-justify centre
 set -g status-interval 5
 set -g status-left "#[fg=colour16,bg=colour110,bold] #h #[fg=colour110,bg=colour234,nobold]"
-set -g status-right ""
-# Add Update count only for CentOS machine
-if-shell -F "#{==:#h,lap73}" 'set -g status-right "#[fg=colour41,bg=colour234]#[fg=colour16,bg=colour41] #(check-updates.fish) #[bg=colour41]"'
 set -ga status-right "#[fg=colour237]#[fg=colour254,bg=colour237] %Y-%m-%d  %H:%M "
 
 # Status bar Window-area format
