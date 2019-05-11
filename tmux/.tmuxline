@@ -22,7 +22,7 @@ setw -g window-status-separator ""
 set -g status-justify centre
 set -g status-interval 5
 set -g status-left "#[fg=colour16,bg=colour110,bold] #h #[fg=colour110,bg=colour234,nobold]"
-set -ga status-right "#[fg=colour237]#[fg=colour254,bg=colour237] %Y-%m-%d  %H:%M "
+set -g status-right "#[fg=colour237]#[fg=colour254,bg=colour237] %Y-%m-%d  %H:%M "
 
 # Status bar Window-area format
 setw -g window-status-format "#[fg=colour254,bg=colour234] #I  #W#{?window_zoomed_flag, (Z),}"
