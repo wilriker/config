@@ -163,10 +163,8 @@ let g:LanguageClient_rootMarkers = {
         \ }
 
 let g:LanguageClient_serverCommands = {
-	\ 'c':          ['ccls', '--log-file=/tmp/cc.log'],
-    \ 'cpp':        ['ccls', '--log-file=/tmp/cc.log'],
 	\ 'css':        ['css-languageserver', '--stdio'],
-	\ 'go':         ['bingo', '--format-style', 'goimports', '--diagnostics-style', 'onsave'],
+	\ 'go':         ['gopls'],
 	\ 'html':       ['html-languageserver', '--stdio'],
 	\ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
 	\ 'python':     ['/usr/bin/pyls'],
@@ -185,6 +183,8 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " vim-go
+" let g:go_def_mode = 'gopls'
+" let g:go_info_mode = 'gopls'
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
@@ -193,8 +193,8 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 " let g:go_auto_type_info = 1
 let g:go_def_reuse_buffer = 1
-let g:go_fmt_autosave = 0
-" let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
 " let g:go_metalinter_autosave = 1
 let g:go_auto_sameids = 1
 " let g:go_autodetect_gopath = 1
@@ -384,7 +384,7 @@ nnoremap <silent> <Leader>li :call LanguageClient#textDocument_implementation()<
 
 " vim-go
 augroup VimGo
-" 	autocmd!
+	autocmd!
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>R <Plug>(go-run)
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>I <Plug>(go-install)
 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>b <Plug>(go-build)
