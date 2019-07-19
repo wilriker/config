@@ -1,4 +1,4 @@
-# Defined in /tmp/fish.P0tQsg/unarchive.fish @ line 2
+# Defined in /tmp/fish.Uur9gS/unarchive.fish @ line 2
 function unarchive --description 'Extract with whatever it takes'
 	for archive in $argv
         switch $archive
@@ -16,6 +16,8 @@ function unarchive --description 'Extract with whatever it takes'
                 else
                     xzcat $archive | tar -xf -
                 end
+            case "*.tar.zst" "*.tzst"
+                tar -I zstd -xf $archive
             case "*.tar" "*.tar.*" # any other (un)compressed tar file
                 tar -xf $archive
             case "*.gz"
