@@ -41,7 +41,10 @@ if test $monitor -eq 0
 end
 
 # Prepare conkyrc file
-set -l conky_gap (math "(($monitor_count - $monitor) * $monitor_width) - $tray_offset")
+set -l conky_gap (math "$panel_height * $tray_icon_count")
+if test $monitor -ne 0
+    set conky_gap -$monitor_width
+end
 sed "s/GAPRIGHT/$conky_gap/" "$script_dir/conkyrc" >/tmp/conkyrc.mon$monitor
 
 # Start conky
