@@ -47,9 +47,11 @@ Plug 'junegunn/fzf',				{ 'dir': '~/.fzf', 'do': './install --no-key-bindings --
 Plug 'junegunn/fzf.vim'
 
 " Code completion
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'autozimu/languageclient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
 Plug 'Shougo/deoplete.nvim',		{ 'do': ':UpdateRemotePlugins' }
-" Plug 'zchee/deoplete-go',			{ 'do': 'make'}
+Plug 'Shougo/echodoc.vim'
+Plug 'zchee/deoplete-go',			{ 'do': 'make'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-endwise'
@@ -84,16 +86,19 @@ set hidden							" Enable automatic hiding of buffers even when they are modifie
 set splitright						" a new window is put right of the current one
 
 " Statusline and title
+set cmdheight=2						" Better display for messages
 set showcmd							" show the command being typed
 set noerrorbells					" don't ring the bell for error messages
 set title							" show info in the window title
 set noshowmode						" don't show the current mode in status line (airline already has it)
+set shortmess+=c					" don't give |ins-completion-menu| messages.
 
 set updatetime=100					" Update gitgutter after this many ms (also write swapfile)
 
 " Line numbers
 set number							" turn on line numbers
 set numberwidth=5					" We are good up to 9999 lines
+set signcolumn=yes					" always show signcolumns
 
 " always switch to the current file directory
 augroup CWD
@@ -175,6 +180,10 @@ let g:LanguageClient_loggingFile = expand('/tmp/LanguageClient.log')
 let g:LanguageClient_serverStderr = expand('/tmp/LanguageClient.log')
 let g:LanguageClient_autoStart = 1
 
+" echodoc
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'signature'
+
 " let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 " let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
@@ -183,8 +192,8 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " vim-go
-" let g:go_def_mode = 'gopls'
-" let g:go_info_mode = 'gopls'
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'gopls'
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
