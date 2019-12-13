@@ -1,6 +1,9 @@
 # Defined in /tmp/fish.CCweVo/du.fish @ line 2
 function du
-	type -q cdu
+    command -sq cdu
     and cdu -idhx $argv
-    or command du $argv
+    or begin
+        echo "Install cdu"
+        command du $argv
+    end
 end

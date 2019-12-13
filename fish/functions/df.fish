@@ -1,5 +1,8 @@
 function df
-    type -q dfc
+    command -sq dfc
     and dfc -d $argv
-    or command df $argv
+    or begin
+        echo "Install dfc"
+        command df $argv
+    end
 end

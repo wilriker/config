@@ -1,5 +1,8 @@
 function gunzip
-    type -q unpigz
+    command -sq unpigz
     and unpigz $argv
-    or command gunzip $argv
+    or begin
+        echo "Install pigz"
+        command gunzip $argv
+    end
 end

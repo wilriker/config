@@ -1,5 +1,8 @@
 function dd
-    type -q dcfldd
+    command -sq dcfldd
     and dcfldd $argv
-    or command dd $argv
+    or begin
+        echo "Install dcfldd"
+        command dd $argv
+    end
 end

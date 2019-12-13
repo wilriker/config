@@ -1,5 +1,8 @@
 function gzip
-    type -q pigz
+    command -sq pigz
     and pigz $argv
-    or command gzip $argv
+    or begin
+        echo "Install pigz"
+        command gzip $argv
+    end
 end
