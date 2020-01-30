@@ -1,6 +1,6 @@
 function cat
     command -sq bat
-    and bat $argv
+    and bat --paging=never $argv
     or begin
         echo "Install bat"
         command cat $argv

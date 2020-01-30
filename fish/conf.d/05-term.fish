@@ -4,9 +4,11 @@ switch $TERM
     # Fix DEL key in st
     case 'st*'
         set -gx is_simple_terminal 1
+        set -gx COLORTERM truecolor
 
     case "linux"
         set -e is_simple_terminal
+        set -e COLORTERM
         function fish_prompt
             fish_fallback_prompt
         end
