@@ -73,6 +73,8 @@ Plug 'lervag/vimtex',				{ 'for': 'tex' }
 Plug 'chr4/nginx.vim',				{ 'for': 'nginx' }
 Plug 'toml-lang/toml',				{ 'for': 'toml' }
 Plug 'sirtaj/vim-openscad',			{ 'for': 'openscad' }
+Plug 'pangloss/vim-javascript',		{ 'for': 'javascript' }
+Plug 'posva/vim-vue'
 Plug 'chrisbra/csv.vim'
 Plug 'fidian/hexmode'
 Plug 'vim-scripts/txt.vim'
@@ -172,6 +174,7 @@ let g:LanguageClient_serverCommands = {
 	\ 'go':         ['gopls'],
 	\ 'html':       ['html-languageserver', '--stdio'],
 	\ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
+	\ 'vue':		['/usr/bin/vls'],
 	\ 'python':     ['/usr/bin/pyls'],
 	\ }
 
