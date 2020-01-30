@@ -1,0 +1,4 @@
+# Use less without -F
+--pager="less -R"
+# Use italic text on the terminal (not supported on all terminals)
+--italic-text=always
