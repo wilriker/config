@@ -1,4 +1,4 @@
-# Defined in /tmp/fish.Uur9gS/unarchive.fish @ line 2
+# Defined in /tmp/fish.bn58xn/unarchive.fish @ line 2
 function unarchive --description 'Extract with whatever it takes'
 	for archive in $argv
         switch $archive
@@ -24,6 +24,8 @@ function unarchive --description 'Extract with whatever it takes'
                 gunzip $archive
             case "*.bz2"
                 bunzip2 $archive
+            case "*.zst"
+                unzstd $archive
             case "*.xz"
                 unxz $archive
             case "*.lzma"
