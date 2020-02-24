@@ -77,6 +77,13 @@ if type -q systemctl
     # General
     abbr -a reloadd     'sudo systemctl daemon-reload'
     abbr -a ureloadd    'systemctl --user daemon-reload'
+
+
+    # journaltctl
+    abbr -a ju          'sudo journalctl -u'
+    abbr -a jeu         'sudo journalctl -eu'
+    abbr -a jfu         'sudo journalctl -fu'
+    abbr -a jefu        'sudo journalctl -efu'
 end
 
 if type -q pacdiff
