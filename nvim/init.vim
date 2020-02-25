@@ -17,8 +17,10 @@ Plug 'tpope/vim-commentary'
 Plug 'valloric/listtoggle'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'matze/vim-move'
+Plug 'embear/vim-localvimrc'
 " Plug 'liuchengxu/vim-which-key',	{ 'on': ['WhichKey', 'WhichKey!'] }
 
 " Color schemes
@@ -43,7 +45,7 @@ Plug 'majutsushi/tagbar',			{ 'on': 'TagbarToggle' }
 Plug 'wilriker/vim-tmux-navigator'
 
 " Searching/Fuzzyfind
-Plug 'junegunn/fzf',				{ 'dir': '~/.fzf', 'do': './install --no-key-bindings --no-completion --update-rc' }
+Plug 'junegunn/fzf',				{ 'dir': '~/.fzf', 'do': './install --no-key-bindings --no-completion' }
 Plug 'junegunn/fzf.vim'
 
 " Code completion
@@ -63,7 +65,7 @@ Plug 'Matt-Deacalion/vim-systemd-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
 Plug 'ericpruitt/tmux.vim',			{ 'for': 'tmux', 'rtp': 'vim' }
-Plug 'fatih/vim-go',				{ 'for': 'go', 'tag': '*' }
+Plug 'fatih/vim-go',				{ 'for': 'go',  'do': ':GoUpdateBinaries' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
@@ -156,6 +158,9 @@ let g:onedark_terminal_italics = 1
 colorscheme onedark
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
+" localvimrc
+let g:localvimrc_whitelist='/home/mcoenen/workspace/.*'
+
 " Airline settings
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -174,14 +179,13 @@ let g:LanguageClient_serverCommands = {
 	\ 'go':         ['gopls'],
 	\ 'html':       ['html-languageserver', '--stdio'],
 	\ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
+	\ 'typescript': ['/usr/bin/javascript-typescript-stdio'],
 	\ 'vue':		['/usr/bin/vls'],
 	\ 'python':     ['/usr/bin/pyls'],
 	\ }
 
-let g:LanguageClient_loggingLevel = 'INFO'
 let g:LanguageClient_loggingFile = expand('/tmp/LanguageClient.log')
 let g:LanguageClient_serverStderr = expand('/tmp/LanguageClient.log')
-let g:LanguageClient_autoStart = 1
 
 " echodoc
 let g:echodoc#enable_at_startup = 1
@@ -299,6 +303,12 @@ augroup TxtVim
 	autocmd BufWinEnter,BufNewFile * if &filetype == '' | setfiletype txt | endif
 augroup END
 
+" Python
+" augroup Python-buffer
+" 	autocmd! * <buffer>
+" 	autocmd BufWritePre <buffer> undojoin | call LanguageClient#textDocument_formatting()
+" augroup END
+
 command! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
 command! FormatJSON :%!python -m "json.tool"
 
@@ -386,13 +396,26 @@ nnoremap <silent> <Leader>od :Obsess!<CR>
 nnoremap <silent> <Leader>ol :source Session.vim<CR>
 
 " LanguageClient
-nnoremap <silent> <Leader>lm :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> <Leader>lk :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Leader>lr :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <silent> <Leader>lh :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> <Leader>li :call LanguageClient#textDocument_implementation()<CR>
+func LC_maps()
+	if has_key(g:LanguageClient_serverCommands, &filetype)
+		nnoremap <buffer> <silent>         K  :call LanguageClient#textDocument_hover()<cr>
+		nnoremap <buffer> <silent>         gd :call LanguageClient#textDocument_definition()<CR>
+		nnoremap <buffer> <silent> <Leader>lm :call LanguageClient_contextMenu()<CR>
+		nnoremap <buffer> <silent> <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+		nnoremap <buffer> <silent> <Leader>lcrs :call LanguageClient#textDocument_rename({'newName': Abolish.snakecase(expand('<cword>'))})<CR>
+		nnoremap <buffer> <silent> <Leader>lcru :call LanguageClient#textDocument_rename({'newName': Abolish.uppercase(expand('<cword>'))})<CR>
+		nnoremap <buffer> <silent> <Leader>lcrm :call LanguageClient#textDocument_rename({'newName': Abolish.mixedcase(expand('<cword>'))})<CR>
+		nnoremap <buffer> <silent> <Leader>lcrc :call LanguageClient#textDocument_rename({'newName': Abolish.camelcase(expand('<cword>'))})<CR>
+		nnoremap <buffer> <silent> <Leader>lcr- :call LanguageClient#textDocument_rename({'newName': Abolish.dashcase(expand('<cword>'))})<CR>
+		nnoremap <buffer> <silent> <Leader>lcr. :call LanguageClient#textDocument_rename({'newName': Abolish.dotcase(expand('<cword>'))})<CR>
+		nnoremap <buffer> <silent> <Leader>lcrt :call LanguageClient#textDocument_rename({'newName': Abolish.titlecase(expand('<cword>'))})<CR>
+		nnoremap <buffer> <silent> <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+		nnoremap <buffer> <silent> <Leader>lh :call LanguageClient#textDocument_references()<CR>
+		nnoremap <buffer> <silent> <Leader>li :call LanguageClient#textDocument_implementation()<CR>
+		nnoremap <buffer> <silent> <Leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+	endif
+endfunction
+autocmd FileType * call LC_maps()
 
 " vim-go
 augroup VimGo
