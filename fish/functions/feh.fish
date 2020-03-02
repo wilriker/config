@@ -1,6 +1,6 @@
 # Defined in /tmp/fish.PF7wwN/feh.fish @ line 2
 function feh
-	if test (count $argv) -eq 0
+    if test (count $argv) -eq 0
         command feh
     else if string match -qr -- '^-.*' (string trim -- $argv[1])
         command feh $argv

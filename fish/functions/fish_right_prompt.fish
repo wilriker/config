@@ -8,9 +8,9 @@ function __cmd_duration -S -d 'Show command duration'
     if test "$CMD_DURATION" -lt 5000
         set duration $CMD_DURATION 'ms '
     else
-        set -l one_second      1000
-        set -l one_minute     60000
-        set -l one_hour     3600000
+        set -l one_second 1000
+        set -l one_minute 60000
+        set -l one_hour 3600000
 
         set duration (math --scale=0 "($CMD_DURATION % $one_minute) / $one_second") 's '
 

@@ -1,6 +1,5 @@
-# Defined in /tmp/fish.SQBQSn/sts.fish @ line 2
 function sts --argument logout
-	set -l blockers (get_suspend_blockers)
+    set -l blockers (get_suspend_blockers)
     if count $blockers >/dev/null 2>&1
         if status is-interactive
             echo "The following process(es) block suspend:"
@@ -13,7 +12,8 @@ function sts --argument logout
             status is-interactive; and echo -n "."
         end
     end
-    fish -c "sleep 2; sudo systemctl suspend &" &; disown
+    fish -c "sleep 2; sudo systemctl suspend &" &
+    disown
     if test -n "$SSH_CONNECTION" -o -n "$logout"
         exit
     end

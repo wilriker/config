@@ -1,5 +1,5 @@
 function tmx --description 'Create a new session with (optionally) given name or attach indendently to it'
-	set -l session_name default
+    set -l session_name default
     if test (count $argv) -gt 0
         set -l session_name $argv[1]
     end

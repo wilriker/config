@@ -1,6 +1,5 @@
-# Defined in /tmp/fish.bn58xn/unarchive.fish @ line 2
 function unarchive --description 'Extract with whatever it takes'
-	for archive in $argv
+    for archive in $argv
         switch $archive
             case "*.tgz" "*.tar.gz" # tar compressed with gzip
                 type -q pigz
