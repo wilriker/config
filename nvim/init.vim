@@ -65,7 +65,7 @@ Plug 'Matt-Deacalion/vim-systemd-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
 Plug 'ericpruitt/tmux.vim',			{ 'for': 'tmux', 'rtp': 'vim' }
-Plug 'fatih/vim-go',				{ 'for': 'go',  'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go',				{ 'for': 'go',  'tag': '*', 'do': ':GoUpdateBinaries' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }
@@ -189,7 +189,7 @@ let g:LanguageClient_serverStderr = expand('/tmp/LanguageClient.log')
 
 " echodoc
 let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'signature'
+let g:echodoc#type = 'floating'
 
 " let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 " let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
