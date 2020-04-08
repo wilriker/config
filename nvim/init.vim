@@ -53,7 +53,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'autozimu/languageclient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
 Plug 'Shougo/deoplete.nvim',		{ 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/echodoc.vim'
-Plug 'zchee/deoplete-go',			{ 'do': 'make'}
+" Plug 'zchee/deoplete-go',			{ 'do': 'make'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-endwise'
@@ -65,7 +65,7 @@ Plug 'Matt-Deacalion/vim-systemd-syntax',	{ 'for': 'systemd' }
 Plug 'wilriker/udev-vim-syntax',	{ 'for': 'udev' }
 Plug 'kchmck/vim-coffee-script',	{ 'for': 'coffee' }
 Plug 'ericpruitt/tmux.vim',			{ 'for': 'tmux', 'rtp': 'vim' }
-Plug 'fatih/vim-go',				{ 'for': 'go',  'tag': '*', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go',				{ 'for': 'go' }
 Plug 'firef0x/pkgbuild.vim',		{ 'for': 'PKGBUILD' }
 Plug 'smancill/conky-syntax.vim',	{ 'for': 'conkyrc' }
 Plug 'wilriker/gnuplot.vim',		{ 'for': 'gnuplot' }

@@ -9,9 +9,6 @@ switch $TERM
     case "linux"
         set -e is_simple_terminal
         set -e COLORTERM
-        function fish_prompt
-            fish_fallback_prompt
-        end
 end
 
 if set -q is_simple_terminal
