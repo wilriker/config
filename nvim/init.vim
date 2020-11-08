@@ -35,7 +35,7 @@ Plug 'godlygeek/tabular',			{ 'on': 'Tabularize' }
 " VCS related
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'dylanaraps/root.vim'
+Plug 'airblade/vim-rooter'
 Plug 'sjl/splice.vim'
 
 " Navigation
@@ -57,6 +57,7 @@ Plug 'Shougo/echodoc.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-endwise'
+" Plug 'beeender/Comrade'
 
 " Filetype plugin
 Plug 'wilriker/vim-fish',			{ 'for': 'fish' }
@@ -158,6 +159,12 @@ let g:onedark_terminal_italics = 1
 colorscheme onedark
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
+" vim-rooter
+" let g:rooter_manual_only = 1
+let g:rooter_patterns = ['go.mod', '.git', '.git/']
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_cd_cmd = "lcd"
+
 " localvimrc
 let g:localvimrc_whitelist='/home/mcoenen/workspace/.*'
 
@@ -178,10 +185,15 @@ let g:LanguageClient_serverCommands = {
 	\ 'css':        ['css-languageserver', '--stdio'],
 	\ 'go':         ['gopls'],
 	\ 'html':       ['html-languageserver', '--stdio'],
+	\ 'rust':		['rustup', 'run', 'stable', 'rls'],
 	\ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
 	\ 'typescript': ['/usr/bin/javascript-typescript-stdio'],
 	\ 'vue':		['/usr/bin/vls'],
 	\ 'python':     ['/usr/bin/pyls'],
+	\ }
+
+let g:LanguageClient_rootMarkers = {
+	\ 'go': ['go.mod'],
 	\ }
 
 let g:LanguageClient_loggingFile = expand('/tmp/LanguageClient.log')
@@ -214,6 +226,7 @@ let g:go_fmt_command = "goimports"
 " let g:go_metalinter_autosave = 1
 let g:go_auto_sameids = 1
 " let g:go_autodetect_gopath = 1
+let g:go_addtags_transform = "camelcase"
 
 " move
 let g:move_key_modifier = 'C'
@@ -266,9 +279,13 @@ endfunction
 " Wrapper function to execute Ag with cwd of project root (if detected).
 " This requires https://github.com/dylanaraps/root.vim
 function! s:AgInVCSRoot(...)
+	" save current working dir
 	let l:cwd = getcwd()
-	call root#FindRoot()
+	" Set to root of project
+	call FindRootDirectory()
+	" Call ag
 	call call('fzf#vim#ag', a:000)
+	" Restore current working dir
 	execute "lcd ".l:cwd
 endfunction
 
@@ -429,6 +446,7 @@ augroup VimGo
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>v <Plug>(go-def-vertical)
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>r <Plug>(go-rename)
 " 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>h <Plug>(go-callers)
+ 	autocmd FileType go nmap <buffer> <silent> <LocalLeader>at :GoAddTags<CR>
 augroup END
 
 " Remove trailing whitespace
